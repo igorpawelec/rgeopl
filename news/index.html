@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,9 +37,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="rgeopl-020">rgeopl 0.2.0<a class="anchor" aria-label="anchor" href="#rgeopl-020"></a></h2>
 <div class="section level3">
-<h3 id="many-areas-at-once-development-version">Many areas at once<a class="anchor" aria-label="anchor" href="#many-areas-at-once-development-version"></a></h3>
+<h3 id="many-areas-at-once-0-2-0">Many areas at once<a class="anchor" aria-label="anchor" href="#many-areas-at-once-0-2-0"></a></h3>
 <p>Asking about hundreds of scattered plots used to mean asking about the country. The bounding box drawn around 40 plots of 500 m radius covers 291 081 km2 against their own 31 km2, and the elevation index answered it with 1 410 846 records – 936 times what the plots needed, assembled over tens of minutes and then thrown away.</p>
 <ul><li>
 <code><a href="../reference/dem_request.html">dem_request()</a></code>, <code><a href="../reference/dem_request.html">ortho_request()</a></code> and <code><a href="../reference/dem_request.html">pointcloud_request()</a></code> gain <code>by_feature</code>. Scattered areas are now asked about one feature at a time and the answers merged, with duplicate map sheets dropped. The default, <code>NULL</code>, decides by comparing the box around everything with the sum of the boxes around each part, so a single area or a tight cluster still goes out as one request.</li>
