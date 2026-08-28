@@ -138,6 +138,52 @@ gp_xml <- function(url, params = list(), cache = TRUE, ttl = index_ttl()) {
   xml2::read_xml(txt)
 }
 
+# Many files at once. The concurrency is in curl, not in R: the requests fly in
+# parallel but every cache decision and every manifest write still happens on
+# one thread, in order, which is what keeps the manifest honest.
+#' @keywords internal
+#' @noRd
+gp_download_many <- function(urls, group, filenames = NULL,
+                             labels = NA_character_, overwrite = FALSE,
+                             n_active = NULL, quiet = FALSE) {
+  n <- length(urls)
+  filenames <- rep_len(filenames %||% list(NULL), n)
+  labels <- rep_len(labels, n)
+  out <- rep(NA_character_, n)
+
+  if (!overwrite) {
+    for (i in seq_len(n)) out[i] <- cache_lookup(urls[i]) %||% NA_character_
+  }
+  todo <- which(is.na(out))
+  if (length(todo) == 0L) {
+    say(quiet, "  all ", n, " already cached")
+    return(out)
+  }
+  say(quiet, "  ", length(todo), " to fetch, ", n - length(todo), " cached")
+
+  targets <- lapply(todo, function(i) cache_target(urls[i], group, filenames[[i]]))
+  parts <- vapply(targets, function(t) paste0(t$abs, ".part"), character(1))
+  on.exit(unlink(parts[file.exists(parts)]), add = TRUE)
+
+  reqs <- lapply(urls[todo], function(u) {
+    gp_req(u, timeout = getOption("rgeopl.download_timeout", 900))
+  })
+  resps <- perform_many(reqs, paths = parts, n = n_active, quiet = quiet,
+                        what = "downloads")
+  ok <- split_responses(resps, quiet, "downloads")
+
+  for (j in seq_along(todo)) {
+    if (!ok[j] || !file.exists(parts[j]) || file.size(parts[j]) == 0) {
+      unlink(parts[j])
+      next
+    }
+    file.rename(parts[j], targets[[j]]$abs)
+    cache_record(urls[todo[j]], targets[[j]]$rel, group, labels[todo[j]])
+    out[todo[j]] <- targets[[j]]$abs
+  }
+  out
+}
+
 #' @keywords internal
 #' @noRd
 gp_download <- function(url, group, filename = NULL, label = NA_character_,

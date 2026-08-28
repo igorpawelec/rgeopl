@@ -1,3 +1,34 @@
+# rgeopl (development version)
+
+## Many areas at once
+
+Asking about hundreds of scattered plots used to mean asking about the country.
+The bounding box drawn around 40 plots of 500 m radius covers 291 081 km2
+against their own 31 km2, and the elevation index answered it with 1 410 846
+records -- 936 times what the plots needed, assembled over tens of minutes and
+then thrown away.
+
+* `dem_request()`, `ortho_request()` and `pointcloud_request()` gain
+  `by_feature`. Scattered areas are now asked about one feature at a time and
+  the answers merged, with duplicate map sheets dropped. The default, `NULL`,
+  decides by comparing the box around everything with the sum of the boxes
+  around each part, so a single area or a tight cluster still goes out as one
+  request.
+* Those queries run concurrently, and so do downloads: `max_active`, defaulting
+  to `getOption("rgeopl.max_active", 6)` and capped at 16.
+* Measured on the same 40 plots: **1336 tiles in 7.2 s**, and 0.49 s on a
+  second run, because each feature's answer is cached separately.
+* Concurrency is `httr2::req_perform_parallel()` -- parallel I/O from one R
+  process, not parallel R. That is deliberate: the download manifest is a
+  read-modify-write of one file, and it stays correct only because the
+  bookkeeping still runs on a single thread. The same work under multisession
+  workers would race on that file and lose records without any error.
+* Index queries now refuse a bounding box holding more than `max_records`
+  (default 200 000) rather than grinding through it, and say to try
+  `by_feature = TRUE`.
+* A tile that fails to download leaves `NA` in `path` and a warning, instead of
+  abandoning the rest of the batch.
+
 # rgeopl 0.1.0
 
 First release. One area of interest, handed to every Polish national geodata

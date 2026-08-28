@@ -72,16 +72,90 @@ arcgis_page <- function(url, params, epsg, method = "GET") {
   suppressWarnings(sf::st_read(txt, quiet = TRUE))
 }
 
+# One request per feature, sent concurrently. For scattered areas this is the
+# whole difference between asking about a plot and asking about the country.
+# Cached answers are used without a request, so re-running a script over the
+# same plots costs nothing.
+#' @keywords internal
+#' @noRd
+arcgis_query_each <- function(service, layer, aoi, fields, epsg = CRS_PL1992,
+                              n_active = NULL, quiet = FALSE) {
+  url <- arcgis_query_url(service, layer)
+  field_str <- paste(fields, collapse = ",")
+
+  params <- lapply(seq_along(aoi$geom), function(i) {
+    c(arcgis_spatial_params(new_aoi(aoi$geom[i]), epsg),
+      list(outFields = field_str, returnGeometry = "true", f = "json",
+           outSR = as.character(as.integer(epsg))))
+  })
+  keys <- vapply(params, function(p) cache_key("text", url, p, "GET"),
+                 character(1))
+  bodies <- lapply(keys, meta_get)
+
+  todo <- which(vapply(bodies, is.null, logical(1)))
+  if (length(todo)) {
+    resps <- perform_many(lapply(params[todo], function(p) gp_req(url, p)),
+                          n = n_active, quiet = quiet, what = "index queries")
+    ok <- split_responses(resps, quiet, "index queries")
+    for (j in seq_along(todo)) {
+      if (!ok[j]) next
+      txt <- httr2::resp_body_string(resps[[j]])
+      meta_set(keys[todo[j]], txt)
+      bodies[[todo[j]]] <- txt
+    }
+  }
+
+  # A single feature can still outgrow one page. Those few go back through the
+  # paged path rather than being returned a thousand rows short.
+  truncated <- which(vapply(bodies, function(b) {
+    !is.null(b) && grepl('"exceededTransferLimit":true', b, fixed = TRUE)
+  }, logical(1)))
+  parts <- lapply(seq_along(bodies), function(i) {
+    if (i %in% truncated) {
+      return(arcgis_query(service, layer, new_aoi(aoi$geom[i]), fields, epsg,
+                          quiet = TRUE))
+    }
+    if (is.null(bodies[[i]])) return(NULL)
+    out <- tryCatch(suppressWarnings(sf::st_read(bodies[[i]], quiet = TRUE)),
+                    error = function(e) NULL)
+    if (is.null(out) || nrow(out) == 0L) NULL else out
+  })
+  if (length(truncated)) {
+    say(quiet, "  ", length(truncated),
+        " feature(s) needed paging on their own")
+  }
+
+  parts <- parts[!vapply(parts, is.null, logical(1))]
+  if (length(parts) == 0L) return(empty_features(fields, epsg))
+
+  out <- do.call(rbind, parts)
+  # Neighbouring plots land on the same map sheets. One row per file.
+  if ("url_do_pobrania" %in% names(out)) {
+    out <- out[!duplicated(out$url_do_pobrania), , drop = FALSE]
+  }
+  out
+}
+
 #' @keywords internal
 #' @noRd
 arcgis_query <- function(service, layer, aoi, fields, epsg = CRS_PL1992,
-                         quiet = FALSE) {
+                         max_records = 2e5, quiet = FALSE) {
   url <- arcgis_query_url(service, layer)
   spatial <- arcgis_spatial_params(aoi, epsg)
   field_str <- paste(fields, collapse = ",")
 
   n <- arcgis_count(url, spatial)
   if (n == 0L) return(empty_features(fields, epsg))
+  if (n > max_records) {
+    rlang::abort(
+      c(paste0("One bounding box over this area holds ", n, " index records."),
+        i = paste0("The limit is ", max_records, "."),
+        i = paste0("If the area is many small plots far apart, ask for them ",
+                   "one at a time with by_feature = TRUE."),
+        i = "Otherwise narrow the area, or raise `max_records` deliberately."),
+      class = "rgeopl_too_large"
+    )
+  }
 
   if (n <= ARCGIS_PAGE) {
     out <- arcgis_page(

@@ -6,11 +6,29 @@
 \alias{ortho_request}
 \title{What elevation, point cloud and orthophoto data exist for an area}
 \usage{
-dem_request(aoi, within_aoi = TRUE, quiet = FALSE)
+dem_request(
+  aoi,
+  within_aoi = TRUE,
+  by_feature = NULL,
+  max_active = NULL,
+  quiet = FALSE
+)
 
-pointcloud_request(aoi, within_aoi = TRUE, quiet = FALSE)
+pointcloud_request(
+  aoi,
+  within_aoi = TRUE,
+  by_feature = NULL,
+  max_active = NULL,
+  quiet = FALSE
+)
 
-ortho_request(aoi, within_aoi = TRUE, quiet = FALSE)
+ortho_request(
+  aoi,
+  within_aoi = TRUE,
+  by_feature = NULL,
+  max_active = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{aoi}{An area of interest: anything [as_aoi()] accepts.}
@@ -19,6 +37,17 @@ ortho_request(aoi, within_aoi = TRUE, quiet = FALSE)
 filters by bounding box alone, so for anything other than a rectangle it
 also returns tiles that lie beside the area. Set `FALSE` for the raw
 bounding-box result.}
+
+\item{by_feature}{Ask about each feature of the area separately, rather than
+about one bounding box drawn around all of them. `NULL`, the default,
+decides by comparing the two: scattered plots are asked about one at a
+time, a single area or a tight cluster in one request. The queries go out
+concurrently and their answers are cached per feature, so re-running a
+script over the same plots costs nothing.}
+
+\item{max_active}{How many requests to have in flight at once when
+`by_feature` applies. Defaults to `getOption("rgeopl.max_active", 6)`,
+capped at 16. These are public services; the cap is deliberate.}
 
 \item{quiet}{Suppress progress messages.}
 }

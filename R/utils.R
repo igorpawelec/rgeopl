@@ -46,6 +46,9 @@ print_without_class <- function(x, cls, ...) {
 #'     which legitimately take minutes. Default 900.}
 #'   \item{`rgeopl.max_tries`}{Attempts per request, including the first.
 #'     Default 3.}
+#'   \item{`rgeopl.max_active`}{How many requests to have in flight at once
+#'     when a query is split across features, or when several files are
+#'     downloaded together. Default 6, capped at 16.}
 #'   \item{`rgeopl.throttle`}{Requests per second, or `NULL` for no limit.
 #'     Worth setting when walking a large index page by page.}
 #'   \item{`rgeopl.progress`}{`FALSE` to suppress progress bars everywhere.

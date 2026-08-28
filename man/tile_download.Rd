@@ -9,6 +9,7 @@ tile_download(
   outdir = NULL,
   unzip = TRUE,
   overwrite = FALSE,
+  max_active = NULL,
   quiet = FALSE
 )
 }
@@ -25,11 +26,18 @@ cache, so the cache record stays valid.}
 
 \item{overwrite}{Re-download even when the file is already cached.}
 
+\item{max_active}{How many downloads to have in flight at once. Defaults
+to `getOption("rgeopl.max_active", 6)`. Downloads are limited by
+throughput rather than latency, so the gain is modest -- measured at
+1.6x going from one connection to six -- and these are public services,
+so the cap is deliberate.}
+
 \item{quiet}{Suppress per-file messages.}
 }
 \value{
-The input with two columns added: `path` (the cached file) and
-  `extracted` (the directory an archive was unpacked into, or `NA`).
+The input with two columns added: `path` (the cached file, `NA`
+  if that one failed) and `extracted` (the directory an archive was
+  unpacked into, or `NA`). One tile failing does not abandon the rest.
 }
 \description{
 Takes an index (or any filtered subset of one -- a `dplyr` pipeline is fine,

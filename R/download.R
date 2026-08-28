@@ -12,10 +12,16 @@
 #' @param unzip Extract downloaded archives. The archive itself stays in the
 #'   cache, so the cache record stays valid.
 #' @param overwrite Re-download even when the file is already cached.
+#' @param max_active How many downloads to have in flight at once. Defaults
+#'   to `getOption("rgeopl.max_active", 6)`. Downloads are limited by
+#'   throughput rather than latency, so the gain is modest -- measured at
+#'   1.6x going from one connection to six -- and these are public services,
+#'   so the cap is deliberate.
 #' @param quiet Suppress per-file messages.
 #'
-#' @return The input with two columns added: `path` (the cached file) and
-#'   `extracted` (the directory an archive was unpacked into, or `NA`).
+#' @return The input with two columns added: `path` (the cached file, `NA`
+#'   if that one failed) and `extracted` (the directory an archive was
+#'   unpacked into, or `NA`). One tile failing does not abandon the rest.
 #'
 #' @examples
 #' \dontrun{
@@ -27,7 +33,8 @@
 #'
 #' @export
 tile_download <- function(index, outdir = NULL, unzip = TRUE,
-                          overwrite = FALSE, quiet = FALSE) {
+                          overwrite = FALSE, max_active = NULL,
+                          quiet = FALSE) {
   for (v in c("URL", "filename")) {
     if (!(v %in% names(index))) {
       stop("`index` has no `", v, "` column. It should come from one of the ",
@@ -45,39 +52,36 @@ tile_download <- function(index, outdir = NULL, unzip = TRUE,
   }
 
   n <- nrow(index)
-  paths <- character(n)
   extracted <- rep(NA_character_, n)
 
-  # One bar over the files. The per-file byte bar is suppressed below: nesting
-  # the two reads as flicker rather than as information.
-  bar <- pb_new(
-    n, quiet = quiet,
-    format = paste("{cli::pb_current}/{cli::pb_total} tiles",
-                   "{cli::pb_bar} {cli::pb_percent} {cli::pb_eta_str}")
-  )
-  on.exit(pb_done(bar), add = TRUE)
-  file_quiet <- quiet || !is.null(bar)
+  groups <- vapply(seq_len(n), function(i) download_group(index, i), character(1))
+  labels <- vapply(seq_len(n), function(i) {
+    paste(groups[i], if ("year" %in% names(index)) index$year[i] else "")
+  }, character(1))
 
-  for (i in seq_len(n)) {
-    pb_tick(bar)
-    if (is.null(bar)) say(quiet, i, "/", n, " ", index$filename[i])
-
-    group <- download_group(index, i)
-    label <- paste(download_group(index, i),
-                   if ("year" %in% names(index)) index$year[i] else "")
-
-    paths[i] <- gp_download(
-      index$URL[i], group = group, filename = index$filename[i],
-      label = label, overwrite = overwrite, quiet = file_quiet
+  # Fetched concurrently, grouped by product so the cache stays tidy. What the
+  # network does in parallel, the bookkeeping still does in order.
+  paths <- rep(NA_character_, n)
+  for (g in unique(groups)) {
+    i <- which(groups == g)
+    paths[i] <- gp_download_many(
+      index$URL[i], group = g, filenames = as.list(index$filename[i]),
+      labels = labels[i], overwrite = overwrite, n_active = max_active,
+      quiet = quiet
     )
+  }
 
+  missing <- is.na(paths)
+  if (any(missing)) {
+    rlang::warn(paste0(sum(missing), " of ", n,
+                       " tiles did not download; their `path` is NA."))
+  }
+
+  for (i in which(!missing)) {
     if (unzip && grepl("\\.zip$", paths[i], ignore.case = TRUE)) {
-      extracted[i] <- unzip_cached(paths[i], quiet = file_quiet)
+      extracted[i] <- unzip_cached(paths[i], quiet = quiet)
     }
-
-    if (!is.null(outdir)) {
-      export_to(paths[i], extracted[i], outdir)
-    }
+    if (!is.null(outdir)) export_to(paths[i], extracted[i], outdir)
   }
 
   index$path <- paths

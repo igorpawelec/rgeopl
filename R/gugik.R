@@ -37,6 +37,15 @@ ORTHO_FIELDS <- c(
 #'   filters by bounding box alone, so for anything other than a rectangle it
 #'   also returns tiles that lie beside the area. Set `FALSE` for the raw
 #'   bounding-box result.
+#' @param by_feature Ask about each feature of the area separately, rather than
+#'   about one bounding box drawn around all of them. `NULL`, the default,
+#'   decides by comparing the two: scattered plots are asked about one at a
+#'   time, a single area or a tight cluster in one request. The queries go out
+#'   concurrently and their answers are cached per feature, so re-running a
+#'   script over the same plots costs nothing.
+#' @param max_active How many requests to have in flight at once when
+#'   `by_feature` applies. Defaults to `getOption("rgeopl.max_active", 6)`,
+#'   capped at 16. These are public services; the cap is deliberate.
 #' @param quiet Suppress progress messages.
 #'
 #' @return An `sf` data frame, one row per tile, with columns:
@@ -79,31 +88,44 @@ ORTHO_FIELDS <- c(
 #' }
 #'
 #' @export
-dem_request <- function(aoi, within_aoi = TRUE, quiet = FALSE) {
-  gugik_index(aoi, LAYER_DEM, DEM_FIELDS, "elevation", within_aoi, quiet)
+dem_request <- function(aoi, within_aoi = TRUE, by_feature = NULL,
+                                   max_active = NULL, quiet = FALSE) {
+  gugik_index(aoi, LAYER_DEM, DEM_FIELDS, "elevation", within_aoi, by_feature,
+              max_active, quiet)
 }
 
 #' @rdname dem_request
 #' @export
-pointcloud_request <- function(aoi, within_aoi = TRUE, quiet = FALSE) {
-  gugik_index(aoi, LAYER_POINTCLOUD, DEM_FIELDS, "point cloud", within_aoi, quiet)
+pointcloud_request <- function(aoi, within_aoi = TRUE, by_feature = NULL,
+                                          max_active = NULL, quiet = FALSE) {
+  gugik_index(aoi, LAYER_POINTCLOUD, DEM_FIELDS, "point cloud", within_aoi, by_feature,
+              max_active, quiet)
 }
 
 #' @rdname dem_request
 #' @export
-ortho_request <- function(aoi, within_aoi = TRUE, quiet = FALSE) {
-  gugik_index(aoi, LAYER_ORTHO, ORTHO_FIELDS, "orthophoto", within_aoi, quiet)
+ortho_request <- function(aoi, within_aoi = TRUE, by_feature = NULL,
+                                     max_active = NULL, quiet = FALSE) {
+  gugik_index(aoi, LAYER_ORTHO, ORTHO_FIELDS, "orthophoto", within_aoi, by_feature,
+              max_active, quiet)
 }
 
 gugik_index <- function(aoi, layer, fields, what, within_aoi = TRUE,
-                        quiet = FALSE) {
+                        by_feature = NULL, max_active = NULL, quiet = FALSE) {
   aoi <- as_aoi(aoi)
   if (!quiet) message("Querying the ", what, " index...")
 
   available <- arcgis_fields(SKOROWIDZE, layer)
   fields <- intersect(fields, available)
 
-  raw <- arcgis_query(SKOROWIDZE, layer, aoi, fields, quiet = quiet)
+  by_feature <- by_feature %||% aoi_scattered(aoi)
+  raw <- if (isTRUE(by_feature)) {
+    say(quiet, "  ", length(aoi$geom), " features, asked one at a time")
+    arcgis_query_each(SKOROWIDZE, layer, aoi, fields, n_active = max_active,
+                      quiet = quiet)
+  } else {
+    arcgis_query(SKOROWIDZE, layer, aoi, fields, quiet = quiet)
+  }
   out <- standardise_index(raw)
 
   if (within_aoi) {
