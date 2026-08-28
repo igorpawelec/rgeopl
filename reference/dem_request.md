@@ -1,0 +1,119 @@
+# What elevation, point cloud and orthophoto data exist for an area
+
+Each function returns an index (a \*skorowidz\*): one row per tile that
+intersects the area of interest, with its vintage, format and download
+link, and the tile outline as geometry. Nothing is downloaded. Filter
+the index however you like – base R, \`dplyr\`, \`sf::st_filter()\` –
+and pass what survives to \[tile_download()\].
+
+## Usage
+
+``` r
+dem_request(
+  aoi,
+  within_aoi = TRUE,
+  by_feature = NULL,
+  max_active = NULL,
+  quiet = FALSE
+)
+
+pointcloud_request(
+  aoi,
+  within_aoi = TRUE,
+  by_feature = NULL,
+  max_active = NULL,
+  quiet = FALSE
+)
+
+ortho_request(
+  aoi,
+  within_aoi = TRUE,
+  by_feature = NULL,
+  max_active = NULL,
+  quiet = FALSE
+)
+```
+
+## Arguments
+
+- aoi:
+
+  An area of interest: anything \[as_aoi()\] accepts.
+
+- within_aoi:
+
+  Keep only tiles that actually meet the area. The service filters by
+  bounding box alone, so for anything other than a rectangle it also
+  returns tiles that lie beside the area. Set \`FALSE\` for the raw
+  bounding-box result.
+
+- by_feature:
+
+  Ask about each feature of the area separately, rather than about one
+  bounding box drawn around all of them. \`NULL\`, the default, decides
+  by comparing the two: scattered plots are asked about one at a time, a
+  single area or a tight cluster in one request. The queries go out
+  concurrently and their answers are cached per feature, so re-running a
+  script over the same plots costs nothing.
+
+- max_active:
+
+  How many requests to have in flight at once when \`by_feature\`
+  applies. Defaults to \`getOption("rgeopl.max_active", 6)\`, capped
+  at 16. These are public services; the cap is deliberate.
+
+- quiet:
+
+  Suppress progress messages.
+
+## Value
+
+An \`sf\` data frame, one row per tile, with columns: \`sheetID\` (the
+map sheet, \*godlo\*), \`year\`, \`product\`, \`format\`,
+\`resolution\`, \`density\`, \`source\`, \`CRS\`, \`VRS\`, \`date\`,
+\`isFilled\`, \`seriesID\`, \`filename\`, \`URL\`, and the tile outline
+in EPSG:2180. Elevation indexes add \`avgElevErr\` and \`avgPlanarErr\`;
+the orthophoto index adds \`composition\` instead.
+
+\`resolution\` is a grid spacing in metres and \`density\` is a point
+density in points per square metre. The service reports both in one text
+field; they are split here because they are not comparable, and only one
+of them is ever set for a given row.
+
+Column names follow \`rgugik\` so that existing scripts port with a
+rename of the function call alone.
+
+## Details
+
+The 1000-record ceiling on the underlying service is handled internally:
+the record count is read first, and results are assembled by object id
+when the area exceeds one page. A short result raises a warning rather
+than being returned as though it were complete.
+
+## Vertical reference systems
+
+\`VRS\` is worth reading before mosaicking. Poland switched from
+PL-KRON86-NH to PL-EVRF2007-NH, and both appear in the same small area:
+tiles of different vintages can sit on different vertical datums, so
+heights are not directly comparable across them. \[tile_download()\]
+warns when a selection mixes the two.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+aoi <- as_aoi(sf::st_read(rgeopl_example("gleboczek_aoi.shp"), quiet = TRUE))
+
+dem <- dem_request(aoi)
+table(dem$year, dem$product)
+
+# the most recent LAZ point clouds only
+library(dplyr)
+laz <- dem |>
+  filter(product == "PointCloud", format == "LAZ") |>
+  slice_max(year, n = 1)
+
+plot_coverage(ortho_request(aoi), aoi = aoi)
+tile_download(laz)
+} # }
+```

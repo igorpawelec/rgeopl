@@ -1,0 +1,107 @@
+# Summarise and draw index coverage by vintage
+
+\`coverage()\` answers the question an index alone does not: for each
+vintage, how much of the area is actually covered? That is what decides
+whether a year can be mosaicked into one surface or only patches part of
+the area.
+
+## Usage
+
+``` r
+coverage(index, by = "year", aoi = NULL)
+
+plot_coverage(
+  index,
+  by = "year",
+  aoi = NULL,
+  facet = TRUE,
+  max_panels = 24L,
+  palette = NULL,
+  legend = TRUE,
+  main = NULL,
+  ...
+)
+```
+
+## Arguments
+
+- index:
+
+  An index from \[dem_request()\], \[ortho_request()\] or
+  \[pointcloud_request()\].
+
+- by:
+
+  Column to group and colour by. \`"year"\` by default; \`"product"\`,
+  \`"format"\` and \`"VRS"\` are also useful.
+
+- aoi:
+
+  The area of interest the index was built from. When given,
+  \`coverage()\` adds \`aoi_share\`: the fraction of the area covered by
+  that group, which is the number to check before mosaicking.
+
+- facet:
+
+  Draw one small panel per group. This is the default and the useful
+  one: vintages overlap almost completely, so a single overlaid map
+  shows the newest year and hides every other, which is the opposite of
+  what is needed to choose between them. \`FALSE\` gives the overlaid
+  map, newest on top, in the manner of the Geoportal's own view.
+
+- max_panels:
+
+  Cap on the number of panels. Excess groups are dropped, oldest first,
+  with a message. Ignored when \`facet = FALSE\`.
+
+- palette:
+
+  A colour palette function taking \`n\`, or a vector of colours with
+  one entry per group. Defaults to a sequential ramp, so newer vintages
+  read as darker.
+
+- legend:
+
+  Draw a legend. Overlaid plots only.
+
+- main:
+
+  Plot title. \`NULL\` builds one from the index.
+
+- ...:
+
+  Passed to \[graphics::plot()\].
+
+## Value
+
+\`coverage()\` a data frame with one row per group: the grouping value,
+\`tiles\`, \`area_km2\` (area of the union of those tiles) and, when
+\`aoi\` is given, \`aoi_share\`. \`plot_coverage()\` returns \`index\`
+invisibly.
+
+## Details
+
+\`plot_coverage()\` draws the same thing, in the manner of the
+Geoportal's own coverage view: tiles filled by vintage, oldest first, so
+the most recent data sits on top.
+
+## What coverage does not tell you
+
+These are the outlines of map sheets, not of the imagery inside them. A
+sheet that exists but is only partly filled still counts as covering its
+whole footprint, so \`aoi_share\` can read 1 while the data has holes.
+The index says which sheets those are, in \`isFilled\`;
+\[tile_mosaic()\] refuses a selection that holds the same sheet twice,
+which is how the two versions usually turn up.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+aoi <- as_aoi(sf::st_read(rgeopl_example("gleboczek_aoi.shp"), quiet = TRUE))
+idx <- ortho_request(aoi)
+
+coverage(idx, aoi = aoi)     # which vintages cover the whole area?
+plot_coverage(idx, aoi = aoi)
+} # }
+```
