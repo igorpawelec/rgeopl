@@ -1,0 +1,19 @@
+# rgeopl cache directories, wherever they are pointed
+.cache-*
+
+# pkgdown output; docs/ is committed, site/ is generated
+site/
+
+# R artefacts
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rcheck/
+*.tar.gz
+README.html
+README_files/
+
+# vignette by-products
+vignettes/*.gfs
+vignettes/*_files/

@@ -1,0 +1,90 @@
+# Set this once the repository has a home, e.g.
+#   url: https://<user>.github.io/rgeopl
+# pkgdown works without it; a few cross-site features stay off until it is set.
+url: ~
+destination: site
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#3f7f5f"
+    base_font: {google: "Source Sans 3"}
+    code_font: {google: "Source Code Pro"}
+
+home:
+  title: Polish national geodata, from one area of interest
+  description: >
+    Search and download spatial data from the Polish national geodetic resource
+    (GUGiK / PZGiK) and the Forest Data Bank (BDL), selected by an area of
+    interest, with server record limits handled and everything cached.
+
+navbar:
+  structure:
+    left: [intro, reference, articles]
+    right: [search, github]
+
+articles:
+- title: Guides
+  navbar: ~
+  contents:
+  - getting-started
+  - forest-data
+  - case-study
+
+reference:
+- title: Area of interest
+  desc: >
+    One representation of "where", handed to each service in the form and the
+    coordinate system it expects.
+  contents:
+  - as_aoi
+  - aoi_geom
+  - rgeopl_example
+
+- title: What data exist here
+  desc: >
+    The indexes, one row per tile: vintage, format, download link and the tile
+    outline. Nothing is downloaded until you ask.
+  contents:
+  - dem_request
+  - coverage
+  - tile_download
+  - tile_mosaic
+
+- title: Ready-made rasters
+  desc: >
+    The coverage services: the current model clipped to your area, with no
+    tiles to mosaic. Point clouds are not available this way.
+  contents:
+  - dem_get
+  - chm_get
+  - open_raster
+
+- title: Forest units
+  desc: >
+    The State Forests hierarchy, searchable by name or by forest address, and
+    the stand subareas underneath it.
+  contents:
+  - bdl_directorates
+  - bdl_unit
+  - bdl_by_address
+  - bdl_catalogue
+  - bdl_overview
+  - parse_forest_address
+
+- title: Administrative boundaries
+  contents:
+  - prg_boundaries
+
+- title: Looking at what you got
+  contents:
+  - plot_units
+
+- title: Cache
+  desc: >
+    Index responses expire on their own; downloads are kept and recorded, so a
+    tile already on disk is never fetched twice.
+  contents:
+  - cache_dir
+  - cache_info
+  - rgeopl-options

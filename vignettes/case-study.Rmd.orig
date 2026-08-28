@@ -1,0 +1,180 @@
+---
+title: "Case study: can I build a canopy height model here?"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Case study: can I build a canopy height model here?}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 9,
+                      fig.height = 6.5, dpi = 110, out.width = "100%")
+options(rgeopl.cache_dir = "D:/Apps/rgeopl/.cache-vignette")
+```
+
+A canopy height model needs a surface model and a terrain model from the same
+survey, and it needs them over the whole area. Whether that exists is a
+question about the index, not about the data, and it can be settled before
+downloading a single tile.
+
+Two forest inspectorates, deliberately different: Bircza in the Carpathian
+foothills, and Chrzanow in industrial Silesia.
+
+```{r}
+library(rgeopl)
+```
+
+## Bircza: rich in flights, poor in usable pairs
+
+```{r}
+bircza <- bdl_unit(inspectorate = "Bircza", quiet = TRUE)
+round(sum(as.numeric(sf::st_area(bircza))) / 1e4)   # hectares
+
+dem <- dem_request(bircza, quiet = TRUE)
+nrow(dem)
+```
+
+```{r}
+table(dem$year, dem$product)
+```
+
+Eighteen separate laser scanning flights, in four campaigns:
+
+```{r}
+laz <- unique(sf::st_drop_geometry(
+  dem[dem$product == "PointCloud", c("year", "date", "format", "density",
+                                     "avgElevErr", "VRS")]))
+laz[order(laz$date), ]
+```
+
+All at 4 points per square metre. But the flights are what was surveyed, not
+what was published as a surface model, and that is where it falls apart:
+
+```{r}
+coverage(dem[dem$product == "DSM", ], aoi = bircza)
+```
+
+Only 2023 covers the inspectorate. The 2012-2014 campaign was flown in patches.
+
+```{r bircza-dtm, fig.height = 7.5}
+plot_coverage(dem[dem$product == "DTM", ], by = "year", aoi = bircza,
+              main = "Terrain model coverage, Bircza forest inspectorate")
+```
+
+Do the early patches at least add up? Union them and measure:
+
+```{r}
+old <- dem[dem$product == "DSM" & dem$year %in% c(2012, 2013, 2014), ]
+g <- sf::st_make_valid(sf::st_union(aoi_geom(as_aoi(bircza))))
+u <- sf::st_make_valid(sf::st_union(sf::st_geometry(old)))
+covered <- suppressWarnings(sf::st_intersection(u, g))
+round(100 * as.numeric(sum(sf::st_area(covered))) / as.numeric(sf::st_area(g)), 1)
+```
+
+They do -- but from three campaigns across three years, which means three
+different states of the stand on one mosaic. For a single-date canopy model
+over the whole inspectorate there is exactly one option, 2023.
+
+Zoom in and it improves. A single forest range often sits inside one flight:
+
+```{r}
+turnica <- bdl_unit(inspectorate = "Bircza", range = "Turnica", quiet = TRUE)
+dem_t <- dem_request(turnica, quiet = TRUE)
+coverage(dem_t[dem_t$product == "DSM", ], aoi = turnica)
+```
+
+Two complete epochs, nine years apart. That is a usable pair.
+
+## Chrzanow: the opposite problem
+
+```{r}
+metkow <- bdl_unit(inspectorate = "Chrzanow", range = "Metkow", quiet = TRUE)
+dem_m <- dem_request(metkow, quiet = TRUE)
+
+unique(sf::st_drop_geometry(
+  dem_m[dem_m$product == "PointCloud",
+        c("year", "date", "format", "density", "avgElevErr", "VRS")]))
+```
+
+Denser clouds, better vertical accuracy, five acquisitions. And yet:
+
+```{r}
+coverage(dem_m[dem_m$product == "DSM", ], aoi = metkow)
+```
+
+The two best years, 2022 and 2024, publish a surface model over a fifth of the
+range. The usable pairs are 2012 and 2023 -- the older, coarser ones.
+
+The lesson generalises: **point cloud density and flight recency say nothing
+about whether a canopy model is possible.** Surface model coverage is the
+binding constraint, and it is a different column.
+
+## Turning the question into a function
+
+```{r}
+chm_epochs <- function(aoi, min_share = 0.999) {
+  dem <- dem_request(aoi, quiet = TRUE)
+  dsm <- coverage(dem[dem$product == "DSM", ], aoi = aoi)
+  dtm <- coverage(dem[dem$product == "DTM", ], aoi = aoi)
+  full <- intersect(dsm$year[dsm$aoi_share >= min_share],
+                    dtm$year[dtm$aoi_share >= min_share])
+  vrs <- tapply(dem$VRS, dem$year, function(z) paste(unique(z), collapse = "/"))
+  data.frame(year = full, datum = unname(vrs[as.character(full)]))
+}
+```
+
+```{r}
+chm_epochs(turnica)
+chm_epochs(metkow)
+```
+
+Metkow comes back with one epoch, not the two the coverage table above
+suggested, and the reason is worth pausing on: its 2023 surface model covers
+99.8% of the range, and the default threshold is 99.9%. That is a decision, not
+a fact -- a two-per-mille gap at the edge of a range may be irrelevant, or it
+may be exactly the part you care about. Make it explicitly:
+
+```{r}
+chm_epochs(metkow, min_share = 0.99)
+```
+
+The datum column matters for the comparison, not for the model: a canopy height
+model is a difference within one year, so the vertical datum cancels. Comparing
+two terrain models across the 2019 switch would not be so forgiving.
+
+## What the forest is, while we are here
+
+```{r}
+subareas <- bdl_subareas(metkow, quiet = TRUE)
+d <- sf::st_drop_geometry(subareas)
+sp <- aggregate(area_ha ~ species, data = d[!is.na(d$species), ], FUN = sum)
+head(sp[order(-sp$area_ha), ], 5)
+
+round(sum(d$area_ha, na.rm = TRUE))                       # stand area, ha
+round(sum(as.numeric(sf::st_area(metkow))) / 1e4)         # range territory, ha
+```
+
+A forest range's polygon is administrative territory, not forest. Metkow holds
+1586 ha of subareas inside 4609 ha of territory; reading the polygon area as
+forest area would overstate it threefold.
+
+```{r metkow-subareas, fig.height = 6}
+plot_units(subareas, label = NA, context = metkow, fill = "#bfe3c6",
+           border = "#4c9a6a", main = "Subareas within the Metkow range")
+```
+
+## Summary
+
+| | Bircza inspectorate | Turnica range | Metkow range |
+|---|---|---|---|
+| area | 50 350 ha | 1 197 ha | 4 609 ha |
+| ALS flights | 18 | 4 | 5 |
+| best density | 4 p/m² | 4 p/m² | 12 p/m² |
+| **CHM epochs at 99.9%** | **2023** | **2014, 2023** | **2012** |
+| **CHM epochs at 99%** | 2023 | 2014, 2023 | 2012, 2023 |
+
+Three areas, three answers, and in none of them was the answer the newest or
+the densest flight. Metkow's densest surveys, 2022 and 2024 at 12 points per
+square metre, are the two that cannot be used at all: their surface models
+cover a fifth of the range. That is the case for asking the index first.

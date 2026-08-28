@@ -1,0 +1,12 @@
+^\.cache-
+^\.Rproj\.user$
+^.*\.Rproj$
+^vignettes/.*\.Rmd\.orig$
+^vignettes/precompile\.R$
+^docs$
+^README\.html$
+^README_files$
+^_pkgdown\.yml$
+^site$
+^pkgdown$
+^logo$
