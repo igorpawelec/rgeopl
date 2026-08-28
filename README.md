@@ -1,5 +1,10 @@
 # rgeopl <img src="man/figures/logo.png" align="right" height="139" alt="rgeopl logo: three stacked map layers under an irregular area of interest crossing a grid of map sheets" />
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/igorpawelec/rgeopl/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/igorpawelec/rgeopl/actions/workflows/R-CMD-check.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<!-- badges: end -->
+
 Unified access to Polish national geodata: the geodetic resource held by GUGiK
 (PZGiK / ISOK) and the Forest Data Bank (BDL) run by Lasy Panstwowe. One area
 of interest, one cache, one set of verbs.

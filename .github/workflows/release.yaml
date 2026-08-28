@@ -1,0 +1,64 @@
+# Turns a pushed tag into a GitHub Release.
+#
+#   git tag -a v0.1.0 -m "rgeopl 0.1.0"
+#   git push origin v0.1.0
+#
+# The release notes are lifted from the matching section of NEWS.md, so the
+# changelog is written once and read in two places. A source tarball is
+# attached, which matters for a package that is not on CRAN: it gives people a
+# fixed artefact to install from rather than a moving branch.
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+name: release
+
+permissions: read-all
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          needs: website
+
+      - name: Take the release notes from NEWS.md
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v want="# rgeopl ${version}" '
+            $0 == want      { inside = 1; next }
+            /^# rgeopl /    { inside = 0 }
+            inside          { print }
+          ' NEWS.md > RELEASE_NOTES.md
+          if [ ! -s RELEASE_NOTES.md ]; then
+            echo "No section for '# rgeopl ${version}' in NEWS.md." >&2
+            exit 1
+          fi
+          echo "Release notes, $(wc -l < RELEASE_NOTES.md) lines:"
+          head -5 RELEASE_NOTES.md
+
+      - name: Build the source tarball
+        run: R CMD build --no-manual .
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: rgeopl ${{ github.ref_name }}
+          body_path: RELEASE_NOTES.md
+          files: rgeopl_*.tar.gz
