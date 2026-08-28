@@ -1,7 +1,4 @@
-# Set this once the repository has a home, e.g.
-#   url: https://<user>.github.io/rgeopl
-# pkgdown works without it; a few cross-site features stay off until it is set.
-url: ~
+url: https://igorpawelec.github.io/rgeopl/
 destination: site
 
 template:

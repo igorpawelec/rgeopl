@@ -10,6 +10,15 @@
 
 Search and download spatial data from the Polish national geodetic resource (GUGiK / PZGiK) and the Forest Data Bank (BDL, Lasy Panstwowe), selected by an area of interest. Handles server-side record limits by transparent pagination, keeps archival vintages as a queryable attribute, and caches both index responses and downloaded files on disk.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/igorpawelec/rgeopl}
+  \item \url{https://igorpawelec.github.io/rgeopl/}
+  \item Report bugs at \url{https://github.com/igorpawelec/rgeopl/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Igor Pawelec \email{gorasz44@gmail.com}
 

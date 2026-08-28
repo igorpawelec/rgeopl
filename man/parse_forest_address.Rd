@@ -13,7 +13,7 @@ parse_forest_address(x)
 \value{
 A data frame with columns `directorate_cd`, `inspectorate_cd`, `obreb_cd`,
   `range_cd`, `compartment`, `subarea` and `part`. Blank fields become `NA`, so a
-  forest inspectorate's address gives a inspectorate code and nothing below it.
+  forest inspectorate's address gives an inspectorate code and nothing below it.
 }
 \description{
 The State Forests address (*adres lesny*) is a fixed-width string, 25

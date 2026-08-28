@@ -9,6 +9,9 @@ Description: Search and download spatial data from the Polish national geodetic
     selected by an area of interest. Handles server-side record limits by
     transparent pagination, keeps archival vintages as a queryable attribute,
     and caches both index responses and downloaded files on disk.
+URL: https://github.com/igorpawelec/rgeopl,
+    https://igorpawelec.github.io/rgeopl/
+BugReports: https://github.com/igorpawelec/rgeopl/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: R (>= 4.1)

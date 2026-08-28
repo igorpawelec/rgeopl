@@ -8,6 +8,21 @@ of interest, one cache, one set of verbs.
 working; see [NEWS.md](NEWS.md) for what is in it and for the service quirks
 that shaped it.
 
+## Installation
+
+```r
+# install.packages("remotes")
+remotes::install_github("igorpawelec/rgeopl")
+```
+
+`terra` is needed for the raster verbs -- `dem_get()`, `ortho_get()`,
+`chm_get()`, `tile_mosaic()`, `open_raster()` -- and only for those; the index,
+forest and boundary functions work without it.
+
+Vignettes are not built by default. They are precompiled, so
+`build_vignettes = TRUE` needs pandoc but no network; if you would rather just
+read them, the rendered copies are in [`docs/`](docs/).
+
 ```r
 aoi <- as_aoi(c(16.80, 52.44), buffer = 3000)   # a point and a radius, or any sf object
 
