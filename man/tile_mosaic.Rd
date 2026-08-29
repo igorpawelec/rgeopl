@@ -66,6 +66,10 @@ Takes an index, downloads what it points at, and mosaics it. The pair to
   \item{More than one vertical datum}{PL-KRON86-NH and PL-EVRF2007-NH differ
     by tens of centimetres. The seam is a step in the terrain that is not
     there.}
+  \item{More than one file format}{Every elevation sheet is published both
+    as a grid and as a list of points, under the same sheet number. The
+    point list is not a raster, so half such a mosaic would simply be
+    missing.}
   \item{Point clouds}{LAS and LAZ are not rasters. Use `lidR` or `PDAL`.}
 }
 }

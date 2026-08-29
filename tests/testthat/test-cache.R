@@ -101,3 +101,54 @@ test_that("byte counts are formatted for humans", {
   expect_equal(format_bytes(1024^2 * 1.5), "1.5 MB")
   expect_equal(format_bytes(1024^3 * 4), "4 GB")
 })
+
+# Batched bookkeeping ---------------------------------------------------------
+
+put <- function(name, bytes = 10) {
+  rel <- file.path("files", "dem", name)
+  abs <- file.path(cache_dir(), rel)
+  dir.create(dirname(abs), recursive = TRUE, showWarnings = FALSE)
+  writeBin(as.raw(rep(1, bytes)), abs)
+  rel
+}
+
+test_that("a batch of URLs is answered in order, hits and misses alike", {
+  local_cache()
+  cache_record_many(c("https://a", "https://b"), c(put("a.tif"), put("b.tif")),
+                    group = "dem")
+
+  got <- cache_lookup_many(c("https://b", "https://nothing", "https://a"))
+  expect_equal(basename(got), c("b.tif", NA, "a.tif"))
+  expect_length(got, 3L)
+
+  # the single-URL form keeps its own contract of NULL for a miss
+  expect_null(cache_lookup("https://nothing"))
+  expect_equal(basename(cache_lookup("https://a")), "a.tif")
+})
+
+test_that("a file that changed size since it was recorded is not served", {
+  local_cache()
+  rel <- put("short.tif", bytes = 10)
+  cache_record_many("https://x", rel, group = "dem")
+  expect_false(is.na(cache_lookup_many("https://x")))
+
+  # as a truncated download would look
+  writeBin(as.raw(rep(1, 4)), file.path(cache_dir(), rel))
+  expect_true(is.na(cache_lookup_many("https://x")))
+})
+
+test_that("re-recording a URL replaces the old row rather than adding one", {
+  local_cache()
+  cache_record_many("https://a", put("first.tif"), group = "dem")
+  cache_record_many("https://a", put("second.tif"), group = "dem")
+
+  expect_equal(nrow(read_manifest()), 1L)
+  expect_equal(basename(cache_lookup_many("https://a")), "second.tif")
+})
+
+test_that("an empty cache and an empty request both come back empty-handed", {
+  local_cache()
+  expect_equal(cache_lookup_many(c("https://a", "https://b")),
+               c(NA_character_, NA_character_))
+  expect_length(cache_lookup_many(character(0)), 0L)
+})

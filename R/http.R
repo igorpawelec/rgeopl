@@ -43,9 +43,12 @@ gp_req <- function(url, params = list(), method = c("GET", "POST"),
   req
 }
 
-gp_perform <- function(req, what = "request") {
+# `path` streams the body straight to that file instead of assembling it in
+# memory first, which is the difference between a point cloud tile costing
+# nothing and costing its own size in RAM.
+gp_perform <- function(req, what = "request", path = NULL) {
   out <- tryCatch(
-    httr2::req_perform(req),
+    httr2::req_perform(req, path = path),
     error = function(e) e
   )
   if (inherits(out, "error")) {
@@ -151,9 +154,7 @@ gp_download_many <- function(urls, group, filenames = NULL,
   labels <- rep_len(labels, n)
   out <- rep(NA_character_, n)
 
-  if (!overwrite) {
-    for (i in seq_len(n)) out[i] <- cache_lookup(urls[i]) %||% NA_character_
-  }
+  if (!overwrite) out <- cache_lookup_many(urls)
   todo <- which(is.na(out))
   if (length(todo) == 0L) {
     say(quiet, "  all ", n, " already cached")
@@ -181,14 +182,23 @@ gp_download_many <- function(urls, group, filenames = NULL,
   ok <- split_responses(resps, quiet, "downloads")
 
   resolved <- stats::setNames(rep(NA_character_, length(first)), urls[first])
+  kept <- logical(length(first))
   for (j in seq_along(first)) {
     if (!ok[j] || !file.exists(parts[j]) || file.size(parts[j]) == 0) {
       unlink(parts[j])
       next
     }
     file.rename(parts[j], targets[[j]]$abs)
-    cache_record(urls[first[j]], targets[[j]]$rel, group, labels[first[j]])
     resolved[j] <- targets[[j]]$abs
+    kept[j] <- TRUE
+  }
+  # The manifest is written once for the batch, after every file has landed.
+  if (any(kept)) {
+    cache_record_many(
+      urls[first[kept]],
+      vapply(targets[kept], function(t) t$rel, character(1)),
+      group, labels[first[kept]]
+    )
   }
   out[todo] <- unname(resolved[urls[todo]])
   out
@@ -226,7 +236,9 @@ gp_download <- function(url, group, filename = NULL, label = NA_character_,
   # spinner, which still answers the only question being asked.
   if (progress_on(quiet)) req <- httr2::req_progress(req)
 
-  resp <- gp_perform(req, "download")
+  # Written straight to disk as it arrives, the same way the parallel path
+  # does it. An error page lands in the file too, and is cleaned up on exit.
+  resp <- gp_perform(req, "download", path = tmp)
   status <- httr2::resp_status(resp)
   if (status >= 400) {
     rlang::abort(
@@ -235,8 +247,7 @@ gp_download <- function(url, group, filename = NULL, label = NA_character_,
     )
   }
 
-  writeBin(httr2::resp_body_raw(resp), tmp)
-  if (file.size(tmp) == 0) {
+  if (!file.exists(tmp) || file.size(tmp) == 0) {
     rlang::abort(
       c("The server returned an empty file.", i = paste0("URL: ", url)),
       class = "rgeopl_http_error"

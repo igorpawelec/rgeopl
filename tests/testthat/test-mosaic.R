@@ -102,3 +102,71 @@ test_that("distinct sheets pass", {
   ok$isFilled <- c(TRUE, TRUE, TRUE)
   expect_silent(check_mosaicable(ok))
 })
+
+# Joining through a VRT -------------------------------------------------------
+
+tile_file <- function(value, xmin, crs = "EPSG:2180") {
+  r <- terra::rast(nrows = 10, ncols = 10, xmin = xmin, xmax = xmin + 10,
+                   ymin = 0, ymax = 10, crs = crs)
+  terra::values(r) <- value
+  path <- tempfile(fileext = ".tif")
+  terra::writeRaster(r, path, overwrite = TRUE)
+  path
+}
+
+test_that("a single tile is opened directly, not wrapped in a VRT", {
+  skip_if_not_installed("terra")
+  out <- join_tiles(tile_file(7, 0), epsg = 2180L)
+  expect_s4_class(out, "SpatRaster")
+  expect_equal(unique(terra::values(out)[, 1]), 7)
+})
+
+test_that("neighbouring tiles join into one raster covering both", {
+  skip_if_not_installed("terra")
+  out <- join_tiles(c(tile_file(1, 0), tile_file(2, 10)), epsg = 2180L)
+  expect_equal(unname(as.vector(terra::ext(out))[1:2]), c(0, 20))
+  expect_setequal(unique(terra::values(out)[, 1]), c(1, 2))
+})
+
+test_that("where tiles overlap the first one wins, as mosaic(fun = 'first') did", {
+  skip_if_not_installed("terra")
+  # the second tile covers x 5..15, so x 5..10 is claimed by both
+  out <- join_tiles(c(tile_file(1, 0), tile_file(2, 5)), epsg = 2180L)
+  overlap <- terra::crop(out, terra::ext(6, 9, 1, 9))
+  expect_equal(unique(terra::values(overlap)[, 1]), 1)
+})
+
+test_that("tiles with no projection of their own take it from the index", {
+  skip_if_not_installed("terra")
+  # ASCII grid is the real case: GDAL's driver carries no projection at all,
+  # which is why the index has to supply one.
+  asc <- function(value, xmin) {
+    r <- terra::rast(nrows = 10, ncols = 10, xmin = xmin, xmax = xmin + 10,
+                     ymin = 0, ymax = 10)
+    terra::values(r) <- value
+    path <- tempfile(fileext = ".asc")
+    terra::writeRaster(r, path, overwrite = TRUE)
+    path
+  }
+  bare <- c(asc(1, 0), asc(2, 10))
+  expect_true(is.na(terra::crs(terra::rast(bare[1]), describe = TRUE)$code))
+
+  out <- join_tiles(bare, epsg = 2180L)
+  expect_equal(terra::crs(out, describe = TRUE)$code, "2180")
+
+  # and an index that could not say which system it is leaves them alone
+  expect_true(is.na(terra::crs(join_tiles(bare, epsg = NA_integer_),
+                               describe = TRUE)$code))
+})
+
+test_that("one sheet published in two formats is caught, and the hint says so", {
+  # The elevation services publish every sheet both as a grid and as a list of
+  # points. Mixing them means half the mosaic is not a raster at all.
+  idx <- fake_index(2, sheetID = c("N-34-78-D", "N-34-78-D"),
+                    format = c("ARC/INFO ASCII GRID", "ASCII XYZ GRID"))
+  expect_error(check_mosaicable(idx), "file format")
+
+  same_format <- fake_index(2, sheetID = c("N-34-78-D", "N-34-78-D"),
+                            format = rep("ARC/INFO ASCII GRID", 2))
+  expect_error(check_mosaicable(same_format), "appears")
+})

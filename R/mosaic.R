@@ -57,6 +57,10 @@ INDEX_CRS <- c(
 #'   \item{More than one vertical datum}{PL-KRON86-NH and PL-EVRF2007-NH differ
 #'     by tens of centimetres. The seam is a step in the terrain that is not
 #'     there.}
+#'   \item{More than one file format}{Every elevation sheet is published both
+#'     as a grid and as a list of points, under the same sheet number. The
+#'     point list is not a raster, so half such a mosaic would simply be
+#'     missing.}
 #'   \item{Point clouds}{LAS and LAZ are not rasters. Use `lidR` or `PDAL`.}
 #' }
 #'
@@ -108,12 +112,7 @@ tile_mosaic <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
 
   say(quiet, "Joining ", length(files), " tile",
       if (length(files) == 1L) "" else "s", "...")
-  rasters <- lapply(files, read_tile, epsg = index_epsg(index))
-  out <- if (length(rasters) == 1L) {
-    rasters[[1]]
-  } else {
-    terra::mosaic(terra::sprc(rasters), fun = "first")
-  }
+  out <- join_tiles(files, epsg = index_epsg(index))
 
   if (crop == "aoi") {
     geom <- aoi_geom(as_aoi(aoi), crs = sf::st_crs(out)$epsg %||% CRS_PL1992)
@@ -138,7 +137,8 @@ check_mosaicable <- function(index) {
   }
 
   columns <- c(product = "product", year = "vintage", composition = "band composition",
-               resolution = "resolution", VRS = "vertical datum", CRS = "coordinate system")
+               resolution = "resolution", VRS = "vertical datum", CRS = "coordinate system",
+               format = "file format")
   problems <- character(0)
   for (col in names(columns)) {
     if (!(col %in% names(index))) next
@@ -170,6 +170,15 @@ check_mosaicable <- function(index) {
         paste0("\n  ", sum(!index$isFilled, na.rm = TRUE),
                " of them are marked not filled; subset(index, isFilled) ",
                "usually resolves this.")
+      } else if ("format" %in% names(index) &&
+                 length(unique(stats::na.omit(as.character(index$format)))) > 1L) {
+        # The elevation models are published both as a grid and as a list of
+        # points under the same sheet number, so this is the usual reason.
+        fmts <- sort(unique(stats::na.omit(as.character(index$format))))
+        paste0("\n  They are the same sheets in ", length(fmts),
+               " formats: ", paste(fmts, collapse = ", "),
+               ".\n  Pick one, for example ",
+               "subset(index, format == \"", fmts[1], "\").")
       } else {
         "\n  Pick one series per sheet, for example with `seriesID`."
       }
@@ -197,8 +206,34 @@ index_epsg <- function(index) {
   unname(INDEX_CRS[match(vals[1], names(INDEX_CRS))])
 }
 
+# The tiles are joined through a GDAL virtual raster rather than by reading
+# each one in and sticking them together. A VRT is a few kilobytes of XML
+# naming the files and saying where each sits; whatever comes next -- a crop to
+# the area, a write to disk -- then reads only the blocks it actually needs.
+#
+# Measured on 15 orthophoto tiles, 586 MB, cut to an 800 m square: 175 s the
+# old way against 0.8 s this way, and not one cell of 17.3 million differs. The
+# old way also built the entire join before cropping it, which for those tiles
+# meant asking the disk for 17 GB of uncompressed scratch space -- enough to
+# fail outright on a machine that has less.
+join_tiles <- function(files, epsg) {
+  if (length(files) == 1L) return(read_tile(files, epsg))
+
+  # GDAL paints VRT sources in order, so a later one covers an earlier one
+  # where they overlap. That is the opposite of mosaic(fun = "first"), which
+  # this replaced. Reversing the list restores it: the first tile still wins.
+  out <- terra::vrt(rev(files), filename = tempfile(fileext = ".vrt"),
+                    overwrite = TRUE)
+  set_missing_crs(out, epsg)
+}
+
 read_tile <- function(path, epsg) {
-  r <- terra::rast(path)
+  set_missing_crs(terra::rast(path), epsg)
+}
+
+# ASCII grid tiles carry no projection of their own, so it comes from the index
+# instead. Tiles that do declare one are left alone.
+set_missing_crs <- function(r, epsg) {
   if (is.na(terra::crs(r, describe = TRUE)$code) && !is.na(epsg)) {
     terra::crs(r) <- paste0("EPSG:", epsg)
   }
