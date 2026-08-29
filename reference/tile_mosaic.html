@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,6 +137,12 @@ in flight at once.</p></dd>
 <dd><p>PL-KRON86-NH and PL-EVRF2007-NH differ
     by tens of centimetres. The seam is a step in the terrain that is not
     there.</p></dd>
+
+  <dt>More than one file format</dt>
+<dd><p>Every elevation sheet is published both
+    as a grid and as a list of points, under the same sheet number. The
+    point list is not a raster, so half such a mosaic would simply be
+    missing.</p></dd>
 
   <dt>Point clouds</dt>
 <dd><p>LAS and LAZ are not rasters. Use `lidR` or `PDAL`.</p></dd>

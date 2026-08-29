@@ -1,5 +1,30 @@
 # Changelog
 
+## rgeopl (development version)
+
+- Tiles are joined through a GDAL virtual raster instead of being read
+  into memory one by one. Measured on 15 orthophoto tiles, 586 MB, cut
+  to an 800 m square: **175 s before, 0.8 s after**, with not one cell
+  of 17.3 million differing. On 15 elevation tiles the same cut went
+  from 13.2 s to 0.6 s. The old path also materialised the whole join
+  before cropping it, which for those orthophoto tiles meant asking the
+  disk for 17 GB of uncompressed scratch space – enough to fail
+  outright, which is how this was found.
+- The cache manifest is read once per batch and written once per batch,
+  rather than once per file. It is a single table for the whole cache
+  and it only grows, so the old way got slower the longer the package
+  was used: a 1336-tile job spent 10 s on bookkeeping with 1500 rows in
+  the manifest and **125 s with 50 000**. Both now take under a fifth of
+  a second.
+- Single downloads stream to disk instead of being assembled in memory
+  first, which is what the parallel path already did. A point cloud tile
+  no longer costs its own size in RAM before it reaches the cache.
+- [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md)
+  refuses a selection that mixes file formats, and says so. Every
+  elevation sheet is published twice under one sheet number, as a grid
+  and as a list of points; picking both was previously reported as a
+  duplicate sheet, and the advice given for that case did not help.
+
 ## rgeopl 0.3.0
 
 - A URL repeated inside one selection is now fetched once. Two rows
