@@ -14,6 +14,7 @@ dem_get(
   datum = c("evrf2007", "kron86"),
   file = NULL,
   convert = TRUE,
+  mask = FALSE,
   max_pixels = 2500,
   quiet = FALSE
 )
@@ -24,6 +25,7 @@ ortho_get(
   resolution = 0.25,
   file = NULL,
   convert = TRUE,
+  mask = FALSE,
   max_pixels = 2500,
   quiet = FALSE
 )
@@ -67,6 +69,13 @@ ortho_get(
   coordinate system attached. On by default; needs \`terra\`, and
   quietly keeps the ASCII grid if it is not installed. Orthophotos and
   the KRON86 terrain model already arrive as GeoTIFF and are untouched.
+
+- mask:
+
+  Cut the result to the outline of the area, not just to its bounding
+  box. The coverage services are addressed by a bounding box, so without
+  this a ragged area comes back with its corners filled in. Needs
+  \`terra\`.
 
 - max_pixels:
 

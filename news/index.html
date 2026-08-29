@@ -39,6 +39,12 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
 <ul><li>A URL repeated inside one selection is now fetched once. Two rows pointing at the same file resolved to the same target path, so both transfers wrote to one temporary file and raced each other. Every row still gets its path back; only the transfer is shared.</li>
+<li>
+<code><a href="../reference/ortho_stack.html">ortho_stack()</a></code> joins the CIR and RGB products of one flight into a single four-band raster: near-infrared, red, green, blue. <code><a href="../reference/ortho_pairs.html">ortho_pairs()</a></code> lists the vintages that publish both, which is the question it raises. Measured before building it, on one sheet at 0.25 m: CIR’s red and green correlate with RGB’s at <strong>0.999</strong>, and its first band with nothing in RGB (0.19 to 0.47). The two products are one radiometric result cut two ways, so stacking them is sound – and blue is the only band RGB actually contributes. A vegetation index therefore wants <code>bands = "cir"</code>, which halves the download: infrared and red already sit in one file, consistent with each other.</li>
+<li>
+<code><a href="../reference/tile_mosaic.html">tile_mosaic()</a></code> gains <code>max_active</code>, so a stack can pass its connection limit down to the downloads.</li>
+<li>
+<code>mask</code> now works on the coverage side too: <code><a href="../reference/dem_get.html">dem_get()</a></code>, <code><a href="../reference/dem_get.html">ortho_get()</a></code> and <code><a href="../reference/chm_get.html">chm_get()</a></code> take it, and <code><a href="../reference/chm_get.html">chm_build()</a></code> takes an <code>aoi</code> to go with it. The coverage services are addressed by a bounding box, so until now a ragged stand came back through this path with its corners filled in while the same request through <code><a href="../reference/tile_mosaic.html">tile_mosaic()</a></code> came back cut to the outline. One word should not mean two things depending on which way the data was fetched.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="rgeopl-020">rgeopl 0.2.0<a class="anchor" aria-label="anchor" href="#rgeopl-020"></a></h2>

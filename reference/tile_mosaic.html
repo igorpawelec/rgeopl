@@ -54,6 +54,7 @@
 <span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  allow_mixed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  max_active <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -96,6 +97,11 @@ every one of those produces a raster that looks finished and is not.</p></dd>
 
 <dt id="arg-overwrite">overwrite<a class="anchor" aria-label="anchor" href="#arg-overwrite"></a></dt>
 <dd><p>Passed to [tile_download()]: re-fetch tiles already cached.</p></dd>
+
+
+<dt id="arg-max-active">max_active<a class="anchor" aria-label="anchor" href="#arg-max-active"></a></dt>
+<dd><p>Passed to [tile_download()]: how many downloads to have
+in flight at once.</p></dd>
 
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>

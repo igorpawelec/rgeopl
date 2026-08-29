@@ -55,6 +55,7 @@ rasters you already have.</p>
 <span>  datum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"evrf2007"</span>, <span class="st">"kron86"</span><span class="op">)</span>,</span>
 <span>  keep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chm"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
 <span>  min_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  max_pixels <span class="op">=</span> <span class="fl">2500</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -63,8 +64,10 @@ rasters you already have.</p>
 <span><span class="fu">chm_build</span><span class="op">(</span></span>
 <span>  <span class="va">surface</span>,</span>
 <span>  <span class="va">terrain</span>,</span>
+<span>  aoi <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  keep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chm"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
 <span>  min_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -75,7 +78,7 @@ rasters you already have.</p>
 
 
 <dl><dt id="arg-aoi">aoi<a class="anchor" aria-label="anchor" href="#arg-aoi"></a></dt>
-<dd><p>An area of interest: anything [as_aoi()] accepts.</p></dd>
+<dd><p>The area to cut to when `mask = TRUE`. Ignored otherwise.</p></dd>
 
 
 <dt id="arg-resolution">resolution<a class="anchor" aria-label="anchor" href="#arg-resolution"></a></dt>
@@ -100,6 +103,12 @@ changes nothing. Setting it to `0` removes the small negative values that
 come from noise in the two models; note that this drops those cells rather
 than flattening them to zero, so it does not invent ground where there was
 none.</p></dd>
+
+
+<dt id="arg-mask">mask<a class="anchor" aria-label="anchor" href="#arg-mask"></a></dt>
+<dd><p>Cut the result to the outline of the area rather than to its
+bounding box, so a ragged stand comes back without its corners filled
+in. For [chm_build()] this needs `aoi` as well.</p></dd>
 
 
 <dt id="arg-filename">filename<a class="anchor" aria-label="anchor" href="#arg-filename"></a></dt>

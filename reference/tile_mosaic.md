@@ -14,6 +14,7 @@ tile_mosaic(
   filename = NULL,
   allow_mixed = FALSE,
   overwrite = FALSE,
+  max_active = NULL,
   quiet = FALSE
 )
 ```
@@ -55,6 +56,11 @@ tile_mosaic(
 - overwrite:
 
   Passed to \[tile_download()\]: re-fetch tiles already cached.
+
+- max_active:
+
+  Passed to \[tile_download()\]: how many downloads to have in flight at
+  once.
 
 - quiet:
 

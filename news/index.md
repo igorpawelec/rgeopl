@@ -6,6 +6,34 @@
   pointing at the same file resolved to the same target path, so both
   transfers wrote to one temporary file and raced each other. Every row
   still gets its path back; only the transfer is shared.
+- [`ortho_stack()`](https://igorpawelec.github.io/rgeopl/reference/ortho_stack.md)
+  joins the CIR and RGB products of one flight into a single four-band
+  raster: near-infrared, red, green, blue.
+  [`ortho_pairs()`](https://igorpawelec.github.io/rgeopl/reference/ortho_pairs.md)
+  lists the vintages that publish both, which is the question it raises.
+  Measured before building it, on one sheet at 0.25 m: CIR’s red and
+  green correlate with RGB’s at **0.999**, and its first band with
+  nothing in RGB (0.19 to 0.47). The two products are one radiometric
+  result cut two ways, so stacking them is sound – and blue is the only
+  band RGB actually contributes. A vegetation index therefore wants
+  `bands = "cir"`, which halves the download: infrared and red already
+  sit in one file, consistent with each other.
+- [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md)
+  gains `max_active`, so a stack can pass its connection limit down to
+  the downloads.
+- `mask` now works on the coverage side too:
+  [`dem_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md),
+  [`ortho_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
+  and
+  [`chm_get()`](https://igorpawelec.github.io/rgeopl/reference/chm_get.md)
+  take it, and
+  [`chm_build()`](https://igorpawelec.github.io/rgeopl/reference/chm_get.md)
+  takes an `aoi` to go with it. The coverage services are addressed by a
+  bounding box, so until now a ragged stand came back through this path
+  with its corners filled in while the same request through
+  [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md)
+  came back cut to the outline. One word should not mean two things
+  depending on which way the data was fetched.
 
 ## rgeopl 0.2.0
 

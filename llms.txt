@@ -352,6 +352,10 @@ tile outline. Nothing is downloaded until you ask.
   : Download the tiles an index points to
 - [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md)
   : Join downloaded tiles into one raster
+- [`ortho_stack()`](https://igorpawelec.github.io/rgeopl/reference/ortho_stack.md)
+  : Orthophoto as one four-band raster
+- [`ortho_pairs()`](https://igorpawelec.github.io/rgeopl/reference/ortho_pairs.md)
+  : Which orthophoto vintages publish both products
 
 ## Ready-made rasters
 
