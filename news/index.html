@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.4.0" id="rgeopl-040">rgeopl 0.4.0<a class="anchor" aria-label="anchor" href="#rgeopl-040"></a></h2>
 <ul><li>
 <p><code><a href="../reference/pointcloud_get.html">pointcloud_get()</a></code> carries the point cloud chain as far as it can go without leaving CRAN behind: it downloads what an index points at, checks the selection is one survey, and returns the files with the coordinate system the archive says they are in. That last part is the reason it exists. Read straight out of the LAS headers, a 2024 tile declares EPSG:2180 while the 2012 and 2014 tiles carry a projection record three bytes long, which is to say empty – and a catalogue with no coordinate system is the kind of thing that goes unnoticed until an overlay lands in the wrong place.</p>
 <p>It stops one line short of a <code>lidR</code> catalogue on purpose. <code>lidR</code> was archived from CRAN on 2026-06-09 together with <code>rlas</code>, and there is no way to reach it that leaves a check clean: naming it in <code>Suggests</code> or in <code>Enhances</code> makes dependency resolution fetch it from a repository that no longer carries it and fail, while calling <code><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace()</a></code> without declaring it raises a check WARNING. All three measured, the last one on four platforms at once. <code><a href="../reference/pointcloud_get.html">?pointcloud_get</a></code> gives the line to write, and where <code>lidR</code> still installs from.</p>

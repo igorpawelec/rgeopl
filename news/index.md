@@ -1,6 +1,6 @@
 # Changelog
 
-## rgeopl (development version)
+## rgeopl 0.4.0
 
 - [`pointcloud_get()`](https://igorpawelec.github.io/rgeopl/reference/pointcloud_get.md)
   carries the point cloud chain as far as it can go without leaving CRAN
