@@ -8,12 +8,13 @@
   three bytes long, which is to say empty -- so the index supplies what the
   file does not, and leaves alone what it does.
 
-  `lidR` sits in `Enhances` rather than `Suggests`: it left CRAN
+  `lidR` is not declared in `DESCRIPTION` at all: it left CRAN
   on 2026-06-09, archived along with `rlas` after sanitiser reports went
-  uncorrected, and a package that names it in `Suggests` makes every
-  continuous-integration run try to install it from a repository that no
-  longer carries it. Both are still developed at <https://github.com/r-lidar>,
-  and the error message says so.
+  uncorrected, and naming it as a dependency -- in `Suggests` or in
+  `Enhances`, both measured -- makes every continuous-integration run try to
+  install it from a repository that no longer carries it. The cost is one
+  check NOTE, which is true. Both packages are still developed at
+  <https://github.com/r-lidar>, and the error message says so.
 * `chm_get()` takes a `year`. Without one it uses the coverage services as
   before, which publish the current model and nothing else; with one it
   assembles the model from archive tiles, which is the only route to an

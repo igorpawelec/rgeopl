@@ -54,4 +54,9 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+          # Stated rather than inherited. The package carries one NOTE on
+          # purpose: it calls requireNamespace("lidR") without declaring lidR,
+          # because lidR was archived from CRAN and declaring it would make
+          # this very step fail while installing dependencies.
+          error-on: '"warning"'
           build_args: 'c("--no-manual")'

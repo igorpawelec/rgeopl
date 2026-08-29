@@ -176,12 +176,21 @@ is_las_content <- function(paths) {
   }, logical(1), USE.NAMES = FALSE)
 }
 
-# lidR is reached by name rather than declared in Suggests, and that is not
-# fastidiousness. It left CRAN on 2026-06-09, archived along with the rlas
-# package it depends on, after ASAN reports went uncorrected; both are still
-# developed and pushed on GitHub. A package that names it in Suggests makes
-# every continuous-integration run try to install it from a repository that
-# no longer carries it, and fail there rather than here.
+# lidR is deliberately not declared anywhere in DESCRIPTION, and this needs
+# saying because the omission looks like an oversight. It left CRAN on
+# 2026-06-09, archived along with the rlas package it depends on, after ASAN
+# reports went uncorrected; both are still developed on GitHub. Naming it in
+# Suggests makes every CI run try to install it from a repository that no
+# longer carries it, and fail there rather than here.
+#
+# Enhances does not help either, though it looks like it should: pak resolves
+# it under dependencies = "all", which is what r-lib/actions/setup-r-dependencies
+# passes, and the install fails just the same. Measured, after trying it.
+#
+# The price is one R CMD check NOTE saying this call is undeclared. That NOTE
+# is true, and the alternative -- hiding the package name behind a variable so
+# the check cannot see it -- would trade an honest note for a hidden dependency.
+
 lidR_fn <- function(fun) {
   if (!requireNamespace("lidR", quietly = TRUE)) {
     stop("Package 'lidR' is needed to read point clouds, and it is no longer",
