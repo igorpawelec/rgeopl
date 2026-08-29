@@ -1,17 +1,15 @@
-# Point cloud tiles as a catalogue ready for lidR
+# Point cloud tiles, downloaded and identified
 
-Downloads what an index points at and returns it as a
-\`lidR::LAScatalog\`, with the coordinate system attached. The pair to
-\[tile_mosaic()\]: that one ends the raster chain, this one ends the
-point cloud chain.
+Fetches what an index points at, checks it is one survey, and returns
+the files with the coordinate system the archive says they are in. The
+pair to \[tile_mosaic()\]: that one ends the raster chain, this one ends
+the point cloud chain, one step short of a \`lidR\` catalogue.
 
 ## Usage
 
 ``` r
 pointcloud_get(
   index,
-  filter = NULL,
-  select = NULL,
   allow_mixed = FALSE,
   overwrite = FALSE,
   max_active = NULL,
@@ -26,19 +24,12 @@ pointcloud_get(
   A point cloud index from \[pointcloud_request()\], filtered to what
   you want. It must describe one survey – see below.
 
-- filter, select:
-
-  Passed to \`lidR::readLAScatalog()\`, and worth setting here rather
-  than later: both are applied as the points are read, so \`filter =
-  "-drop_class 7"\` never loads the noise class at all. See
-  \`lidR::readLAS()\` for the vocabulary.
-
 - allow_mixed:
 
-  Build a catalogue from more than one survey. Off by default: two
-  flights over one place means returns from both in the same cloud,
-  which inflates density, doubles the canopy surface and puts two ground
-  levels under it.
+  Accept more than one survey. Off by default: two flights over one
+  place means returns from both in the same cloud, which inflates
+  density, doubles the canopy surface and puts two ground levels under
+  it.
 
 - overwrite, max_active, quiet:
 
@@ -46,36 +37,31 @@ pointcloud_get(
 
 ## Value
 
-A \`lidR::LAScatalog\`.
+The index, keeping only rows whose file arrived, with \`path\` (the
+cached \`.laz\`) and \`epsg\` added.
 
-## Details
+## Reading them
 
-Everything after this is \`lidR\`'s: \`lidR::clip_roi()\` to cut to a
-stand, \`lidR::rasterize_canopy()\` for a canopy model at the density
-the cloud actually supports, \`lidR::normalize_height()\`,
-\`lidR::segment_trees()\`.
+\`lidR\` is the tool for what comes next, and it needs one thing the
+files do not provide. Older surveys leave the projection record empty,
+so the coordinate system has to come from the index:
 
-## Getting lidR
+“\` pc \<- pointcloud_get(subset(idx, year == 2024)) ctg \<-
+lidR::readLAScatalog(pc\$path) sf::st_crs(ctg) \<- pc\$epsg\[1\] “\`
 
-\`lidR\` is not on CRAN. It was archived on 2026-06-09 along with
-\`rlas\`, the package it reads LAS and LAZ files through, after
-sanitiser reports went uncorrected. Both are still developed at
-\<https://github.com/r-lidar\> and install from source:
+\`lidR\` is not on CRAN – it was archived on 2026-06-09 together with
+\`rlas\` – but it is maintained and installable:
 
-“\` remotes::install_github("r-lidar/rlas")
-remotes::install_github("r-lidar/lidR") “\`
-
-Nothing else in this package needs it, and \[tile_download()\] will
-fetch the same files for any other reader.
+“\` install.packages("lidR", repos = "https://r-lidar.r-universe.dev")
+“\`
 
 ## What it refuses, and why
 
 The same discipline as \[tile_mosaic()\], for the same reason: a mixture
 that produces a plausible-looking result nobody would question. More
 than one vintage means overlapping returns from two flights; more than
-one vertical datum means the ground sits at two heights in one file.
-Both come back as a catalogue that reads perfectly and describes nothing
-real.
+one vertical datum means the ground sits at two heights in one
+selection.
 
 ## See also
 
@@ -86,16 +72,12 @@ model built from the published elevation models instead.
 
 ``` r
 if (FALSE) { # \dontrun{
-aoi <- as_aoi(sf::st_read(rgeopl_example("gleboczek_aoi.shp"), quiet = TRUE))
+aoi <- as_aoi(rgeopl_example("gleboczek_aoi.shp"))
 
 idx <- pointcloud_request(aoi)
-recent <- subset(idx, year == max(year))
+pc <- pointcloud_get(subset(idx, year == max(year)))
 
-ctg <- pointcloud_get(recent, filter = "-drop_class 7")
-lidR::plot(ctg)
-
-# a canopy model at the density the cloud supports, rather than the 1 m
-# the coverage services publish
-chm <- lidR::rasterize_canopy(ctg, res = 0.5, algorithm = lidR::p2r())
+pc$path
+pc$epsg[1]
 } # }
 ```

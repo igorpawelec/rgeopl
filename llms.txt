@@ -357,7 +357,7 @@ tile outline. Nothing is downloaded until you ask.
 - [`ortho_pairs()`](https://igorpawelec.github.io/rgeopl/reference/ortho_pairs.md)
   : Which orthophoto vintages publish both products
 - [`pointcloud_get()`](https://igorpawelec.github.io/rgeopl/reference/pointcloud_get.md)
-  : Point cloud tiles as a catalogue ready for lidR
+  : Point cloud tiles, downloaded and identified
 
 ## Ready-made rasters
 

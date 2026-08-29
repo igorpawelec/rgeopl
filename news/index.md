@@ -3,23 +3,26 @@
 ## rgeopl (development version)
 
 - [`pointcloud_get()`](https://igorpawelec.github.io/rgeopl/reference/pointcloud_get.md)
-  ends the point cloud chain the way
-  [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md)
-  ends the raster one: it downloads what an index points at and hands
-  back a `lidR::LAScatalog`, with the coordinate system attached. That
-  last part is the reason it exists. Read straight out of the LAS
-  headers, a 2024 tile declares EPSG:2180 and the 2012 and 2014 tiles
-  carry a projection record three bytes long, which is to say empty – so
-  the index supplies what the file does not, and leaves alone what it
-  does.
+  carries the point cloud chain as far as it can go without leaving CRAN
+  behind: it downloads what an index points at, checks the selection is
+  one survey, and returns the files with the coordinate system the
+  archive says they are in. That last part is the reason it exists. Read
+  straight out of the LAS headers, a 2024 tile declares EPSG:2180 while
+  the 2012 and 2014 tiles carry a projection record three bytes long,
+  which is to say empty – and a catalogue with no coordinate system is
+  the kind of thing that goes unnoticed until an overlay lands in the
+  wrong place.
 
-  `lidR` is not declared in `DESCRIPTION` at all: it left CRAN on
-  2026-06-09, archived along with `rlas` after sanitiser reports went
-  uncorrected, and naming it as a dependency – in `Suggests` or in
-  `Enhances`, both measured – makes every continuous-integration run try
-  to install it from a repository that no longer carries it. The cost is
-  one check NOTE, which is true. Both packages are still developed at
-  <https://github.com/r-lidar>, and the error message says so.
+  It stops one line short of a `lidR` catalogue on purpose. `lidR` was
+  archived from CRAN on 2026-06-09 together with `rlas`, and there is no
+  way to reach it that leaves a check clean: naming it in `Suggests` or
+  in `Enhances` makes dependency resolution fetch it from a repository
+  that no longer carries it and fail, while calling
+  [`requireNamespace()`](https://rdrr.io/r/base/ns-load.html) without
+  declaring it raises a check WARNING. All three measured, the last one
+  on four platforms at once.
+  [`?pointcloud_get`](https://igorpawelec.github.io/rgeopl/reference/pointcloud_get.md)
+  gives the line to write, and where `lidR` still installs from.
 
 - [`chm_get()`](https://igorpawelec.github.io/rgeopl/reference/chm_get.md)
   takes a `year`. Without one it uses the coverage services as before,
