@@ -1,3 +1,10 @@
+# rgeopl (development version)
+
+* A URL repeated inside one selection is now fetched once. Two rows pointing at
+  the same file resolved to the same target path, so both transfers wrote to one
+  temporary file and raced each other. Every row still gets its path back; only
+  the transfer is shared.
+
 # rgeopl 0.2.0
 
 ## Many areas at once

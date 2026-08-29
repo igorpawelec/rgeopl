@@ -159,28 +159,38 @@ gp_download_many <- function(urls, group, filenames = NULL,
     say(quiet, "  all ", n, " already cached")
     return(out)
   }
-  say(quiet, "  ", length(todo), " to fetch, ", n - length(todo), " cached")
+  # One fetch per distinct file. A URL repeated in the same selection resolves
+  # to the same target path, so fetching it twice would mean two transfers
+  # racing to write one temporary file -- and the loser corrupting the winner.
+  first <- todo[!duplicated(urls[todo])]
+  if (length(first) < length(todo)) {
+    say(quiet, "  ", length(todo), " rows point at ", length(first),
+        " distinct files")
+  }
+  say(quiet, "  ", length(first), " to fetch, ", n - length(todo), " cached")
 
-  targets <- lapply(todo, function(i) cache_target(urls[i], group, filenames[[i]]))
+  targets <- lapply(first, function(i) cache_target(urls[i], group, filenames[[i]]))
   parts <- vapply(targets, function(t) paste0(t$abs, ".part"), character(1))
   on.exit(unlink(parts[file.exists(parts)]), add = TRUE)
 
-  reqs <- lapply(urls[todo], function(u) {
+  reqs <- lapply(urls[first], function(u) {
     gp_req(u, timeout = getOption("rgeopl.download_timeout", 900))
   })
   resps <- perform_many(reqs, paths = parts, n = n_active, quiet = quiet,
                         what = "downloads")
   ok <- split_responses(resps, quiet, "downloads")
 
-  for (j in seq_along(todo)) {
+  resolved <- stats::setNames(rep(NA_character_, length(first)), urls[first])
+  for (j in seq_along(first)) {
     if (!ok[j] || !file.exists(parts[j]) || file.size(parts[j]) == 0) {
       unlink(parts[j])
       next
     }
     file.rename(parts[j], targets[[j]]$abs)
-    cache_record(urls[todo[j]], targets[[j]]$rel, group, labels[todo[j]])
-    out[todo[j]] <- targets[[j]]$abs
+    cache_record(urls[first[j]], targets[[j]]$rel, group, labels[first[j]])
+    resolved[j] <- targets[[j]]$abs
   }
+  out[todo] <- unname(resolved[urls[todo]])
   out
 }
 

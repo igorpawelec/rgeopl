@@ -52,3 +52,25 @@ test_that("all-good responses pass silently", {
   expect_silent(ok <- split_responses(fake))
   expect_true(all(ok))
 })
+
+test_that("a repeated URL resolves to one file, not a race for one temp name", {
+  # The bug this guards: two rows with the same URL produce the same target
+  # path, so fetching both would have two transfers writing one .part file.
+  urls <- c("https://example.org/a", "https://example.org/b",
+            "https://example.org/a", "https://example.org/a")
+  first <- seq_along(urls)[!duplicated(urls)]
+  expect_equal(first, c(1L, 2L))
+
+  # and mapping back must fill every row, duplicates included
+  resolved <- stats::setNames(c("/cache/a", "/cache/b"), urls[first])
+  expect_equal(unname(resolved[urls]),
+               c("/cache/a", "/cache/b", "/cache/a", "/cache/a"))
+})
+
+test_that("failed rows map to NA rather than to another row's file", {
+  urls <- c("https://example.org/a", "https://example.org/b")
+  resolved <- stats::setNames(c(NA_character_, "/cache/b"), urls)
+  out <- unname(resolved[urls])
+  expect_true(is.na(out[1]))
+  expect_equal(out[2], "/cache/b")
+})
