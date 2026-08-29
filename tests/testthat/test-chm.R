@@ -107,3 +107,68 @@ test_that("the raster CRS is read as a number sf will accept", {
   terra::values(bare) <- 1:4
   expect_equal(raster_epsg(bare), CRS_PL1992)
 })
+
+# Building from the archive ---------------------------------------------------
+
+dem_index <- function(...) {
+  base <- data.frame(
+    sheetID = c("A", "B", "A", "B"),
+    year = rep(2014L, 4),
+    product = c("DSM", "DSM", "DTM", "DTM"),
+    resolution = rep(1, 4),
+    isFilled = rep(TRUE, 4),
+    stringsAsFactors = FALSE
+  )
+  mods <- list(...)
+  for (nm in names(mods)) base[[nm]] <- mods[[nm]]
+  base
+}
+
+test_that("a vintage holding both models is usable, one holding half is not", {
+  expect_equal(both_products(dem_index()), 1)
+
+  # a terrain model with no surface model of the same year makes no canopy
+  terrain_only <- dem_index(product = rep("DTM", 4))
+  expect_length(both_products(terrain_only), 0L)
+})
+
+test_that("the pixel size is settled once for the pair", {
+  # 1 m has both models, 0.5 m has only the terrain
+  mixed <- data.frame(
+    sheetID = c("A", "A", "A"), year = rep(2014L, 3),
+    product = c("DSM", "DTM", "DTM"), resolution = c(1, 1, 0.5),
+    isFilled = rep(TRUE, 3), stringsAsFactors = FALSE
+  )
+  expect_equal(both_products(mixed), 1)
+
+  # so the finer size is not chosen just because it is finer
+  pair <- chm_pair(mixed, year = 2014, resolution = NULL)
+  expect_equal(pair$resolution, 1)
+  expect_equal(nrow(pair$surface), 1L)
+  expect_equal(nrow(pair$terrain), 1L)
+})
+
+test_that("an asked-for pixel size is honoured when the archive has it", {
+  both <- data.frame(
+    sheetID = rep("A", 4), year = rep(2014L, 4),
+    product = c("DSM", "DTM", "DSM", "DTM"), resolution = c(1, 1, 0.5, 0.5),
+    isFilled = rep(TRUE, 4), stringsAsFactors = FALSE
+  )
+  expect_equal(chm_pair(both, 2014, resolution = 1)$resolution, 1)
+  expect_equal(chm_pair(both, 2014, resolution = 0.5)$resolution, 0.5)
+  # and one it does not have falls back to the finest it does
+  expect_equal(chm_pair(both, 2014, resolution = 2)$resolution, 0.5)
+})
+
+test_that("a year the archive cannot pair up is refused, pointing at chm_years()", {
+  expect_error(chm_pair(dem_index(product = rep("DTM", 4)), 2014, NULL),
+               "chm_years")
+  expect_error(chm_pair(dem_index(), 1999, NULL), "no vintage from 1999")
+})
+
+test_that("only one row per sheet survives, and a filled sheet beats an empty one", {
+  dup <- dem_index(sheetID = c("A", "A", "A", "A"),
+                   isFilled = c(FALSE, TRUE, TRUE, TRUE))
+  expect_equal(nrow(one_per_sheet(dup)), 1L)
+  expect_true(one_per_sheet(dup)$isFilled)
+})

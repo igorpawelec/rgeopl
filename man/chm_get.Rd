@@ -7,12 +7,14 @@
 \usage{
 chm_get(
   aoi,
+  year = NULL,
   resolution = 1,
   datum = c("evrf2007", "kron86"),
   keep = c("chm", "all"),
   min_height = NULL,
   mask = FALSE,
   filename = NULL,
+  max_active = NULL,
   max_pixels = 2500,
   quiet = FALSE
 )
@@ -31,8 +33,16 @@ chm_build(
 \arguments{
 \item{aoi}{The area to cut to when `mask = TRUE`. Ignored otherwise.}
 
+\item{year}{Which survey to build the model from. `NULL`, the default,
+uses the coverage services, which publish the current model and hand it
+back already clipped. Naming a year instead assembles the model from
+archive tiles, which is the only way to reach an earlier flight.
+[chm_years()] lists the vintages an area can make one from.}
+
 \item{resolution}{Pixel size in metres. Both models are requested at the
-same one, which is what puts them on the same grid.}
+same one, which is what puts them on the same grid. With `year` set this
+selects among the pixel sizes the archive actually holds, and falls back
+to the finest one available for that vintage.}
 
 \item{datum}{Vertical reference system, `"evrf2007"` or `"kron86"`. It
 cancels in the subtraction, so it matters only if you also want the inputs.}
@@ -53,7 +63,11 @@ in. For [chm_build()] this needs `aoi` as well.}
 
 \item{filename}{Write the canopy model here.}
 
-\item{max_pixels}{Passed to [dem_get()].}
+\item{max_active}{How many tiles to download at once, when `year` sends
+this through the archive. Ignored otherwise.}
+
+\item{max_pixels}{Passed to [dem_get()]. Only the coverage route is
+bounded this way; tiles are already cut into sheets.}
 
 \item{quiet}{Suppress progress.}
 

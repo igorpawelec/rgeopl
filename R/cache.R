@@ -194,6 +194,7 @@ validate_manifest <- function(m) {
 cache_target <- function(url, group, filename = NULL) {
   filename <- filename %||% basename(sub("[?#].*$", "", url))
   if (!nzchar(filename)) filename <- paste0(cache_key(url), ".bin")
+  filename <- with_url_extension(filename, url)
   # Keep the URL hash in the path: two flights can produce the same file name
   # for different years, and the name alone would collide.
   rel <- file.path("files", group, paste0(substr(cache_key(url), 1, 8), "_", filename))
@@ -273,4 +274,18 @@ format_bytes <- function(x) {
   units <- c("B", "kB", "MB", "GB", "TB")
   i <- if (x <= 0) 1L else min(length(units), floor(log(x, 1024)) + 1L)
   paste0(format(round(x / 1024^(i - 1), 1), trim = TRUE), " ", units[i])
+}
+
+# The index names a point cloud tile 6017_642952_N-34-79-C-a-1-4-2, with no
+# extension, while the URL it gives ends in .laz. Saved under the bare name
+# the file is still a perfectly good LAZ -- it begins with LASF -- but lidR
+# refuses it with "File not supported", because it decides by the name. So
+# the extension the URL states is carried over, which also leaves the cache
+# browsable by anything else. Orthophoto URLs carry no extension either and
+# are untouched; those are recognised by their contents instead.
+with_url_extension <- function(filename, url) {
+  if (nzchar(tools::file_ext(filename))) return(filename)
+  ext <- tools::file_ext(sub("[?#].*$", "", url))
+  if (!nzchar(ext) || nchar(ext) > 5 || grepl("[^A-Za-z0-9]", ext)) return(filename)
+  paste0(filename, ".", tolower(ext))
 }

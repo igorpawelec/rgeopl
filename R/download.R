@@ -44,6 +44,14 @@ tile_download <- function(index, outdir = NULL, unzip = TRUE,
   if (nrow(index) == 0L) {
     stop("`index` has no rows: nothing to download.", call. = FALSE)
   }
+  # A row with no link is usually a subset gone wrong -- an index sliced past
+  # its own length fills the gap with NA. Left alone it reaches the HTTP layer
+  # and fails there, complaining about a string rather than about the index.
+  if (anyNA(index$URL)) {
+    stop(sum(is.na(index$URL)), " of ", nrow(index),
+         " rows have no download link. Check how the index was subset.",
+         call. = FALSE)
+  }
 
   warn_mixed_vrs(index)
 

@@ -6,6 +6,27 @@ LAYER_ORTHO <- 3L
 LAYER_DEM <- 4L
 LAYER_POINTCLOUD <- 5L
 
+# The service publishes one map sheet in several forms at once -- measured
+# across three distant areas, 178 of 1028 sheet/product/vintage combinations
+# come in more than one, and some in three. Only one of them is a raster:
+#
+#   ARC/INFO ASCII GRID   .asc    a grid, the thing you can mosaic
+#   ASCII XYZ GRID        .zip    a text list of points
+#   ASCII TBD             .zip    a text list of points
+#   ESRI TIN              .zip    a triangulated model
+#   Intergraph TTN        .ttn    a triangulated model
+#   LAS, LAZ              .laz    a point cloud -- both labels, always .laz
+#
+# The labels on point clouds track the era rather than the file: everything
+# from 2012 to 2019 is called LAS, everything from 2021 on LAZ, and all of it
+# arrives compressed.
+FORMAT_ALIASES <- list(
+  grid  = "ARC/INFO ASCII GRID",
+  xyz   = c("ASCII XYZ GRID", "ASCII TBD"),
+  tin   = c("ESRI TIN", "Intergraph TTN"),
+  cloud = c("LAS", "LAZ")
+)
+
 DEM_FIELDS <- c(
   "godlo", "akt_rok", "asortyment", "format", "char_przestrz",
   "blad_sr_wys", "blad_sr_syt", "uklad_xy", "uklad_h", "akt_data",
@@ -33,6 +54,14 @@ ORTHO_FIELDS <- c(
 #' returned as though it were complete.
 #'
 #' @param aoi An area of interest: anything [as_aoi()] accepts.
+#' @param format Which form of each sheet to keep. The service publishes one
+#'   sheet in several at once, and only one of them is a raster, so a
+#'   selection left unfiltered can look like two tiles where there is one.
+#'   Shorthands: `"grid"` (ARC/INFO ASCII GRID, the only form you can
+#'   mosaic), `"xyz"` (text lists of points), `"tin"` (triangulated models),
+#'   `"cloud"` (LAS and LAZ, both of which arrive as `.laz`). A service label
+#'   works too, for anything not covered by those. `NULL`, the default, keeps
+#'   everything, which is what you want when the question is what exists.
 #' @param within_aoi Keep only tiles that actually meet the area. The service
 #'   filters by bounding box alone, so for anything other than a rectangle it
 #'   also returns tiles that lie beside the area. Set `FALSE` for the raw
@@ -77,6 +106,9 @@ ORTHO_FIELDS <- c(
 #' dem <- dem_request(aoi)
 #' table(dem$year, dem$product)
 #'
+#' # the same sheets, in the one form that mosaics
+#' grids <- dem_request(aoi, format = "grid")
+#'
 #' # the most recent LAZ point clouds only
 #' library(dplyr)
 #' laz <- dem |>
@@ -88,18 +120,25 @@ ORTHO_FIELDS <- c(
 #' }
 #'
 #' @export
-dem_request <- function(aoi, within_aoi = TRUE, by_feature = NULL,
-                                   max_active = NULL, quiet = FALSE) {
-  gugik_index(aoi, LAYER_DEM, DEM_FIELDS, "elevation", within_aoi, by_feature,
-              max_active, quiet)
+dem_request <- function(aoi, format = NULL, within_aoi = TRUE,
+                        by_feature = NULL, max_active = NULL, quiet = FALSE) {
+  select_format(
+    gugik_index(aoi, LAYER_DEM, DEM_FIELDS, "elevation", within_aoi, by_feature,
+                max_active, quiet),
+    format, "elevation"
+  )
 }
 
 #' @rdname dem_request
 #' @export
-pointcloud_request <- function(aoi, within_aoi = TRUE, by_feature = NULL,
-                                          max_active = NULL, quiet = FALSE) {
-  gugik_index(aoi, LAYER_POINTCLOUD, DEM_FIELDS, "point cloud", within_aoi, by_feature,
-              max_active, quiet)
+pointcloud_request <- function(aoi, format = NULL, within_aoi = TRUE,
+                               by_feature = NULL, max_active = NULL,
+                               quiet = FALSE) {
+  select_format(
+    gugik_index(aoi, LAYER_POINTCLOUD, DEM_FIELDS, "point cloud", within_aoi,
+                by_feature, max_active, quiet),
+    format, "point cloud"
+  )
 }
 
 #' @rdname dem_request
@@ -284,4 +323,30 @@ print.rgeopl_index <- function(x, ...) {
   }
   print_without_class(x, "rgeopl_index", ...)
   invisible(x)
+}
+
+# Filtering on format is done here rather than left to the caller because the
+# duplication is invisible until something downstream fails: two rows under one
+# sheet number look like two tiles, not one tile in two shapes.
+select_format <- function(index, format, what) {
+  if (is.null(format)) return(index)
+  if (!("format" %in% names(index))) return(index)
+
+  wanted <- unlist(FORMAT_ALIASES[tolower(format)], use.names = FALSE)
+  # Anything that is not one of the shorthands is taken as a service label, so
+  # a format this package has not seen yet is still reachable.
+  wanted <- c(wanted, format[!(tolower(format) %in% names(FORMAT_ALIASES))])
+
+  keep <- as.character(index$format) %in% wanted
+  if (!any(keep)) {
+    available <- sort(unique(stats::na.omit(as.character(index$format))))
+    stop("No ", what, " tiles here are in format ",
+         paste(format, collapse = " or "), ".",
+         if (length(available)) {
+           paste0("\n  Available: ", paste(available, collapse = ", "), ".")
+         },
+         "\n  Shorthands: ", paste(names(FORMAT_ALIASES), collapse = ", "), ".",
+         call. = FALSE)
+  }
+  index[keep, , drop = FALSE]
 }

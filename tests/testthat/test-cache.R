@@ -152,3 +152,21 @@ test_that("an empty cache and an empty request both come back empty-handed", {
                c(NA_character_, NA_character_))
   expect_length(cache_lookup_many(character(0)), 0L)
 })
+
+test_that("a file with no extension takes the one its URL states", {
+  # the point cloud index names tiles without an extension, and the reader
+  # decides by the name
+  expect_equal(with_url_extension("6017_642952_N-34-79", "https://x/a/b.laz"),
+               "6017_642952_N-34-79.laz")
+  expect_equal(with_url_extension("tile", "https://x/a/b.LAZ?token=1"), "tile.laz")
+
+  # a name that already says what it is keeps its own answer
+  expect_equal(with_url_extension("tile.asc", "https://x/b.laz"), "tile.asc")
+
+  # orthophoto URLs carry no extension either; nothing to borrow
+  expect_equal(with_url_extension("tile", "https://x/83832_1514566_N-33-130"),
+               "tile")
+
+  # and a dotted path segment is not an extension
+  expect_equal(with_url_extension("tile", "https://x/v1.2.3/download"), "tile")
+})

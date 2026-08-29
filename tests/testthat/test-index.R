@@ -182,3 +182,47 @@ test_that("a short assembly warns instead of passing as complete", {
   expect_warning(check_complete(idx, 10), "assembled 4")
   expect_silent(check_complete(idx, 4))
 })
+
+# Choosing a format -----------------------------------------------------------
+
+formats <- function() {
+  data.frame(
+    sheetID = rep("N-34-78-D", 4),
+    format = c("ARC/INFO ASCII GRID", "ASCII XYZ GRID", "ESRI TIN", "ASCII TBD"),
+    stringsAsFactors = FALSE
+  )
+}
+
+test_that("no format asked for means nothing is dropped", {
+  expect_equal(nrow(select_format(formats(), NULL, "elevation")), 4L)
+})
+
+test_that("the shorthands pick out the forms they name", {
+  expect_equal(select_format(formats(), "grid", "elevation")$format,
+               "ARC/INFO ASCII GRID")
+  # both text point lists answer to one word
+  expect_setequal(select_format(formats(), "xyz", "elevation")$format,
+                  c("ASCII XYZ GRID", "ASCII TBD"))
+  expect_equal(select_format(formats(), "tin", "elevation")$format, "ESRI TIN")
+  expect_equal(nrow(select_format(formats(), c("grid", "tin"), "elevation")), 2L)
+})
+
+test_that("a service label this package does not know is still reachable", {
+  idx <- data.frame(format = c("ARC/INFO ASCII GRID", "SOMETHING NEW"),
+                    stringsAsFactors = FALSE)
+  expect_equal(select_format(idx, "SOMETHING NEW", "elevation")$format,
+               "SOMETHING NEW")
+})
+
+test_that("asking for a format that is not there says what is", {
+  expect_error(select_format(formats(), "cloud", "elevation"),
+               "Available: ARC/INFO ASCII GRID")
+  expect_error(select_format(formats(), "cloud", "elevation"), "Shorthands")
+})
+
+test_that("an index with no format column is left alone", {
+  # the orthophoto index has none: it is published one way
+  idx <- data.frame(sheetID = "N-34-78-D", composition = "RGB",
+                    stringsAsFactors = FALSE)
+  expect_equal(select_format(idx, "grid", "orthophoto"), idx)
+})

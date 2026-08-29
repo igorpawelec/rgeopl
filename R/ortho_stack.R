@@ -179,11 +179,7 @@ pick_flight <- function(index, want, year, resolution) {
 
 # One clean set of tiles for one product of one flight.
 flight_tiles <- function(index, choice, composition) {
-  sel <- index[index$year == choice$year &
-               index$resolution == choice$resolution &
-               index$composition == composition, , drop = FALSE]
-  if ("isFilled" %in% names(sel) && any(sel$isFilled, na.rm = TRUE)) {
-    sel <- sel[which(sel$isFilled), , drop = FALSE]
-  }
-  sel[!duplicated(sel$sheetID), , drop = FALSE]
+  one_per_sheet(index[index$year == choice$year &
+                      index$resolution == choice$resolution &
+                      index$composition == composition, , drop = FALSE])
 }

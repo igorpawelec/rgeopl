@@ -49,6 +49,7 @@ reference:
   - tile_mosaic
   - ortho_stack
   - ortho_pairs
+  - pointcloud_get
 
 - title: Ready-made rasters
   desc: >
@@ -57,6 +58,7 @@ reference:
   contents:
   - dem_get
   - chm_get
+  - chm_years
   - open_raster
 
 - title: Forest units

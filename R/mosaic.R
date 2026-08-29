@@ -242,7 +242,7 @@ set_missing_crs <- function(r, epsg) {
 
 # A downloaded tile may be the raster itself, or an archive that was unpacked
 # beside it.
-tile_raster_files <- function(got) {
+tile_files <- function(got, keep) {
   out <- character(0)
   for (i in seq_len(nrow(got))) {
     candidates <- if (!is.na(got$extracted[i])) {
@@ -250,9 +250,23 @@ tile_raster_files <- function(got) {
     } else {
       got$path[i]
     }
-    out <- c(out, candidates[vapply(candidates, is_raster_file, logical(1))])
+    out <- c(out, candidates[vapply(candidates, keep, logical(1))])
   }
   unique(out)
+}
+
+tile_raster_files <- function(got) tile_files(got, is_raster_file)
+
+# One row per map sheet, which is what a mosaic needs. A sheet can appear more
+# than once in a single vintage -- typically a partly filled sheet published
+# alongside the filled one -- and taking whichever came first is how a mosaic
+# ends up with holes.
+one_per_sheet <- function(index) {
+  if ("isFilled" %in% names(index) && any(index$isFilled, na.rm = TRUE)) {
+    index <- index[which(index$isFilled), , drop = FALSE]
+  }
+  if (!("sheetID" %in% names(index))) return(index)
+  index[!duplicated(index$sheetID), , drop = FALSE]
 }
 
 # The index gives orthophoto tiles names with no extension at all -- measured,
