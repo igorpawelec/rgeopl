@@ -356,6 +356,8 @@ tile outline. Nothing is downloaded until you ask.
   : Orthophoto as one four-band raster
 - [`ortho_pairs()`](https://igorpawelec.github.io/rgeopl/reference/ortho_pairs.md)
   : Which orthophoto vintages publish both products
+- [`pointcloud_get()`](https://igorpawelec.github.io/rgeopl/reference/pointcloud_get.md)
+  : Point cloud tiles as a catalogue ready for lidR
 
 ## Ready-made rasters
 
@@ -368,6 +370,8 @@ tiles to mosaic. Point clouds are not available this way.
 - [`chm_get()`](https://igorpawelec.github.io/rgeopl/reference/chm_get.md)
   [`chm_build()`](https://igorpawelec.github.io/rgeopl/reference/chm_get.md)
   : Canopy height for an area
+- [`chm_years()`](https://igorpawelec.github.io/rgeopl/reference/chm_years.md)
+  : Which vintages can make a canopy height model
 - [`open_raster()`](https://igorpawelec.github.io/rgeopl/reference/open_raster.md)
   : Open a downloaded raster, with its coordinate system attached
 

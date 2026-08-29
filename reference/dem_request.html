@@ -57,6 +57,7 @@ survives to [tile_download()].</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dem_request</span><span class="op">(</span></span>
 <span>  <span class="va">aoi</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  within_aoi <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  by_feature <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  max_active <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -65,6 +66,7 @@ survives to [tile_download()].</p>
 <span></span>
 <span><span class="fu">pointcloud_request</span><span class="op">(</span></span>
 <span>  <span class="va">aoi</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  within_aoi <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  by_feature <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  max_active <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -86,6 +88,17 @@ survives to [tile_download()].</p>
 
 <dl><dt id="arg-aoi">aoi<a class="anchor" aria-label="anchor" href="#arg-aoi"></a></dt>
 <dd><p>An area of interest: anything [as_aoi()] accepts.</p></dd>
+
+
+<dt id="arg-format">format<a class="anchor" aria-label="anchor" href="#arg-format"></a></dt>
+<dd><p>Which form of each sheet to keep. The service publishes one
+sheet in several at once, and only one of them is a raster, so a
+selection left unfiltered can look like two tiles where there is one.
+Shorthands: `"grid"` (ARC/INFO ASCII GRID, the only form you can
+mosaic), `"xyz"` (text lists of points), `"tin"` (triangulated models),
+`"cloud"` (LAS and LAZ, both of which arrive as `.laz`). A service label
+works too, for anything not covered by those. `NULL`, the default, keeps
+everything, which is what you want when the question is what exists.</p></dd>
 
 
 <dt id="arg-within-aoi">within_aoi<a class="anchor" aria-label="anchor" href="#arg-within-aoi"></a></dt>
@@ -154,6 +167,9 @@ when a selection mixes the two.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">dem_request</span><span class="op">(</span><span class="va">aoi</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">dem</span><span class="op">$</span><span class="va">year</span>, <span class="va">dem</span><span class="op">$</span><span class="va">product</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the same sheets, in the one form that mosaics</span></span></span>
+<span class="r-in"><span><span class="va">grids</span> <span class="op">&lt;-</span> <span class="fu">dem_request</span><span class="op">(</span><span class="va">aoi</span>, format <span class="op">=</span> <span class="st">"grid"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># the most recent LAZ point clouds only</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>

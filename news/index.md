@@ -2,6 +2,45 @@
 
 ## rgeopl (development version)
 
+- [`pointcloud_get()`](https://igorpawelec.github.io/rgeopl/reference/pointcloud_get.md)
+  ends the point cloud chain the way
+  [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md)
+  ends the raster one: it downloads what an index points at and hands
+  back a `lidR::LAScatalog`, with the coordinate system attached. That
+  last part is the reason it exists. Read straight out of the LAS
+  headers, a 2024 tile declares EPSG:2180 and the 2012 and 2014 tiles
+  carry a projection record three bytes long, which is to say empty – so
+  the index supplies what the file does not, and leaves alone what it
+  does.
+
+  `lidR` is not declared in `DESCRIPTION` at all: it left CRAN on
+  2026-06-09, archived along with `rlas` after sanitiser reports went
+  uncorrected, and naming it as a dependency – in `Suggests` or in
+  `Enhances`, both measured – makes every continuous-integration run try
+  to install it from a repository that no longer carries it. The cost is
+  one check NOTE, which is true. Both packages are still developed at
+  <https://github.com/r-lidar>, and the error message says so.
+
+- [`chm_get()`](https://igorpawelec.github.io/rgeopl/reference/chm_get.md)
+  takes a `year`. Without one it uses the coverage services as before,
+  which publish the current model and nothing else; with one it
+  assembles the model from archive tiles, which is the only route to an
+  earlier flight and the route people were walking by hand.
+  [`chm_years()`](https://igorpawelec.github.io/rgeopl/reference/chm_years.md)
+  lists the vintages an area can make a canopy model from at all – not
+  many can, because the terrain has been remapped far more often than
+  the surface.
+
+- [`dem_request()`](https://igorpawelec.github.io/rgeopl/reference/dem_request.md)
+  and
+  [`pointcloud_request()`](https://igorpawelec.github.io/rgeopl/reference/dem_request.md)
+  take a `format`. The service publishes one map sheet in several forms
+  at once – measured across three distant areas, 178 of 1028
+  sheet/product/vintage combinations come in more than one, and some in
+  three – and only `"grid"` is a raster. The others are text lists of
+  points and triangulated models, which look like extra tiles until
+  something downstream refuses them.
+
 - Tiles are joined through a GDAL virtual raster instead of being read
   into memory one by one. Measured on 15 orthophoto tiles, 586 MB, cut
   to an 800 m square: **175 s before, 0.8 s after**, with not one cell
@@ -10,15 +49,18 @@
   before cropping it, which for those orthophoto tiles meant asking the
   disk for 17 GB of uncompressed scratch space – enough to fail
   outright, which is how this was found.
+
 - The cache manifest is read once per batch and written once per batch,
   rather than once per file. It is a single table for the whole cache
   and it only grows, so the old way got slower the longer the package
   was used: a 1336-tile job spent 10 s on bookkeeping with 1500 rows in
   the manifest and **125 s with 50 000**. Both now take under a fifth of
   a second.
+
 - Single downloads stream to disk instead of being assembled in memory
   first, which is what the parallel path already did. A point cloud tile
   no longer costs its own size in RAM before it reaches the cache.
+
 - [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md)
   refuses a selection that mixes file formats, and says so. Every
   elevation sheet is published twice under one sheet number, as a grid

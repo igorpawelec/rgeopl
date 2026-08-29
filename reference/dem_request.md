@@ -11,6 +11,7 @@ and pass what survives to \[tile_download()\].
 ``` r
 dem_request(
   aoi,
+  format = NULL,
   within_aoi = TRUE,
   by_feature = NULL,
   max_active = NULL,
@@ -19,6 +20,7 @@ dem_request(
 
 pointcloud_request(
   aoi,
+  format = NULL,
   within_aoi = TRUE,
   by_feature = NULL,
   max_active = NULL,
@@ -39,6 +41,18 @@ ortho_request(
 - aoi:
 
   An area of interest: anything \[as_aoi()\] accepts.
+
+- format:
+
+  Which form of each sheet to keep. The service publishes one sheet in
+  several at once, and only one of them is a raster, so a selection left
+  unfiltered can look like two tiles where there is one. Shorthands:
+  \`"grid"\` (ARC/INFO ASCII GRID, the only form you can mosaic),
+  \`"xyz"\` (text lists of points), \`"tin"\` (triangulated models),
+  \`"cloud"\` (LAS and LAZ, both of which arrive as \`.laz\`). A service
+  label works too, for anything not covered by those. \`NULL\`, the
+  default, keeps everything, which is what you want when the question is
+  what exists.
 
 - within_aoi:
 
@@ -106,6 +120,9 @@ aoi <- as_aoi(sf::st_read(rgeopl_example("gleboczek_aoi.shp"), quiet = TRUE))
 
 dem <- dem_request(aoi)
 table(dem$year, dem$product)
+
+# the same sheets, in the one form that mosaics
+grids <- dem_request(aoi, format = "grid")
 
 # the most recent LAZ point clouds only
 library(dplyr)

@@ -9,12 +9,14 @@ arithmetic on rasters you already have.
 ``` r
 chm_get(
   aoi,
+  year = NULL,
   resolution = 1,
   datum = c("evrf2007", "kron86"),
   keep = c("chm", "all"),
   min_height = NULL,
   mask = FALSE,
   filename = NULL,
+  max_active = NULL,
   max_pixels = 2500,
   quiet = FALSE
 )
@@ -37,10 +39,20 @@ chm_build(
 
   The area to cut to when \`mask = TRUE\`. Ignored otherwise.
 
+- year:
+
+  Which survey to build the model from. \`NULL\`, the default, uses the
+  coverage services, which publish the current model and hand it back
+  already clipped. Naming a year instead assembles the model from
+  archive tiles, which is the only way to reach an earlier flight.
+  \[chm_years()\] lists the vintages an area can make one from.
+
 - resolution:
 
   Pixel size in metres. Both models are requested at the same one, which
-  is what puts them on the same grid.
+  is what puts them on the same grid. With \`year\` set this selects
+  among the pixel sizes the archive actually holds, and falls back to
+  the finest one available for that vintage.
 
 - datum:
 
@@ -71,9 +83,15 @@ chm_build(
 
   Write the canopy model here.
 
+- max_active:
+
+  How many tiles to download at once, when \`year\` sends this through
+  the archive. Ignored otherwise.
+
 - max_pixels:
 
-  Passed to \[dem_get()\].
+  Passed to \[dem_get()\]. Only the coverage route is bounded this way;
+  tiles are already cut into sheets.
 
 - quiet:
 
