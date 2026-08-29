@@ -372,6 +372,8 @@ tiles to mosaic. Point clouds are not available this way.
   : Canopy height for an area
 - [`chm_years()`](https://igorpawelec.github.io/rgeopl/reference/chm_years.md)
   : Which vintages can make a canopy height model
+- [`dem_to_datum()`](https://igorpawelec.github.io/rgeopl/reference/dem_to_datum.md)
+  : Convert an elevation model between Poland's two height systems
 - [`open_raster()`](https://igorpawelec.github.io/rgeopl/reference/open_raster.md)
   : Open a downloaded raster, with its coordinate system attached
 

@@ -1,5 +1,33 @@
 # Changelog
 
+## rgeopl (development version)
+
+- [`dem_to_datum()`](https://igorpawelec.github.io/rgeopl/reference/dem_to_datum.md)
+  converts an elevation model between Poland’s two height systems.
+  Measured over the country, an EVRF2007 height is 13.6 to 19.2 cm above
+  the KRON86 height of the same ground, so comparing terrain across the
+  2019 change of datum without converting reports about 17 cm of
+  settlement that is not there. A canopy model does not need it –
+  surface and terrain are measured in the same system and it cancels.
+
+  This exists because
+  [`sf::st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html)
+  cannot be used for it. PROJ knows the right transformation, at 0.04 m,
+  but cannot obtain the grid it needs; the operation it can instantiate
+  is `+proj=noop`, which returns the heights unchanged and relabelled.
+  What PROJ can fetch is the pair of quasi-geoid models GUGiK publishes,
+  and going up to the ellipsoid through one and back down through the
+  other gives the same answer. Checked against those two models read
+  directly: agreement to 0.0000 m.
+
+  Two things were measured rather than assumed. Given a pipeline, `sf`
+  passes coordinates in the authority axis order – latitude first for
+  EPSG:4326, northing first for EPSG:2180 – so the pipeline swaps them
+  back; a version routed through PL-1992 without that is out by up to 11
+  mm and returns nothing at all for Zakopane. And the shift is sampled
+  on a lattice rather than per cell: at the default 1000 m that costs at
+  most 0.67 mm against a 250 m lattice, on models accurate to 30 mm.
+
 ## rgeopl 0.4.0
 
 - [`pointcloud_get()`](https://igorpawelec.github.io/rgeopl/reference/pointcloud_get.md)

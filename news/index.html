@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,14 @@
       <small>Source: <a href="https://github.com/igorpawelec/rgeopl/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
+<ul><li>
+<p><code><a href="../reference/dem_to_datum.html">dem_to_datum()</a></code> converts an elevation model between Poland’s two height systems. Measured over the country, an EVRF2007 height is 13.6 to 19.2 cm above the KRON86 height of the same ground, so comparing terrain across the 2019 change of datum without converting reports about 17 cm of settlement that is not there. A canopy model does not need it – surface and terrain are measured in the same system and it cancels.</p>
+<p>This exists because <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">sf::st_transform()</a></code> cannot be used for it. PROJ knows the right transformation, at 0.04 m, but cannot obtain the grid it needs; the operation it can instantiate is <code>+proj=noop</code>, which returns the heights unchanged and relabelled. What PROJ can fetch is the pair of quasi-geoid models GUGiK publishes, and going up to the ellipsoid through one and back down through the other gives the same answer. Checked against those two models read directly: agreement to 0.0000 m.</p>
+<p>Two things were measured rather than assumed. Given a pipeline, <code>sf</code> passes coordinates in the authority axis order – latitude first for EPSG:4326, northing first for EPSG:2180 – so the pipeline swaps them back; a version routed through PL-1992 without that is out by up to 11 mm and returns nothing at all for Zakopane. And the shift is sampled on a lattice rather than per cell: at the default 1000 m that costs at most 0.67 mm against a 250 m lattice, on models accurate to 30 mm.</p>
+</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="rgeopl-040">rgeopl 0.4.0<a class="anchor" aria-label="anchor" href="#rgeopl-040"></a></h2>
 <ul><li>
