@@ -20,6 +20,13 @@ keep_touching_aoi <- function(x, aoi) {
   x[hit, , drop = FALSE]
 }
 
+# The EPSG code of a raster, as a number sf will accept. `terra` reports it as
+# a character string, and `sf::st_crs("2180")` is an error rather than a CRS.
+raster_epsg <- function(r) {
+  code <- suppressWarnings(as.integer(terra::crs(r, describe = TRUE)$code))
+  if (length(code) != 1L || is.na(code)) CRS_PL1992 else code
+}
+
 # Hand the object to whatever print method it would have had without our
 # class. NextMethod() cannot be used here: the object may have lost its sf or
 # tibble class along the way (st_drop_geometry keeps ours but drops theirs),

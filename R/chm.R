@@ -32,6 +32,9 @@
 #'   come from noise in the two models; note that this drops those cells rather
 #'   than flattening them to zero, so it does not invent ground where there was
 #'   none.
+#' @param mask Cut the result to the outline of the area rather than to its
+#'   bounding box, so a ragged stand comes back without its corners filled
+#'   in. For [chm_build()] this needs `aoi` as well.
 #' @param filename Write the canopy model here.
 #' @param max_pixels Passed to [dem_get()].
 #' @param quiet Suppress progress.
@@ -56,8 +59,8 @@
 #'   coverage services publish only the current one.
 #' @export
 chm_get <- function(aoi, resolution = 1, datum = c("evrf2007", "kron86"),
-                    keep = c("chm", "all"), min_height = NULL, filename = NULL,
-                    max_pixels = 2500, quiet = FALSE) {
+                    keep = c("chm", "all"), min_height = NULL, mask = FALSE,
+                    filename = NULL, max_pixels = 2500, quiet = FALSE) {
   datum <- match.arg(datum)
   keep <- match.arg(keep)
 
@@ -68,16 +71,19 @@ chm_get <- function(aoi, resolution = 1, datum = c("evrf2007", "kron86"),
   terrain <- dem_get(aoi, "dtm", resolution = resolution, datum = datum,
                      max_pixels = max_pixels, quiet = quiet)
 
-  chm_build(surface, terrain, keep = keep, min_height = min_height,
+  chm_build(surface, terrain, aoi = if (isTRUE(mask)) aoi else NULL,
+            keep = keep, min_height = min_height, mask = mask,
             filename = filename, quiet = quiet)
 }
 
 #' @rdname chm_get
 #' @param surface,terrain Surface and terrain models: file paths, or
 #'   `terra::SpatRaster` objects.
+#' @param aoi The area to cut to when `mask = TRUE`. Ignored otherwise.
 #' @export
-chm_build <- function(surface, terrain, keep = c("chm", "all"),
-                      min_height = NULL, filename = NULL, quiet = FALSE) {
+chm_build <- function(surface, terrain, aoi = NULL, keep = c("chm", "all"),
+                      min_height = NULL, mask = FALSE, filename = NULL,
+                      quiet = FALSE) {
   keep <- match.arg(keep)
   if (!requireNamespace("terra", quietly = TRUE)) {
     stop("Package 'terra' is needed to build a canopy model. Install it first.",
@@ -95,6 +101,14 @@ chm_build <- function(surface, terrain, keep = c("chm", "all"),
   say(quiet, "Subtracting...")
   chm <- s - t
   if (!is.null(min_height)) chm[chm < min_height] <- NA
+  if (isTRUE(mask)) {
+    if (is.null(aoi)) {
+      stop("`mask = TRUE` needs an `aoi` to cut to.", call. = FALSE)
+    }
+    geom <- aoi_geom(as_aoi(aoi), crs = raster_epsg(chm))
+    chm <- terra::mask(terra::crop(chm, terra::vect(geom)), terra::vect(geom))
+    say(quiet, "  masked to the area outline")
+  }
   names(chm) <- "canopy_height"
 
   if (!is.null(filename)) {
@@ -118,7 +132,7 @@ as_raster <- function(x) {
 # them on the way and saying nothing. For a canopy model that turns a
 # half-pixel offset into a rim of false height around every crown, so the
 # mismatch is reported instead.
-check_same_grid <- function(s, t) {
+check_same_grid <- function(s, t, what = c("surface", "terrain")) {
   problems <- character(0)
   if (!identical(dim(s)[1:2], dim(t)[1:2])) {
     problems <- c(problems, sprintf(
@@ -143,8 +157,8 @@ check_same_grid <- function(s, t) {
   }
   if (length(problems)) {
     stop(
-      "The surface and terrain models are not on the same grid:\n  - ",
-      paste(problems, collapse = "\n  - "),
+      "The ", what[1], " and ", what[2], " rasters are not on the same grid:",
+      "\n  - ", paste(problems, collapse = "\n  - "),
       "\nRequest both through chm_get(), or align them yourself with ",
       "terra::resample() before subtracting.",
       call. = FALSE

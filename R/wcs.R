@@ -65,6 +65,10 @@ WCS_COVERAGES <- list(
 #'   coordinate system attached. On by default; needs `terra`, and quietly
 #'   keeps the ASCII grid if it is not installed. Orthophotos and the KRON86
 #'   terrain model already arrive as GeoTIFF and are untouched.
+#' @param mask Cut the result to the outline of the area, not just to its
+#'   bounding box. The coverage services are addressed by a bounding box, so
+#'   without this a ragged area comes back with its corners filled in. Needs
+#'   `terra`.
 #' @param max_pixels Refuse requests larger than this many pixels per side.
 #'   Measured on the terrain service: 1000 px returns in a second or two, 2000
 #'   px in under a minute, and 4000 px does not return at all. Raise it
@@ -104,24 +108,25 @@ WCS_COVERAGES <- list(
 #' @export
 dem_get <- function(aoi, product = c("dtm", "dsm"), resolution = 1,
                     datum = c("evrf2007", "kron86"), file = NULL,
-                    convert = TRUE, max_pixels = 2500, quiet = FALSE) {
+                    convert = TRUE, mask = FALSE, max_pixels = 2500,
+                    quiet = FALSE) {
   product <- match.arg(product)
   datum <- match.arg(datum)
   wcs_get(paste(product, datum, sep = "_"), aoi, resolution, file,
-          convert, max_pixels, quiet)
+          convert, mask, max_pixels, quiet)
 }
 
 #' @rdname dem_get
 #' @export
 ortho_get <- function(aoi, product = c("standard", "high", "true"),
                       resolution = 0.25, file = NULL, convert = TRUE,
-                      max_pixels = 2500, quiet = FALSE) {
+                      mask = FALSE, max_pixels = 2500, quiet = FALSE) {
   product <- match.arg(product)
   wcs_get(paste0("ortho_", product), aoi, resolution, file, convert,
-          max_pixels, quiet)
+          mask, max_pixels, quiet)
 }
 
-wcs_get <- function(key, aoi, resolution, file, convert, max_pixels,
+wcs_get <- function(key, aoi, resolution, file, convert, mask, max_pixels,
                     quiet) {
   spec <- WCS_COVERAGES[[key]]
   if (is.null(spec)) stop("No coverage called `", key, "`.", call. = FALSE)
@@ -152,6 +157,7 @@ wcs_get <- function(key, aoi, resolution, file, convert, max_pixels,
                       label = spec[[2]], quiet = quiet)
   wcs_check(path)
   if (isTRUE(convert)) path <- to_geotiff(path, quiet = quiet)
+  if (isTRUE(mask)) path <- mask_to_aoi(path, aoi, quiet = quiet)
 
   if (!is.null(file)) {
     file.copy(path, file, overwrite = TRUE)
@@ -220,4 +226,25 @@ wcs_check <- function(path) {
     )
   }
   invisible(path)
+}
+
+# The coverage services take a bounding box, so a ragged area comes back as a
+# rectangle. Masking is done here rather than left to the caller, so that
+# `mask` means the same thing on this side as it does on `tile_mosaic()`.
+mask_to_aoi <- function(path, aoi, quiet = FALSE) {
+  if (!requireNamespace("terra", quietly = TRUE)) {
+    say(quiet, "  install 'terra' to mask to the outline; keeping the bounding box")
+    return(path)
+  }
+  out <- paste0(tools::file_path_sans_ext(path), "_masked.",
+                tools::file_ext(path))
+  if (file.exists(out)) return(out)
+
+  r <- open_raster(path)
+  geom <- aoi_geom(as_aoi(aoi), crs = raster_epsg(r))
+  r <- terra::mask(r, terra::vect(geom))
+  terra::writeRaster(r, out, overwrite = TRUE,
+                     gdal = c("COMPRESS=DEFLATE", "PREDICTOR=2"))
+  say(quiet, "  masked to the area outline")
+  out
 }

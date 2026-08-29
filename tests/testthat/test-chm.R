@@ -72,3 +72,38 @@ test_that("inputs may be rasters or paths, and nothing else", {
   expect_error(as_raster(42), "Expected a file path or a SpatRaster")
   expect_error(as_raster(list()), "Expected a file path or a SpatRaster")
 })
+
+test_that("mask needs an area to cut to", {
+  s <- grid(rep(110, 16)); t <- grid(rep(100, 16))
+  expect_error(chm_build(s, t, mask = TRUE, quiet = TRUE), "needs an `aoi`")
+})
+
+test_that("masking cuts to the outline, not the bounding box", {
+  skip_if_not_installed("terra")
+  s <- grid(rep(110, 100), nrows = 10, ncols = 10, xmax = 10, ymax = 10)
+  t <- grid(rep(100, 100), nrows = 10, ncols = 10, xmax = 10, ymax = 10)
+
+  # a circle inside the square leaves about 1 - pi/4 of it outside
+  circle <- as_aoi(sf::st_sfc(sf::st_point(c(5, 5)), crs = 2180), buffer = 5)
+  out <- chm_build(s, t, aoi = circle, mask = TRUE, quiet = TRUE)
+  share <- mean(is.na(terra::values(out)[, 1]))
+  expect_gt(share, 0.1)
+  expect_lt(share, 0.35)
+
+  # and without it nothing is dropped
+  plain <- chm_build(s, t, quiet = TRUE)
+  expect_equal(sum(is.na(terra::values(plain)[, 1])), 0L)
+})
+
+test_that("the raster CRS is read as a number sf will accept", {
+  skip_if_not_installed("terra")
+  r <- grid(rep(1, 16))
+  expect_type(raster_epsg(r), "integer")
+  expect_equal(raster_epsg(r), 2180L)
+  expect_silent(sf::st_crs(raster_epsg(r)))
+
+  # a raster with no CRS falls back rather than erroring
+  bare <- terra::rast(nrows = 2, ncols = 2, xmin = 0, xmax = 2, ymin = 0, ymax = 2)
+  terra::values(bare) <- 1:4
+  expect_equal(raster_epsg(bare), CRS_PL1992)
+})

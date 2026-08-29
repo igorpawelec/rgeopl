@@ -12,6 +12,7 @@ tile_mosaic(
   filename = NULL,
   allow_mixed = FALSE,
   overwrite = FALSE,
+  max_active = NULL,
   quiet = FALSE
 )
 }
@@ -37,6 +38,9 @@ composition, resolution or datum. Off by default, and worth leaving off:
 every one of those produces a raster that looks finished and is not.}
 
 \item{overwrite}{Passed to [tile_download()]: re-fetch tiles already cached.}
+
+\item{max_active}{Passed to [tile_download()]: how many downloads to have
+in flight at once.}
 
 \item{quiet}{Suppress progress.}
 }

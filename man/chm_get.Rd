@@ -11,6 +11,7 @@ chm_get(
   datum = c("evrf2007", "kron86"),
   keep = c("chm", "all"),
   min_height = NULL,
+  mask = FALSE,
   filename = NULL,
   max_pixels = 2500,
   quiet = FALSE
@@ -19,14 +20,16 @@ chm_get(
 chm_build(
   surface,
   terrain,
+  aoi = NULL,
   keep = c("chm", "all"),
   min_height = NULL,
+  mask = FALSE,
   filename = NULL,
   quiet = FALSE
 )
 }
 \arguments{
-\item{aoi}{An area of interest: anything [as_aoi()] accepts.}
+\item{aoi}{The area to cut to when `mask = TRUE`. Ignored otherwise.}
 
 \item{resolution}{Pixel size in metres. Both models are requested at the
 same one, which is what puts them on the same grid.}
@@ -43,6 +46,10 @@ changes nothing. Setting it to `0` removes the small negative values that
 come from noise in the two models; note that this drops those cells rather
 than flattening them to zero, so it does not invent ground where there was
 none.}
+
+\item{mask}{Cut the result to the outline of the area rather than to its
+bounding box, so a ragged stand comes back without its corners filled
+in. For [chm_build()] this needs `aoi` as well.}
 
 \item{filename}{Write the canopy model here.}
 

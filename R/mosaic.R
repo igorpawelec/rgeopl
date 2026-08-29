@@ -37,6 +37,8 @@ INDEX_CRS <- c(
 #'   composition, resolution or datum. Off by default, and worth leaving off:
 #'   every one of those produces a raster that looks finished and is not.
 #' @param overwrite Passed to [tile_download()]: re-fetch tiles already cached.
+#' @param max_active Passed to [tile_download()]: how many downloads to have
+#'   in flight at once.
 #' @param quiet Suppress progress.
 #'
 #' @return A `terra::SpatRaster`.
@@ -72,7 +74,8 @@ INDEX_CRS <- c(
 #' @export
 tile_mosaic <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
                         mask = FALSE, filename = NULL, allow_mixed = FALSE,
-                        overwrite = FALSE, quiet = FALSE) {
+                        overwrite = FALSE, max_active = NULL,
+                        quiet = FALSE) {
   crop <- match.arg(crop)
   if (!requireNamespace("terra", quietly = TRUE)) {
     stop("Package 'terra' is needed to mosaic rasters. Install it first.",
@@ -96,7 +99,8 @@ tile_mosaic <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
     on.exit(terra::terraOptions(progress = old_progress), add = TRUE)
   }
 
-  got <- tile_download(index, overwrite = overwrite, quiet = quiet)
+  got <- tile_download(index, overwrite = overwrite, max_active = max_active,
+                       quiet = quiet)
   files <- tile_raster_files(got)
   if (length(files) == 0L) {
     stop("None of the downloaded files is a raster this can join.", call. = FALSE)

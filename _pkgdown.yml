@@ -47,6 +47,8 @@ reference:
   - coverage
   - tile_download
   - tile_mosaic
+  - ortho_stack
+  - ortho_pairs
 
 - title: Ready-made rasters
   desc: >
