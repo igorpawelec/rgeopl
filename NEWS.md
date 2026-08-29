@@ -1,4 +1,4 @@
-# rgeopl (development version)
+# rgeopl 0.4.0
 
 * `pointcloud_get()` carries the point cloud chain as far as it can go without
   leaving CRAN behind: it downloads what an index points at, checks the
