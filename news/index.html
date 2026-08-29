@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.0" id="rgeopl-030">rgeopl 0.3.0<a class="anchor" aria-label="anchor" href="#rgeopl-030"></a></h2>
 <ul><li>A URL repeated inside one selection is now fetched once. Two rows pointing at the same file resolved to the same target path, so both transfers wrote to one temporary file and raced each other. Every row still gets its path back; only the transfer is shared.</li>
 <li>
 <code><a href="../reference/ortho_stack.html">ortho_stack()</a></code> joins the CIR and RGB products of one flight into a single four-band raster: near-infrared, red, green, blue. <code><a href="../reference/ortho_pairs.html">ortho_pairs()</a></code> lists the vintages that publish both, which is the question it raises. Measured before building it, on one sheet at 0.25 m: CIR’s red and green correlate with RGB’s at <strong>0.999</strong>, and its first band with nothing in RGB (0.19 to 0.47). The two products are one radiometric result cut two ways, so stacking them is sound – and blue is the only band RGB actually contributes. A vegetation index therefore wants <code>bands = "cir"</code>, which halves the download: infrared and red already sit in one file, consistent with each other.</li>
