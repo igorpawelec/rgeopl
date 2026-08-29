@@ -54,15 +54,7 @@ test_that("a point cloud file is recognised by its extension", {
 })
 
 test_that("an empty index is refused before anything is fetched", {
-  skip_if_not_installed("lidR")
-  expect_error(pointcloud_get(cloud_index(0)), "non-empty")
-})
-
-test_that("without lidR the failure says so, and says what to do instead", {
-  skip_if(requireNamespace("lidR", quietly = TRUE),
-          "lidR is installed, so this path cannot be reached")
-  expect_error(pointcloud_get(cloud_index()), "lidR")
-  expect_error(pointcloud_get(cloud_index()), "tile_download")
+  expect_error(pointcloud_get(cloud_index()[0, ]), "non-empty")
 })
 
 test_that("a tile cached under a bare name is renamed rather than skipped", {

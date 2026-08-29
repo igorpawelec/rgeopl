@@ -1,89 +1,78 @@
 # Point clouds ----------------------------------------------------------------
 #
-# Where the rest of the package hands back a raster, this hands back a
-# catalogue: `lidR` does the normalising, segmenting and metrics far better
-# than anything written here would, so the job is to get its input right and
-# then get out of the way.
+# This is where the package stops, and stopping here is deliberate. Turning
+# LAS files into a catalogue means lidR, and lidR left CRAN on 2026-06-09,
+# archived along with the rlas package it reads through. It is alive and
+# installable -- r-universe carries lidR 4.3.2 and rlas 1.9.5 with binaries --
+# but there is no way to name it in DESCRIPTION that leaves a check clean:
+# Suggests and Enhances both make dependency resolution fetch it from CRAN and
+# fail, and leaving it undeclared while calling requireNamespace() raises a
+# WARNING. All three measured.
 #
-# Getting it right means one thing in particular. The archive's own files
-# disagree about their coordinate system: read straight out of the LAS
-# headers, a 2024 tile carries a GeoKey saying EPSG:2180, while 2012 and 2014
-# tiles carry a projection record three bytes long, which is to say empty.
-# The index knows the answer for all of them, so it supplies what the file
-# does not -- and leaves alone what the file does. It is the same rule
-# `read_tile()` follows for ASCII grids, for the same reason.
+# So this delivers the files and the one thing the files do not carry, and the
+# caller spends a line on lidR. Read straight out of the LAS headers, a 2024
+# tile declares EPSG:2180 while 2012 and 2014 tiles carry a projection record
+# three bytes long, which is to say empty -- and a catalogue with no
+# coordinate system is the kind of thing that goes unnoticed until an overlay
+# lands in the wrong place.
 
-#' Point cloud tiles as a catalogue ready for lidR
+#' Point cloud tiles, downloaded and identified
 #'
-#' Downloads what an index points at and returns it as a `lidR::LAScatalog`,
-#' with the coordinate system attached. The pair to [tile_mosaic()]: that one
-#' ends the raster chain, this one ends the point cloud chain.
-#'
-#' Everything after this is `lidR`'s: `lidR::clip_roi()` to cut to a stand,
-#' `lidR::rasterize_canopy()` for a canopy model at the density the cloud
-#' actually supports, `lidR::normalize_height()`, `lidR::segment_trees()`.
+#' Fetches what an index points at, checks it is one survey, and returns the
+#' files with the coordinate system the archive says they are in. The pair to
+#' [tile_mosaic()]: that one ends the raster chain, this one ends the point
+#' cloud chain, one step short of a `lidR` catalogue.
 #'
 #' @param index A point cloud index from [pointcloud_request()], filtered to
 #'   what you want. It must describe one survey -- see below.
-#' @param filter,select Passed to `lidR::readLAScatalog()`, and worth setting
-#'   here rather than later: both are applied as the points are read, so
-#'   `filter = "-drop_class 7"` never loads the noise class at all. See
-#'   `lidR::readLAS()` for the vocabulary.
-#' @param allow_mixed Build a catalogue from more than one survey. Off by
-#'   default: two flights over one place means returns from both in the same
-#'   cloud, which inflates density, doubles the canopy surface and puts two
-#'   ground levels under it.
+#' @param allow_mixed Accept more than one survey. Off by default: two flights
+#'   over one place means returns from both in the same cloud, which inflates
+#'   density, doubles the canopy surface and puts two ground levels under it.
 #' @param overwrite,max_active,quiet Passed to [tile_download()].
 #'
-#' @return A `lidR::LAScatalog`.
+#' @return The index, keeping only rows whose file arrived, with `path` (the
+#'   cached `.laz`) and `epsg` added.
 #'
-#' @section Getting lidR:
-#' `lidR` is not on CRAN. It was archived on 2026-06-09 along with `rlas`,
-#' the package it reads LAS and LAZ files through, after sanitiser reports
-#' went uncorrected. Both are still developed at <https://github.com/r-lidar>
-#' and install from source:
+#' @section Reading them:
+#' `lidR` is the tool for what comes next, and it needs one thing the files do
+#' not provide. Older surveys leave the projection record empty, so the
+#' coordinate system has to come from the index:
 #'
 #' ```
-#' remotes::install_github("r-lidar/rlas")
-#' remotes::install_github("r-lidar/lidR")
+#' pc  <- pointcloud_get(subset(idx, year == 2024))
+#' ctg <- lidR::readLAScatalog(pc$path)
+#' sf::st_crs(ctg) <- pc$epsg[1]
 #' ```
 #'
-#' Nothing else in this package needs it, and [tile_download()] will fetch
-#' the same files for any other reader.
+#' `lidR` is not on CRAN -- it was archived on 2026-06-09 together with `rlas`
+#' -- but it is maintained and installable:
+#'
+#' ```
+#' install.packages("lidR", repos = "https://r-lidar.r-universe.dev")
+#' ```
 #'
 #' @section What it refuses, and why:
 #' The same discipline as [tile_mosaic()], for the same reason: a mixture that
 #' produces a plausible-looking result nobody would question. More than one
 #' vintage means overlapping returns from two flights; more than one vertical
-#' datum means the ground sits at two heights in one file. Both come back as a
-#' catalogue that reads perfectly and describes nothing real.
+#' datum means the ground sits at two heights in one selection.
 #'
 #' @examples
 #' \dontrun{
-#' aoi <- as_aoi(sf::st_read(rgeopl_example("gleboczek_aoi.shp"), quiet = TRUE))
+#' aoi <- as_aoi(rgeopl_example("gleboczek_aoi.shp"))
 #'
 #' idx <- pointcloud_request(aoi)
-#' recent <- subset(idx, year == max(year))
+#' pc <- pointcloud_get(subset(idx, year == max(year)))
 #'
-#' ctg <- pointcloud_get(recent, filter = "-drop_class 7")
-#' lidR::plot(ctg)
-#'
-#' # a canopy model at the density the cloud supports, rather than the 1 m
-#' # the coverage services publish
-#' chm <- lidR::rasterize_canopy(ctg, res = 0.5, algorithm = lidR::p2r())
+#' pc$path
+#' pc$epsg[1]
 #' }
 #'
 #' @seealso [pointcloud_request()] to find the tiles, [chm_get()] for a canopy
 #'   model built from the published elevation models instead.
 #' @export
-pointcloud_get <- function(index, filter = NULL, select = NULL,
-                           allow_mixed = FALSE, overwrite = FALSE,
+pointcloud_get <- function(index, allow_mixed = FALSE, overwrite = FALSE,
                            max_active = NULL, quiet = FALSE) {
-  # Before anything is fetched: a point cloud selection runs to gigabytes, and
-  # finding out afterwards that there is nothing here to read it with is the
-  # most expensive way to learn it.
-  read_catalogue <- lidR_fn("readLAScatalog")
-
   if (!is.data.frame(index) || nrow(index) == 0L) {
     stop("`index` must be a non-empty index from pointcloud_request().",
          call. = FALSE)
@@ -93,28 +82,17 @@ pointcloud_get <- function(index, filter = NULL, select = NULL,
   got <- tile_download(index, overwrite = overwrite, max_active = max_active,
                        quiet = quiet)
   got <- repair_cloud_names(got, quiet)
-  files <- tile_files(got, is_cloud_file)
-  if (length(files) == 0L) {
+
+  keep <- !is.na(got$path) & is_cloud_file(got$path)
+  if (!any(keep)) {
     stop("None of the downloaded files is a point cloud.", call. = FALSE)
   }
+  out <- got[keep, , drop = FALSE]
+  out$epsg <- index_epsg(index)
 
-  say(quiet, "Cataloguing ", length(files), " tile",
-      if (length(files) == 1L) "" else "s", "...")
-  ctg <- read_catalogue(files, filter = filter %||% "",
-                        select = select %||% "*")
-  set_cloud_crs(ctg, index_epsg(index), quiet)
-}
-
-# Older surveys leave the projection record empty, so the index fills it in.
-# A file that does say what it is keeps its own answer: the two have never
-# disagreed in anything measured here, and if they ever do, the file wins.
-set_cloud_crs <- function(ctg, epsg, quiet = FALSE) {
-  if (is.na(epsg)) return(ctg)
-  if (!is.na(sf::st_crs(ctg))) return(ctg)
-  sf::st_crs(ctg) <- epsg
-  say(quiet, "  the tiles declare no coordinate system; took EPSG:", epsg,
-      " from the index")
-  ctg
+  say(quiet, "  ", nrow(out), " tile", if (nrow(out) == 1L) "" else "s",
+      " in EPSG:", out$epsg[1], ", which the files themselves do not state")
+  out
 }
 
 # One survey, or the catalogue describes a place that never existed at any
@@ -174,32 +152,4 @@ is_las_content <- function(paths) {
     if (!file.exists(p) || dir.exists(p)) return(FALSE)
     identical(readBin(p, "raw", n = 4L), charToRaw("LASF"))
   }, logical(1), USE.NAMES = FALSE)
-}
-
-# lidR is deliberately not declared anywhere in DESCRIPTION, and this needs
-# saying because the omission looks like an oversight. It left CRAN on
-# 2026-06-09, archived along with the rlas package it depends on, after ASAN
-# reports went uncorrected; both are still developed on GitHub. Naming it in
-# Suggests makes every CI run try to install it from a repository that no
-# longer carries it, and fail there rather than here.
-#
-# Enhances does not help either, though it looks like it should: pak resolves
-# it under dependencies = "all", which is what r-lib/actions/setup-r-dependencies
-# passes, and the install fails just the same. Measured, after trying it.
-#
-# The price is one R CMD check NOTE saying this call is undeclared. That NOTE
-# is true, and the alternative -- hiding the package name behind a variable so
-# the check cannot see it -- would trade an honest note for a hidden dependency.
-
-lidR_fn <- function(fun) {
-  if (!requireNamespace("lidR", quietly = TRUE)) {
-    stop("Package 'lidR' is needed to read point clouds, and it is no longer",
-         " on CRAN: it was archived on 2026-06-09, together with 'rlas'.",
-         "\n  Install both from source:",
-         "\n    remotes::install_github(\"r-lidar/rlas\")",
-         "\n    remotes::install_github(\"r-lidar/lidR\")",
-         "\n  Or use tile_download() to fetch the files and read them elsewhere.",
-         call. = FALSE)
-  }
-  getExportedValue("lidR", fun)
 }
