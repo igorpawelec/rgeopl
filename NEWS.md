@@ -1,4 +1,4 @@
-# rgeopl (development version)
+# rgeopl 0.3.0
 
 * A URL repeated inside one selection is now fetched once. Two rows pointing at
   the same file resolved to the same target path, so both transfers wrote to one
