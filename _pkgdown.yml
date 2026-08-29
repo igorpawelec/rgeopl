@@ -59,6 +59,7 @@ reference:
   - dem_get
   - chm_get
   - chm_years
+  - dem_to_datum
   - open_raster
 
 - title: Forest units
