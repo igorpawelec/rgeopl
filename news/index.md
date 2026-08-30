@@ -2,6 +2,31 @@
 
 ## rgeopl (development version)
 
+- [`cache_clear()`](https://igorpawelec.github.io/rgeopl/reference/cache_info.md)
+  no longer forgets files it could not delete. It rewrote the manifest
+  whether or not the removal succeeded, so a file still held open –
+  which on Windows a `SpatRaster` in the session is enough to do –
+  stayed on disk while the manifest dropped its row.
+  [`cache_info()`](https://igorpawelec.github.io/rgeopl/reference/cache_info.md)
+  then reported an empty cache with a file sitting in it, and nothing
+  would ever clean it up or reuse it. Only rows whose file has actually
+  gone are dropped now, and what resisted is named in a warning.
+
+- The BDL side checks that it got everything, which until now only the
+  GUGiK side did. `oapif_properties()` and `oapif_catalogue()` asked for
+  a fixed number of records and returned whatever came back: today that
+  is 5259 forest ranges against a ceiling of 10 000, but a collection
+  growing past its ceiling would have been truncated in silence – which
+  is the failure this package was written to fix, and it was in our own
+  code.
+
+- A collection whose service does not report how many features it holds
+  is now paged until a page comes back short, rather than crashing. The
+  missing count was handled as `NA` in three places and then passed to
+  [`seq_len()`](https://rdrr.io/r/base/seq.html), which ends in
+  `argument must be coercible to non-negative integer`. Some services
+  really do omit it – the GDOS one does.
+
 - [`dem_to_datum()`](https://igorpawelec.github.io/rgeopl/reference/dem_to_datum.md)
   converts an elevation model between Poland’s two height systems.
   Measured over the country, an EVRF2007 height is 13.6 to 19.2 cm above
