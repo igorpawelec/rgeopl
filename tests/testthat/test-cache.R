@@ -174,11 +174,13 @@ test_that("a file with no extension takes the one its URL states", {
 test_that("a file that will not go away keeps its place in the manifest", {
   local_cache()
   gone <- put("gone.tif")
-  # A directory cannot be removed by file.remove() on any platform, which is
-  # the portable stand-in for the real case: a raster still open in the
-  # session, which Windows refuses to delete.
+  # Standing in for the real case -- a raster still open in the session, which
+  # Windows refuses to delete -- with something no platform will remove. It has
+  # to be a *non-empty* directory: file.remove() calls remove(3), which on
+  # Unix happily rmdir()s an empty one while Windows refuses.
   stuck <- file.path("files", "dem", "stuck.tif")
   dir.create(file.path(cache_dir(), stuck), recursive = TRUE)
+  writeBin(as.raw(1), file.path(cache_dir(), stuck, "inside"))
 
   cache_record_many(c("https://a", "https://b"), c(gone, stuck), group = "dem")
   expect_warning(cache_clear(confirm = FALSE), "could not be removed")
