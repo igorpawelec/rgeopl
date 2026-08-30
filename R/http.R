@@ -127,20 +127,6 @@ gp_text <- function(url, params = list(), method = "GET",
   out
 }
 
-#' @keywords internal
-#' @noRd
-gp_xml <- function(url, params = list(), cache = TRUE, ttl = index_ttl()) {
-  key <- cache_key("xml", url, params)
-  if (cache) {
-    hit <- meta_get(key, ttl)
-    if (!is.null(hit)) return(xml2::read_xml(hit))
-  }
-  resp <- gp_perform(gp_req(url, params), "index query")
-  txt <- httr2::resp_body_string(resp)
-  if (cache) meta_set(key, txt)
-  xml2::read_xml(txt)
-}
-
 # Many files at once. The concurrency is in curl, not in R: the requests fly in
 # parallel but every cache decision and every manifest write still happens on
 # one thread, in order, which is what keeps the manifest honest.

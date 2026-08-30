@@ -25,8 +25,7 @@ Imports:
     sf,
     stats,
     tools,
-    utils,
-    xml2
+    utils
 Suggests:
     knitr,
     rmarkdown,

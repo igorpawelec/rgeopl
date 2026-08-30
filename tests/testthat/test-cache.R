@@ -1,10 +1,3 @@
-local_cache <- function(env = parent.frame()) {
-  dir <- file.path(tempdir(), paste0("rgeopl-test-", as.integer(runif(1, 1, 1e9))))
-  withr::local_options(list(rgeopl.cache_dir = dir), .local_envir = env)
-  withr::defer(unlink(dir, recursive = TRUE), envir = env)
-  cache_dir()
-}
-
 test_that("the cache root is created with both stores", {
   root <- local_cache()
   expect_true(dir.exists(file.path(root, "meta")))
@@ -104,13 +97,6 @@ test_that("byte counts are formatted for humans", {
 
 # Batched bookkeeping ---------------------------------------------------------
 
-put <- function(name, bytes = 10) {
-  rel <- file.path("files", "dem", name)
-  abs <- file.path(cache_dir(), rel)
-  dir.create(dirname(abs), recursive = TRUE, showWarnings = FALSE)
-  writeBin(as.raw(rep(1, bytes)), abs)
-  rel
-}
 
 test_that("a batch of URLs is answered in order, hits and misses alike", {
   local_cache()

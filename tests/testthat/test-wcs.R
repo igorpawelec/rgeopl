@@ -109,3 +109,18 @@ test_that("an existing conversion is reused rather than rewritten", {
   expect_equal(to_geotiff(asc, quiet = TRUE), tif)
   expect_equal(file.mtime(tif), stamp)
 })
+
+test_that("`file` was renamed to `filename` and still works meanwhile", {
+  expect_equal(names(formals(dem_get))[5], "filename")
+  expect_equal(names(formals(ortho_get))[4], "filename")
+
+  expect_null(renamed_file(NULL, NULL))
+  expect_equal(renamed_file("a.tif", NULL), "a.tif")
+
+  expect_warning(out <- renamed_file(NULL, "old.tif"), "renamed to `filename`")
+  expect_equal(out, "old.tif")
+
+  # given both, the new name wins and the old one is still remarked on
+  expect_warning(got <- renamed_file("new.tif", "old.tif"), "renamed")
+  expect_equal(got, "new.tif")
+})

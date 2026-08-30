@@ -10,22 +10,24 @@ dem_get(
   product = c("dtm", "dsm"),
   resolution = 1,
   datum = c("evrf2007", "kron86"),
-  file = NULL,
+  filename = NULL,
   convert = TRUE,
   mask = FALSE,
   max_pixels = 2500,
-  quiet = FALSE
+  quiet = FALSE,
+  file = NULL
 )
 
 ortho_get(
   aoi,
   product = c("standard", "high", "true"),
   resolution = 0.25,
-  file = NULL,
+  filename = NULL,
   convert = TRUE,
   mask = FALSE,
   max_pixels = 2500,
-  quiet = FALSE
+  quiet = FALSE,
+  file = NULL
 )
 }
 \arguments{
@@ -45,8 +47,8 @@ same year is a canopy height model. For [ortho_get()]: `"standard"`,
 current national system) or `"kron86"` (the older one). Ignored for
 orthophotos.}
 
-\item{file}{Where to save it. `NULL` puts it in the cache and returns that
-path.}
+\item{filename}{Where to save it. `NULL` puts it in the cache and returns
+that path.}
 
 \item{convert}{Convert an ASCII grid to GeoTIFF after downloading, which is
 lossless and strictly better: about a quarter of the size, and with the
@@ -65,6 +67,10 @@ px in under a minute, and 4000 px does not return at all. Raise it
 knowing that.}
 
 \item{quiet}{Suppress progress messages.}
+
+\item{file}{Former name of `filename`, kept working for now. Everything
+else in the package says `filename`, and one idea should not answer to
+two words.}
 }
 \value{
 The path to the raster: a GeoTIFF unless `convert = FALSE` left an

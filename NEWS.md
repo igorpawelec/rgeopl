@@ -1,5 +1,22 @@
 # rgeopl (development version)
 
+* `dem_get()` and `ortho_get()` write to `filename`, which is what every other
+  function in the package calls that argument. `file` keeps working and says
+  it has been renamed; it will go in a later release. Positional calls are
+  unaffected -- the new name sits where the old one did.
+* Tests reach the functions people actually type. Fourteen of the exported
+  functions had no test calling them at all, which is unavoidable for the ones
+  that need the network but was not for `is_aoi()`, `aoi_geom()`,
+  `cache_info()`, `cache_set_dir()` and `plot_units()`. When `format` was
+  added to `dem_request()` and every later argument shifted one place, nothing
+  in the suite noticed.
+* `gp_xml()` is gone, and `xml2` with it. It was the one function in the
+  package nobody called, left over from reading coverage descriptions by
+  hand, and it was the only reason for that dependency.
+* The help page shared by `dem_request()`, `pointcloud_request()` and
+  `ortho_request()` now says that the last of them takes no `format`: its
+  index has no such column, because orthophoto sheets are published one way.
+
 * `cache_clear()` no longer forgets files it could not delete. It rewrote the
   manifest whether or not the removal succeeded, so a file still held open --
   which on Windows a `SpatRaster` in the session is enough to do -- stayed on

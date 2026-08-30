@@ -58,8 +58,11 @@ WCS_COVERAGES <- list(
 #' @param datum Vertical reference system for elevation: `"evrf2007"` (the
 #'   current national system) or `"kron86"` (the older one). Ignored for
 #'   orthophotos.
-#' @param file Where to save it. `NULL` puts it in the cache and returns that
-#'   path.
+#' @param filename Where to save it. `NULL` puts it in the cache and returns
+#'   that path.
+#' @param file Former name of `filename`, kept working for now. Everything
+#'   else in the package says `filename`, and one idea should not answer to
+#'   two words.
 #' @param convert Convert an ASCII grid to GeoTIFF after downloading, which is
 #'   lossless and strictly better: about a quarter of the size, and with the
 #'   coordinate system attached. On by default; needs `terra`, and quietly
@@ -107,26 +110,39 @@ WCS_COVERAGES <- list(
 #'
 #' @export
 dem_get <- function(aoi, product = c("dtm", "dsm"), resolution = 1,
-                    datum = c("evrf2007", "kron86"), file = NULL,
+                    datum = c("evrf2007", "kron86"), filename = NULL,
                     convert = TRUE, mask = FALSE, max_pixels = 2500,
-                    quiet = FALSE) {
+                    quiet = FALSE, file = NULL) {
   product <- match.arg(product)
   datum <- match.arg(datum)
-  wcs_get(paste(product, datum, sep = "_"), aoi, resolution, file,
-          convert, mask, max_pixels, quiet)
+  wcs_get(paste(product, datum, sep = "_"), aoi, resolution,
+          renamed_file(filename, file), convert, mask, max_pixels, quiet)
 }
 
 #' @rdname dem_get
 #' @export
 ortho_get <- function(aoi, product = c("standard", "high", "true"),
-                      resolution = 0.25, file = NULL, convert = TRUE,
-                      mask = FALSE, max_pixels = 2500, quiet = FALSE) {
+                      resolution = 0.25, filename = NULL, convert = TRUE,
+                      mask = FALSE, max_pixels = 2500, quiet = FALSE,
+                      file = NULL) {
   product <- match.arg(product)
-  wcs_get(paste0("ortho_", product), aoi, resolution, file, convert,
-          mask, max_pixels, quiet)
+  wcs_get(paste0("ortho_", product), aoi, resolution,
+          renamed_file(filename, file), convert, mask, max_pixels, quiet)
 }
 
-wcs_get <- function(key, aoi, resolution, file, convert, mask, max_pixels,
+# `file` was the name these two used until 0.5.0. It keeps working, with a
+# word about it, because silently ignoring an argument someone passed is worse
+# than the inconsistency it replaces.
+renamed_file <- function(filename, file) {
+  if (is.null(file)) return(filename)
+  rlang::warn(c(
+    "`file` has been renamed to `filename`.",
+    i = "It still works for now, and will be removed in a later release."
+  ))
+  filename %||% file
+}
+
+wcs_get <- function(key, aoi, resolution, filename, convert, mask, max_pixels,
                     quiet) {
   spec <- WCS_COVERAGES[[key]]
   if (is.null(spec)) stop("No coverage called `", key, "`.", call. = FALSE)
@@ -159,9 +175,9 @@ wcs_get <- function(key, aoi, resolution, file, convert, mask, max_pixels,
   if (isTRUE(convert)) path <- to_geotiff(path, quiet = quiet)
   if (isTRUE(mask)) path <- mask_to_aoi(path, aoi, quiet = quiet)
 
-  if (!is.null(file)) {
-    file.copy(path, file, overwrite = TRUE)
-    return(file)
+  if (!is.null(filename)) {
+    file.copy(path, filename, overwrite = TRUE)
+    return(filename)
   }
   path
 }

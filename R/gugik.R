@@ -62,6 +62,8 @@ ORTHO_FIELDS <- c(
 #'   `"cloud"` (LAS and LAZ, both of which arrive as `.laz`). A service label
 #'   works too, for anything not covered by those. `NULL`, the default, keeps
 #'   everything, which is what you want when the question is what exists.
+#'   [ortho_request()] has no such argument: orthophoto sheets are published
+#'   one way, and that index carries no `format` column at all.
 #' @param within_aoi Keep only tiles that actually meet the area. The service
 #'   filters by bounding box alone, so for anything other than a rectangle it
 #'   also returns tiles that lie beside the area. Set `FALSE` for the raw
