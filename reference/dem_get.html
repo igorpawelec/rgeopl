@@ -54,22 +54,24 @@ hands back exactly the extent you ask for.</p>
 <span>  product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dtm"</span>, <span class="st">"dsm"</span><span class="op">)</span>,</span>
 <span>  resolution <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  datum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"evrf2007"</span>, <span class="st">"kron86"</span><span class="op">)</span>,</span>
-<span>  file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  convert <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  max_pixels <span class="op">=</span> <span class="fl">2500</span>,</span>
-<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  file <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ortho_get</span><span class="op">(</span></span>
 <span>  <span class="va">aoi</span>,</span>
 <span>  product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"standard"</span>, <span class="st">"high"</span>, <span class="st">"true"</span><span class="op">)</span>,</span>
 <span>  resolution <span class="op">=</span> <span class="fl">0.25</span>,</span>
-<span>  file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  convert <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  max_pixels <span class="op">=</span> <span class="fl">2500</span>,</span>
-<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  file <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -101,9 +103,9 @@ current national system) or `"kron86"` (the older one). Ignored for
 orthophotos.</p></dd>
 
 
-<dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
-<dd><p>Where to save it. `NULL` puts it in the cache and returns that
-path.</p></dd>
+<dt id="arg-filename">filename<a class="anchor" aria-label="anchor" href="#arg-filename"></a></dt>
+<dd><p>Where to save it. `NULL` puts it in the cache and returns
+that path.</p></dd>
 
 
 <dt id="arg-convert">convert<a class="anchor" aria-label="anchor" href="#arg-convert"></a></dt>
@@ -130,6 +132,12 @@ knowing that.</p></dd>
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
 <dd><p>Suppress progress messages.</p></dd>
+
+
+<dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
+<dd><p>Former name of `filename`, kept working for now. Everything
+else in the package says `filename`, and one idea should not answer to
+two words.</p></dd>
 
 </dl></div>
     <div class="section level2">

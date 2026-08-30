@@ -52,7 +52,9 @@ ortho_request(
   \`"cloud"\` (LAS and LAZ, both of which arrive as \`.laz\`). A service
   label works too, for anything not covered by those. \`NULL\`, the
   default, keeps everything, which is what you want when the question is
-  what exists.
+  what exists. \[ortho_request()\] has no such argument: orthophoto
+  sheets are published one way, and that index carries no \`format\`
+  column at all.
 
 - within_aoi:
 

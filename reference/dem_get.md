@@ -12,22 +12,24 @@ dem_get(
   product = c("dtm", "dsm"),
   resolution = 1,
   datum = c("evrf2007", "kron86"),
-  file = NULL,
+  filename = NULL,
   convert = TRUE,
   mask = FALSE,
   max_pixels = 2500,
-  quiet = FALSE
+  quiet = FALSE,
+  file = NULL
 )
 
 ortho_get(
   aoi,
   product = c("standard", "high", "true"),
   resolution = 0.25,
-  file = NULL,
+  filename = NULL,
   convert = TRUE,
   mask = FALSE,
   max_pixels = 2500,
-  quiet = FALSE
+  quiet = FALSE,
+  file = NULL
 )
 ```
 
@@ -58,7 +60,7 @@ ortho_get(
   national system) or \`"kron86"\` (the older one). Ignored for
   orthophotos.
 
-- file:
+- filename:
 
   Where to save it. \`NULL\` puts it in the cache and returns that path.
 
@@ -86,6 +88,12 @@ ortho_get(
 - quiet:
 
   Suppress progress messages.
+
+- file:
+
+  Former name of \`filename\`, kept working for now. Everything else in
+  the package says \`filename\`, and one idea should not answer to two
+  words.
 
 ## Value
 

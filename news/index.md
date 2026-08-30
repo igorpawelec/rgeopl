@@ -2,6 +2,40 @@
 
 ## rgeopl (development version)
 
+- [`dem_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
+  and
+  [`ortho_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
+  write to `filename`, which is what every other function in the package
+  calls that argument. `file` keeps working and says it has been
+  renamed; it will go in a later release. Positional calls are
+  unaffected – the new name sits where the old one did.
+
+- Tests reach the functions people actually type. Fourteen of the
+  exported functions had no test calling them at all, which is
+  unavoidable for the ones that need the network but was not for
+  [`is_aoi()`](https://igorpawelec.github.io/rgeopl/reference/as_aoi.md),
+  [`aoi_geom()`](https://igorpawelec.github.io/rgeopl/reference/aoi_geom.md),
+  [`cache_info()`](https://igorpawelec.github.io/rgeopl/reference/cache_info.md),
+  [`cache_set_dir()`](https://igorpawelec.github.io/rgeopl/reference/cache_dir.md)
+  and
+  [`plot_units()`](https://igorpawelec.github.io/rgeopl/reference/plot_units.md).
+  When `format` was added to
+  [`dem_request()`](https://igorpawelec.github.io/rgeopl/reference/dem_request.md)
+  and every later argument shifted one place, nothing in the suite
+  noticed.
+
+- `gp_xml()` is gone, and `xml2` with it. It was the one function in the
+  package nobody called, left over from reading coverage descriptions by
+  hand, and it was the only reason for that dependency.
+
+- The help page shared by
+  [`dem_request()`](https://igorpawelec.github.io/rgeopl/reference/dem_request.md),
+  [`pointcloud_request()`](https://igorpawelec.github.io/rgeopl/reference/dem_request.md)
+  and
+  [`ortho_request()`](https://igorpawelec.github.io/rgeopl/reference/dem_request.md)
+  now says that the last of them takes no `format`: its index has no
+  such column, because orthophoto sheets are published one way.
+
 - [`cache_clear()`](https://igorpawelec.github.io/rgeopl/reference/cache_info.md)
   no longer forgets files it could not delete. It rewrote the manifest
   whether or not the removal succeeded, so a file still held open –
