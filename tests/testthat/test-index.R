@@ -226,3 +226,13 @@ test_that("an index with no format column is left alone", {
                     stringsAsFactors = FALSE)
   expect_equal(select_format(idx, "grid", "orthophoto"), idx)
 })
+
+test_that("a total the service did not report cannot fail a completeness check", {
+  x <- data.frame(a = 1:3)
+  expect_silent(check_complete(x, NA_integer_))
+  expect_equal(check_complete(x, NA_integer_), x)
+  expect_silent(check_complete(x, integer(0)))
+
+  # and a real shortfall is still reported
+  expect_warning(check_complete(x, 10L), "assembled 3")
+})

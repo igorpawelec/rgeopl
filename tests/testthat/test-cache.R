@@ -170,3 +170,37 @@ test_that("a file with no extension takes the one its URL states", {
   # and a dotted path segment is not an extension
   expect_equal(with_url_extension("tile", "https://x/v1.2.3/download"), "tile")
 })
+
+test_that("a file that will not go away keeps its place in the manifest", {
+  local_cache()
+  gone <- put("gone.tif")
+  # A directory cannot be removed by file.remove() on any platform, which is
+  # the portable stand-in for the real case: a raster still open in the
+  # session, which Windows refuses to delete.
+  stuck <- file.path("files", "dem", "stuck.tif")
+  dir.create(file.path(cache_dir(), stuck), recursive = TRUE)
+
+  cache_record_many(c("https://a", "https://b"), c(gone, stuck), group = "dem")
+  expect_warning(cache_clear(confirm = FALSE), "could not be removed")
+
+  m <- read_manifest()
+  expect_equal(nrow(m), 1L)
+  expect_equal(m$url, "https://b")
+  expect_true(file.exists(file.path(cache_dir(), stuck)))
+
+  # what survived is still findable, rather than an orphan nothing knows about
+  expect_equal(nrow(cache_info()), 1L)
+})
+
+test_that("a file deleted behind the package's back is neither counted nor served", {
+  local_cache()
+  rel <- put("a.tif")
+  cache_record_many("https://a", rel, group = "dem")
+  expect_false(is.na(cache_lookup_many("https://a")))
+
+  unlink(file.path(cache_dir(), rel))
+  # the row lingers in the manifest, which is harmless: everything that reads
+  # it checks the file is really there
+  expect_true(is.na(cache_lookup_many("https://a")))
+  expect_equal(nrow(cache_info()), 0L)
+})

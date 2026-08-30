@@ -21,6 +21,21 @@ oapif_collections <- function(base) {
   out$collections$id
 }
 
+# What the service says it holds, without downloading any of it. The probe is
+# built from scratch rather than by adding `limit = 1` to an existing parameter
+# list: two `limit` values in one query string and the server honours the
+# first, which would download a full page of geometry to count it.
+#' @keywords internal
+#' @noRd
+oapif_count <- function(base, collection, bbox = NULL) {
+  params <- drop_null(list(limit = 1L, skipGeometry = "true", f = "json",
+                           bbox = if (is.null(bbox)) NULL else {
+                             paste(bbox, collapse = ",")
+                           }))
+  out <- gp_json(oapif_url(base, collection), params)
+  as.integer(out$numberMatched %||% NA)
+}
+
 # Attributes only, no geometry. Used for routing and lookups, where dragging
 # the polygons across the wire would cost seconds for nothing.
 #' @keywords internal
@@ -31,7 +46,10 @@ oapif_properties <- function(base, collection, bbox = NULL, limit = 1000L) {
   out <- gp_json(oapif_url(base, collection), params)
   props <- out$features$properties
   if (is.null(props) || nrow(props) == 0L) return(NULL)
-  props
+  # `limit` is a ceiling the caller picked, not a promise from the service.
+  # Silently returning the first thousand of something larger is the failure
+  # this package was written to avoid; it should not go unremarked here.
+  check_complete(props, oapif_count(base, collection, bbox))
 }
 
 # Attributes plus the feature id, so a single unit can be fetched later
@@ -45,7 +63,7 @@ oapif_catalogue <- function(base, collection, limit = 10000L) {
   props <- out$features$properties
   if (is.null(props) || nrow(props) == 0L) return(NULL)
   props$.id <- out$features$id
-  props
+  check_complete(props, oapif_count(base, collection))
 }
 
 # One feature, by id, with its geometry.
@@ -65,14 +83,7 @@ oapif_items <- function(base, collection, bbox = NULL, page = OAPIF_PAGE,
   bbox_str <- if (is.null(bbox)) NULL else paste(bbox, collapse = ",")
   params <- drop_null(list(limit = page, bbox = bbox_str, f = "json"))
 
-  # Build the counting probe from scratch. Appending `limit = 1` to `params`
-  # would put two `limit` values in the query string; the server honours the
-  # first, so the probe would quietly download a full page of geometry --
-  # measured at 370 MB on the national forest-inspectorate collection.
-  probe <- drop_null(list(limit = 1L, bbox = bbox_str, skipGeometry = "true",
-                          f = "json"))
-  first <- gp_json(url, probe)
-  n <- as.integer(first$numberMatched %||% NA)
+  n <- oapif_count(base, collection, bbox_str)
 
   if (!is.na(n) && n == 0L) return(NULL)
   if (!is.na(n) && n > max_features) {
@@ -94,20 +105,36 @@ oapif_items <- function(base, collection, bbox = NULL, page = OAPIF_PAGE,
   # that trusts those links stops at 10 000 features and never learns that
   # thousands are missing. The totals from the first request are authoritative;
   # keep asking until they are accounted for.
-  pages <- ceiling(n / page)
+  # With a total to work from, the number of pages is known. Without one --
+  # some services simply do not report it -- the only end marker left is a
+  # page that comes back short, so keep asking until one does.
+  pages <- if (is.na(n)) Inf else ceiling(n / page)
   bar <- pb_new(
-    pages, quiet = quiet,
+    if (is.finite(pages)) pages else NA, quiet = quiet,
     format = paste("  {cli::pb_current}/{cli::pb_total} pages",
                    "{cli::pb_bar} {cli::pb_percent} {cli::pb_eta_str}")
   )
   on.exit(pb_done(bar), add = TRUE)
 
-  parts <- vector("list", pages)
-  for (i in seq_len(pages)) {
+  parts <- list()
+  i <- 0L
+  while (i < pages) {
+    i <- i + 1L
     pb_tick(bar)
     got <- gp_text(url, c(params, list(offset = (i - 1L) * page)))
-    parts[[i]] <- suppressWarnings(sf::st_read(got, quiet = TRUE))
-    if (nrow(parts[[i]]) == 0L) break
+    part <- suppressWarnings(sf::st_read(got, quiet = TRUE))
+    if (nrow(part) == 0L) break
+    parts[[i]] <- part
+    if (!is.finite(pages)) {
+      if (nrow(part) < page) break
+      if (i * page >= max_features) {
+        rlang::warn(c(
+          paste0("Stopped at ", i * page, " features, the `max_features` ",
+                 "limit, and the service did not say how many there are."),
+          i = "Narrow the area, or raise `max_features` deliberately."))
+        break
+      }
+    }
   }
 
   out <- do.call(rbind, parts[!vapply(parts, is.null, logical(1))])

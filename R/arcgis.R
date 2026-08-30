@@ -203,6 +203,8 @@ arcgis_query <- function(service, layer, aoi, fields, epsg = CRS_PL1992,
 # The whole point of the id-based fetch is that the count is known in advance.
 # If the assembled table is short, say so instead of returning it silently.
 check_complete <- function(x, expected) {
+  # A service that does not report a total cannot be checked against one.
+  if (length(expected) != 1L || is.na(expected)) return(x)
   if (nrow(x) < expected) {
     rlang::warn(c(
       paste0("Expected ", expected, " index records but assembled ", nrow(x), "."),

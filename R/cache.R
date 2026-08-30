@@ -157,8 +157,29 @@ cache_clear <- function(group = NULL, older_than = NULL, meta = FALSE,
     }
   }
 
-  removed <- file.remove(file.path(cache_dir(), m$path[drop]))
-  write_manifest(m[!drop, , drop = FALSE])
+  targets <- which(drop)
+  paths <- file.path(cache_dir(), m$path[targets])
+  removed <- suppressWarnings(file.remove(paths))
+
+  # Forget only what is no longer on disk. A file that is still open refuses to
+  # be removed on Windows -- a SpatRaster held in the session is enough -- and
+  # dropping its row anyway would leave a file that the manifest does not know
+  # about, cache_info() does not count, and nothing will ever clean up or
+  # reuse. Rows whose file was already gone are forgotten either way.
+  stayed <- file.exists(paths)
+  keep <- rep(TRUE, nrow(m))
+  keep[targets[!stayed]] <- FALSE
+  write_manifest(m[keep, , drop = FALSE])
+
+  if (any(stayed)) {
+    rlang::warn(c(
+      paste0(sum(stayed), " file", if (sum(stayed) == 1L) "" else "s",
+             " could not be removed and ", if (sum(stayed) == 1L) "is" else "are",
+             " still in the cache."),
+      i = "Something still has them open; close it and clear again.",
+      i = paste0("First: ", basename(paths[stayed][1]))
+    ))
+  }
 
   if (meta) {
     metas <- list.files(file.path(cache_dir(), "meta"), full.names = TRUE)
