@@ -1,4 +1,4 @@
-# rgeopl (development version)
+# rgeopl 0.6.0
 
 * `protected_areas()` answers the question a stand outline raises immediately:
   whether anything protected lies under it. Natura 2000 under both directives,
