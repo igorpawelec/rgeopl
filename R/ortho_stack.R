@@ -29,6 +29,11 @@
 #'   [ortho_pairs()] for what is on offer.
 #' @param filename Write the result here.
 #' @param overwrite,max_active,quiet Passed through to the download.
+#' @param gdal GDAL creation options for the written file, as a character
+#'   vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+#'   the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
+#'   replace that wholesale -- for a Cloud Optimized GeoTIFF, say, or to turn
+#'   compression off.
 #'
 #' @return A `terra::SpatRaster` whose layers are named `NIR`, `R`, `G` and `B`,
 #'   or `NIR`, `R`, `G` with `bands = "cir"`.
@@ -58,7 +63,7 @@
 ortho_stack <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
                         mask = FALSE, bands = c("nrgb", "cir"), year = NULL,
                         resolution = NULL, filename = NULL, overwrite = FALSE,
-                        max_active = NULL, quiet = FALSE) {
+                        max_active = NULL, quiet = FALSE, gdal = NULL) {
   crop <- match.arg(crop)
   bands <- match.arg(bands)
   if (!requireNamespace("terra", quietly = TRUE)) {
@@ -95,7 +100,8 @@ ortho_stack <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
 
   if (!is.null(filename)) {
     say(quiet, "  writing ", basename(filename))
-    out <- terra::writeRaster(out, filename, overwrite = TRUE)
+    out <- terra::writeRaster(out, filename, overwrite = TRUE,
+                              gdal = raster_gdal(out, gdal))
   }
   out
 }

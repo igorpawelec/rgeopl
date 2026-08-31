@@ -13,7 +13,8 @@ tile_mosaic(
   allow_mixed = FALSE,
   overwrite = FALSE,
   max_active = NULL,
-  quiet = FALSE
+  quiet = FALSE,
+  gdal = NULL
 )
 }
 \arguments{
@@ -43,6 +44,12 @@ every one of those produces a raster that looks finished and is not.}
 in flight at once.}
 
 \item{quiet}{Suppress progress.}
+
+\item{gdal}{GDAL creation options for the written file, as a character
+vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
+replace that wholesale -- for a Cloud Optimized GeoTIFF, say, or to turn
+compression off.}
 }
 \value{
 A `terra::SpatRaster`.

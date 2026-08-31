@@ -54,6 +54,11 @@ GEOID_GRIDS <- c(
 #'   models that are themselves accurate to 30 mm.
 #' @param filename Write the result here.
 #' @param quiet Suppress progress.
+#' @param gdal GDAL creation options for the written file, as a character
+#'   vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+#'   the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
+#'   replace that wholesale -- for a Cloud Optimized GeoTIFF, say, or to turn
+#'   compression off.
 #'
 #' @return A `terra::SpatRaster` of the same geometry as `x`, with heights in
 #'   the `to` system.
@@ -86,7 +91,7 @@ GEOID_GRIDS <- c(
 #' @export
 dem_to_datum <- function(x, from = c("kron86", "evrf2007"),
                          to = c("evrf2007", "kron86"), step = 1000,
-                         filename = NULL, quiet = FALSE) {
+                         filename = NULL, quiet = FALSE, gdal = NULL) {
   from <- match.arg(from)
   to <- match.arg(to)
   if (identical(from, to)) {
@@ -114,7 +119,8 @@ dem_to_datum <- function(x, from = c("kron86", "evrf2007"),
 
   if (!is.null(filename)) {
     say(quiet, "  writing ", basename(filename))
-    out <- terra::writeRaster(out, filename, overwrite = TRUE)
+    out <- terra::writeRaster(out, filename, overwrite = TRUE,
+                              gdal = raster_gdal(out, gdal))
   }
   out
 }

@@ -15,7 +15,8 @@ ortho_stack(
   filename = NULL,
   overwrite = FALSE,
   max_active = NULL,
-  quiet = FALSE
+  quiet = FALSE,
+  gdal = NULL
 )
 }
 \arguments{
@@ -36,6 +37,12 @@ vintage that publishes both products, at its finest pixel. See
 \item{filename}{Write the result here.}
 
 \item{overwrite, max_active, quiet}{Passed through to the download.}
+
+\item{gdal}{GDAL creation options for the written file, as a character
+vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
+replace that wholesale -- for a Cloud Optimized GeoTIFF, say, or to turn
+compression off.}
 }
 \value{
 A `terra::SpatRaster` whose layers are named `NIR`, `R`, `G` and `B`,

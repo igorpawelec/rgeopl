@@ -48,6 +48,11 @@
 #' @param max_pixels Passed to [dem_get()]. Only the coverage route is
 #'   bounded this way; tiles are already cut into sheets.
 #' @param quiet Suppress progress.
+#' @param gdal GDAL creation options for the written file, as a character
+#'   vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+#'   the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
+#'   replace that wholesale -- for a Cloud Optimized GeoTIFF, say, or to turn
+#'   compression off.
 #'
 #' @return A `terra::SpatRaster`, or with `keep = "all"` a list of three named
 #'   `chm`, `surface` and `terrain`.
@@ -72,7 +77,7 @@ chm_get <- function(aoi, year = NULL, resolution = 1,
                     datum = c("evrf2007", "kron86"),
                     keep = c("chm", "all"), min_height = NULL, mask = FALSE,
                     filename = NULL, max_active = NULL, max_pixels = 2500,
-                    quiet = FALSE) {
+                    quiet = FALSE, gdal = NULL) {
   datum <- match.arg(datum)
   keep <- match.arg(keep)
 
@@ -85,7 +90,7 @@ chm_get <- function(aoi, year = NULL, resolution = 1,
   chm_build(parts$surface, parts$terrain,
             aoi = if (isTRUE(mask)) aoi else NULL,
             keep = keep, min_height = min_height, mask = mask,
-            filename = filename, quiet = quiet)
+            filename = filename, quiet = quiet, gdal = gdal)
 }
 
 # The current model, straight from the coverage services, already clipped.
@@ -157,7 +162,7 @@ both_products <- function(index) {
 #' @export
 chm_build <- function(surface, terrain, aoi = NULL, keep = c("chm", "all"),
                       min_height = NULL, mask = FALSE, filename = NULL,
-                      quiet = FALSE) {
+                      quiet = FALSE, gdal = NULL) {
   keep <- match.arg(keep)
   if (!requireNamespace("terra", quietly = TRUE)) {
     stop("Package 'terra' is needed to build a canopy model. Install it first.",
@@ -187,7 +192,8 @@ chm_build <- function(surface, terrain, aoi = NULL, keep = c("chm", "all"),
 
   if (!is.null(filename)) {
     say(quiet, "  writing ", basename(filename))
-    chm <- terra::writeRaster(chm, filename, overwrite = TRUE)
+    chm <- terra::writeRaster(chm, filename, overwrite = TRUE,
+                              gdal = raster_gdal(chm, gdal))
   }
   if (keep == "all") {
     return(list(chm = chm, surface = s, terrain = t))

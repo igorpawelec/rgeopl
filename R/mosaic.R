@@ -40,6 +40,11 @@ INDEX_CRS <- c(
 #' @param max_active Passed to [tile_download()]: how many downloads to have
 #'   in flight at once.
 #' @param quiet Suppress progress.
+#' @param gdal GDAL creation options for the written file, as a character
+#'   vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+#'   the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
+#'   replace that wholesale -- for a Cloud Optimized GeoTIFF, say, or to turn
+#'   compression off.
 #'
 #' @return A `terra::SpatRaster`.
 #'
@@ -79,7 +84,7 @@ INDEX_CRS <- c(
 tile_mosaic <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
                         mask = FALSE, filename = NULL, allow_mixed = FALSE,
                         overwrite = FALSE, max_active = NULL,
-                        quiet = FALSE) {
+                        quiet = FALSE, gdal = NULL) {
   crop <- match.arg(crop)
   if (!requireNamespace("terra", quietly = TRUE)) {
     stop("Package 'terra' is needed to mosaic rasters. Install it first.",
@@ -120,11 +125,39 @@ tile_mosaic <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
     if (isTRUE(mask)) out <- terra::mask(out, terra::vect(geom))
   }
 
+  out <- name_layers(out, index)
+
   if (!is.null(filename)) {
     say(quiet, "  writing ", basename(filename))
-    out <- terra::writeRaster(out, filename, overwrite = TRUE)
+    out <- terra::writeRaster(out, filename, overwrite = TRUE,
+                              gdal = raster_gdal(out, gdal))
   }
   out
+}
+
+# Without this the layers are called after the temporary VRT the mosaic was
+# built through -- filedc437e7148b, and that string is written into the file as
+# the band description, where it outlives the session that produced it. The
+# index knows what these bands are.
+name_layers <- function(x, index) {
+  n <- terra::nlyr(x)
+  comp <- if ("composition" %in% names(index)) {
+    unique(stats::na.omit(as.character(index$composition)))
+  } else character(0)
+
+  nm <- if (n == 3L && identical(comp, "RGB")) {
+    c("R", "G", "B")
+  } else if (n == 3L && identical(comp, "CIR")) {
+    # false colour infrared: near infrared, red, green
+    c("NIR", "R", "G")
+  } else if (n == 1L && "product" %in% names(index)) {
+    unique(stats::na.omit(as.character(index$product)))
+  } else {
+    NULL
+  }
+
+  if (length(nm) == n) names(x) <- nm
+  x
 }
 
 # Every reason to refuse, checked together so the message can name all of them
@@ -222,9 +255,39 @@ join_tiles <- function(files, epsg) {
   # GDAL paints VRT sources in order, so a later one covers an earlier one
   # where they overlap. That is the opposite of mosaic(fun = "first"), which
   # this replaced. Reversing the list restores it: the first tile still wins.
-  out <- terra::vrt(rev(files), filename = tempfile(fileext = ".vrt"),
-                    overwrite = TRUE)
+  path <- tempfile(fileext = ".vrt")
+  out <- suppressWarnings(terra::vrt(rev(files), filename = path,
+                                     overwrite = TRUE))
+  check_vrt_complete(path, length(files))
   set_missing_crs(out, epsg)
+}
+
+# terra::vrt() leaves out any file it cannot fit, and says so in a warning that
+# scrolls past, leaving a mosaic with a hole in it that looks finished.
+# Measured on what it actually rejects: a tile with a different number of bands
+# and a tile in a different coordinate system are both dropped, while different
+# resolutions and offset grids are accepted and resampled -- those are caught
+# earlier, by check_mosaicable(). The VRT lists what it took, so it can be
+# counted.
+check_vrt_complete <- function(path, expected) {
+  used <- length(vrt_sources(path))
+  if (used >= expected) return(invisible(TRUE))
+  stop(
+    "Only ", used, " of ", expected, " tiles could be joined.",
+    "\n  The rest differ in a way a virtual raster cannot bridge: another ",
+    "number of bands, or another coordinate system.",
+    "\n  Joining them anyway would leave holes where those tiles belong.",
+    call. = FALSE
+  )
+}
+
+# The files a VRT ended up using. Counted as distinct names rather than as
+# lines, because a multi-band source is listed once per band -- three bands
+# would otherwise pass for three tiles.
+vrt_sources <- function(path) {
+  lines <- grep("SourceFilename", readLines(path, warn = FALSE), fixed = TRUE,
+                value = TRUE)
+  unique(sub(".*<SourceFilename[^>]*>([^<]*)</SourceFilename>.*", "\\1", lines))
 }
 
 read_tile <- function(path, epsg) {

@@ -201,8 +201,7 @@ to_geotiff <- function(path, quiet = FALSE) {
 
   r <- terra::rast(path)
   terra::crs(r) <- paste0("EPSG:", CRS_PL1992)
-  terra::writeRaster(r, tif, overwrite = TRUE,
-                     gdal = c("COMPRESS=DEFLATE", "PREDICTOR=3"))
+  terra::writeRaster(r, tif, overwrite = TRUE, gdal = raster_gdal(r))
   say(quiet, "  converted to GeoTIFF (",
       format_bytes(file.size(path)), " -> ", format_bytes(file.size(tif)), ")")
   tif
@@ -259,8 +258,7 @@ mask_to_aoi <- function(path, aoi, quiet = FALSE) {
   r <- open_raster(path)
   geom <- aoi_geom(as_aoi(aoi), crs = raster_epsg(r))
   r <- terra::mask(r, terra::vect(geom))
-  terra::writeRaster(r, out, overwrite = TRUE,
-                     gdal = c("COMPRESS=DEFLATE", "PREDICTOR=2"))
+  terra::writeRaster(r, out, overwrite = TRUE, gdal = raster_gdal(r))
   say(quiet, "  masked to the area outline")
   out
 }

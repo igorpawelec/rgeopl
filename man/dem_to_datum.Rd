@@ -10,7 +10,8 @@ dem_to_datum(
   to = c("evrf2007", "kron86"),
   step = 1000,
   filename = NULL,
-  quiet = FALSE
+  quiet = FALSE,
+  gdal = NULL
 )
 }
 \arguments{
@@ -30,6 +31,12 @@ models that are themselves accurate to 30 mm.}
 \item{filename}{Write the result here.}
 
 \item{quiet}{Suppress progress.}
+
+\item{gdal}{GDAL creation options for the written file, as a character
+vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
+replace that wholesale -- for a Cloud Optimized GeoTIFF, say, or to turn
+compression off.}
 }
 \value{
 A `terra::SpatRaster` of the same geometry as `x`, with heights in

@@ -170,3 +170,64 @@ test_that("one sheet published in two formats is caught, and the hint says so", 
                             format = rep("ARC/INFO ASCII GRID", 2))
   expect_error(check_mosaicable(same_format), "appears")
 })
+
+test_that("tiles a virtual raster cannot bridge are refused, not left out", {
+  skip_if_not_installed("terra")
+  one_band <- tile_file(1, 0)
+  three_band <- local({
+    r <- terra::rast(nrows = 10, ncols = 10, xmin = 10, xmax = 20, ymin = 0,
+                     ymax = 10, nlyrs = 3, crs = "EPSG:2180")
+    terra::values(r) <- 2
+    p <- tempfile(fileext = ".tif"); terra::writeRaster(r, p, overwrite = TRUE); p
+  })
+  expect_error(join_tiles(c(one_band, three_band), epsg = 2180L),
+               "Only 1 of 2 tiles")
+  expect_error(join_tiles(c(one_band, three_band), epsg = 2180L), "holes")
+
+  # a different coordinate system is the other thing it cannot bridge
+  elsewhere <- tile_file(3, 10, crs = "EPSG:2177")
+  expect_error(join_tiles(c(one_band, elsewhere), epsg = 2180L), "Only 1 of 2")
+})
+
+test_that("the count of joined tiles is read from the VRT itself", {
+  vrt <- tempfile(fileext = ".vrt")
+  writeLines(c("<VRTDataset>", "  <SourceFilename>a.tif</SourceFilename>",
+               "  <SourceFilename>b.tif</SourceFilename>", "</VRTDataset>"), vrt)
+  expect_true(check_vrt_complete(vrt, 2L))
+  expect_error(check_vrt_complete(vrt, 3L), "Only 2 of 3")
+})
+
+test_that("a source listed once per band counts as one tile", {
+  # a three-band source appears three times; counting lines would call that
+  # three tiles and let a genuinely missing one through
+  vrt <- tempfile(fileext = ".vrt")
+  writeLines(c("<VRTDataset>",
+               rep("  <SourceFilename relativeToVRT=\"0\">a.tif</SourceFilename>", 3),
+               "</VRTDataset>"), vrt)
+  expect_equal(vrt_sources(vrt), "a.tif")
+  expect_error(check_vrt_complete(vrt, 2L), "Only 1 of 2")
+})
+
+test_that("layers are named from the index, not from a temporary file", {
+  skip_if_not_installed("terra")
+  one <- terra::rast(nrows = 4, ncols = 4); terra::values(one) <- 1
+  expect_equal(names(name_layers(one, data.frame(product = "DTM"))), "DTM")
+
+  three <- c(one, one, one)
+  expect_equal(names(name_layers(three, data.frame(composition = "RGB"))),
+               c("R", "G", "B"))
+  # false colour puts near infrared where red would be
+  expect_equal(names(name_layers(three, data.frame(composition = "CIR"))),
+               c("NIR", "R", "G"))
+})
+
+test_that("an index that cannot say what the bands are leaves them alone", {
+  skip_if_not_installed("terra")
+  one <- terra::rast(nrows = 4, ncols = 4); terra::values(one) <- 1
+  names(one) <- "whatever"
+  expect_equal(names(name_layers(one, data.frame(x = 1))), "whatever")
+
+  # a mixture the index cannot resolve to one name is not guessed at
+  four <- c(one, one, one, one)
+  expect_equal(length(names(name_layers(four, data.frame(composition = "RGB")))), 4L)
+})
