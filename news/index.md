@@ -1,6 +1,6 @@
 # Changelog
 
-## rgeopl (development version)
+## rgeopl 0.6.0
 
 - [`protected_areas()`](https://igorpawelec.github.io/rgeopl/reference/protected_areas.md)
   answers the question a stand outline raises immediately: whether
