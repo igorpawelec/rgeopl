@@ -77,6 +77,14 @@ and the stand subareas underneath it.
 - [`parse_forest_address()`](https://igorpawelec.github.io/rgeopl/reference/parse_forest_address.md)
   : Split a forest address into its parts
 
+## Protected areas
+
+Nature conservation as the register holds it, from the body that keeps
+it: the Forest Data Bank publishes none of this.
+
+- [`protected_areas()`](https://igorpawelec.github.io/rgeopl/reference/protected_areas.md)
+  : Protected areas covering an area of interest
+
 ## Administrative boundaries
 
 - [`prg_boundaries()`](https://igorpawelec.github.io/rgeopl/reference/prg_boundaries.md)

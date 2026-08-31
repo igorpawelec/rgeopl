@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,14 @@
       <small>Source: <a href="https://github.com/igorpawelec/rgeopl/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
+<ul><li>
+<p><code><a href="../reference/protected_areas.html">protected_areas()</a></code> answers the question a stand outline raises immediately: whether anything protected lies under it. Natura 2000 under both directives, reserves, national and landscape parks, protected landscape areas, ecological corridors, Ramsar sites, ecological sites, landscape complexes, documentation sites and natural monuments – thirteen registers from GDOŚ, the body that keeps them. The Forest Data Bank draws protected areas on its maps and publishes none of them as data: its whole public service is seven layers of administrative units and subareas, measured.</p>
+<p>Two things about the service had to be measured rather than assumed. The spelling of the coordinate system in the bounding box decides the axis order – <code>EPSG:2180</code> means easting first and <code>urn:ogc:def:crs:EPSG::2180</code> means northing first – and mismatching them returns an empty answer for an area full of reserves, with no error. That also explains <code><a href="../reference/prg_boundaries.html">prg_boundaries()</a></code>, which uses the urn spelling and reverses its bounding box: not a quirk of PRG but the rule. And the service cannot page at all: <code>STARTINDEX</code> answers <code>Cannot do natural order without a primary key</code>, so each request is one request, bounded by <code>max_features</code> and checked against the reported total.</p>
+<p>A park and its buffer zone are separate features under the same name: <code>ParkiNarodowe</code> returns 46 rows for Poland’s 23 national parks, exactly 23 of them buffer zones. <code><a href="../reference/protected_areas.html">?protected_areas</a></code> says so, because summing areas without looking counts the same ground twice.</p>
+</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="rgeopl-050">rgeopl 0.5.0<a class="anchor" aria-label="anchor" href="#rgeopl-050"></a></h2>
 <ul><li>
