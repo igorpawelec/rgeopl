@@ -1,6 +1,32 @@
 # Changelog
 
-## rgeopl (development version)
+## rgeopl 0.5.0
+
+- [`dem_to_datum()`](https://igorpawelec.github.io/rgeopl/reference/dem_to_datum.md)
+  converts an elevation model between Poland’s two height systems.
+  Measured over the country, an EVRF2007 height is 13.6 to 19.2 cm above
+  the KRON86 height of the same ground, so comparing terrain across the
+  2019 change of datum without converting reports about 17 cm of
+  settlement that is not there. A canopy model does not need it –
+  surface and terrain are measured in the same system and it cancels.
+
+  This exists because
+  [`sf::st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html)
+  cannot be used for it. PROJ knows the right transformation, at 0.04 m,
+  but cannot obtain the grid it needs; the operation it can instantiate
+  is `+proj=noop`, which returns the heights unchanged and relabelled.
+  What PROJ can fetch is the pair of quasi-geoid models GUGiK publishes,
+  and going up to the ellipsoid through one and back down through the
+  other gives the same answer. Checked against those two models read
+  directly: agreement to 0.0000 m.
+
+  Two things were measured rather than assumed. Given a pipeline, `sf`
+  passes coordinates in the authority axis order – latitude first for
+  EPSG:4326, northing first for EPSG:2180 – so the pipeline swaps them
+  back; a version routed through PL-1992 without that is out by up to 11
+  mm and returns nothing at all for Zakopane. And the shift is sampled
+  on a lattice rather than per cell: at the default 1000 m that costs at
+  most 0.67 mm against a 250 m lattice, on models accurate to 30 mm.
 
 - Every raster the package writes is DEFLATE now, with the predictor the
   data calls for, tiled, and BIGTIFF when the size warrants it. Four of
@@ -38,6 +64,31 @@
   as distinct names, since a multi-band file is listed once per band –
   and anything missing is an error rather than a warning.
 
+- [`cache_clear()`](https://igorpawelec.github.io/rgeopl/reference/cache_info.md)
+  no longer forgets files it could not delete. It rewrote the manifest
+  whether or not the removal succeeded, so a file still held open –
+  which on Windows a `SpatRaster` in the session is enough to do –
+  stayed on disk while the manifest dropped its row.
+  [`cache_info()`](https://igorpawelec.github.io/rgeopl/reference/cache_info.md)
+  then reported an empty cache with a file sitting in it, and nothing
+  would ever clean it up or reuse it. Only rows whose file has actually
+  gone are dropped now, and what resisted is named in a warning.
+
+- The BDL side checks that it got everything, which until now only the
+  GUGiK side did. `oapif_properties()` and `oapif_catalogue()` asked for
+  a fixed number of records and returned whatever came back: today that
+  is 5259 forest ranges against a ceiling of 10 000, but a collection
+  growing past its ceiling would have been truncated in silence – which
+  is the failure this package was written to fix, and it was in our own
+  code.
+
+- A collection whose service does not report how many features it holds
+  is now paged until a page comes back short, rather than crashing. The
+  missing count was handled as `NA` in three places and then passed to
+  [`seq_len()`](https://rdrr.io/r/base/seq.html), which ends in
+  `argument must be coercible to non-negative integer`. Some services
+  really do omit it – the GDOS one does.
+
 - [`dem_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
   and
   [`ortho_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
@@ -71,57 +122,6 @@
   [`ortho_request()`](https://igorpawelec.github.io/rgeopl/reference/dem_request.md)
   now says that the last of them takes no `format`: its index has no
   such column, because orthophoto sheets are published one way.
-
-- [`cache_clear()`](https://igorpawelec.github.io/rgeopl/reference/cache_info.md)
-  no longer forgets files it could not delete. It rewrote the manifest
-  whether or not the removal succeeded, so a file still held open –
-  which on Windows a `SpatRaster` in the session is enough to do –
-  stayed on disk while the manifest dropped its row.
-  [`cache_info()`](https://igorpawelec.github.io/rgeopl/reference/cache_info.md)
-  then reported an empty cache with a file sitting in it, and nothing
-  would ever clean it up or reuse it. Only rows whose file has actually
-  gone are dropped now, and what resisted is named in a warning.
-
-- The BDL side checks that it got everything, which until now only the
-  GUGiK side did. `oapif_properties()` and `oapif_catalogue()` asked for
-  a fixed number of records and returned whatever came back: today that
-  is 5259 forest ranges against a ceiling of 10 000, but a collection
-  growing past its ceiling would have been truncated in silence – which
-  is the failure this package was written to fix, and it was in our own
-  code.
-
-- A collection whose service does not report how many features it holds
-  is now paged until a page comes back short, rather than crashing. The
-  missing count was handled as `NA` in three places and then passed to
-  [`seq_len()`](https://rdrr.io/r/base/seq.html), which ends in
-  `argument must be coercible to non-negative integer`. Some services
-  really do omit it – the GDOS one does.
-
-- [`dem_to_datum()`](https://igorpawelec.github.io/rgeopl/reference/dem_to_datum.md)
-  converts an elevation model between Poland’s two height systems.
-  Measured over the country, an EVRF2007 height is 13.6 to 19.2 cm above
-  the KRON86 height of the same ground, so comparing terrain across the
-  2019 change of datum without converting reports about 17 cm of
-  settlement that is not there. A canopy model does not need it –
-  surface and terrain are measured in the same system and it cancels.
-
-  This exists because
-  [`sf::st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html)
-  cannot be used for it. PROJ knows the right transformation, at 0.04 m,
-  but cannot obtain the grid it needs; the operation it can instantiate
-  is `+proj=noop`, which returns the heights unchanged and relabelled.
-  What PROJ can fetch is the pair of quasi-geoid models GUGiK publishes,
-  and going up to the ellipsoid through one and back down through the
-  other gives the same answer. Checked against those two models read
-  directly: agreement to 0.0000 m.
-
-  Two things were measured rather than assumed. Given a pipeline, `sf`
-  passes coordinates in the authority axis order – latitude first for
-  EPSG:4326, northing first for EPSG:2180 – so the pipeline swaps them
-  back; a version routed through PL-1992 without that is out by up to 11
-  mm and returns nothing at all for Zakopane. And the shift is sampled
-  on a lattice rather than per cell: at the default 1000 m that costs at
-  most 0.67 mm against a 250 m lattice, on models accurate to 30 mm.
 
 ## rgeopl 0.4.0
 
