@@ -1,65 +1,4 @@
-# rgeopl (development version)
-
-* Every raster the package writes is DEFLATE now, with the predictor the data
-  calls for, tiled, and BIGTIFF when the size warrants it. Four of the six
-  places that write a file passed no options at all and so got terra's
-  default, which is LZW: measured on a 2369 x 2114 float tile, 11.2 MB against
-  8.3 MB, in the same 0.8 s. The predictor is not a free choice -- GDAL
-  refuses PREDICTOR=3 on integers outright, which a single blanket setting
-  would have done to every orthophoto -- so it follows the data type, which
-  also fixes the masking path quietly using the integer predictor on elevation
-  models. `tile_mosaic()`, `chm_get()`, `chm_build()`, `ortho_stack()` and
-  `dem_to_datum()` take `gdal` to replace all of that when you want something
-  else, a Cloud Optimized GeoTIFF for instance.
-* Mosaic layers are named from the index rather than after the temporary file
-  they were built through. A written mosaic carried a band description like
-  `filedc437e7148b` -- a name random per session, stored in the file, outliving
-  the session that made it. Now an elevation mosaic says `DTM` and a
-  three-band orthophoto says `R, G, B` or `NIR, R, G` by its composition.
-* `tile_mosaic()` refuses a selection the virtual raster could only join in
-  part. `terra::vrt()` leaves out a file it cannot fit and reports it in a
-  warning that scrolls past, which leaves a mosaic with a hole in it that
-  looks finished; measured, it drops a tile with a different band count or a
-  different coordinate system, while resolutions and offset grids it accepts
-  and resamples. The sources the VRT actually took are counted -- as distinct
-  names, since a multi-band file is listed once per band -- and anything
-  missing is an error rather than a warning.
-
-* `dem_get()` and `ortho_get()` write to `filename`, which is what every other
-  function in the package calls that argument. `file` keeps working and says
-  it has been renamed; it will go in a later release. Positional calls are
-  unaffected -- the new name sits where the old one did.
-* Tests reach the functions people actually type. Fourteen of the exported
-  functions had no test calling them at all, which is unavoidable for the ones
-  that need the network but was not for `is_aoi()`, `aoi_geom()`,
-  `cache_info()`, `cache_set_dir()` and `plot_units()`. When `format` was
-  added to `dem_request()` and every later argument shifted one place, nothing
-  in the suite noticed.
-* `gp_xml()` is gone, and `xml2` with it. It was the one function in the
-  package nobody called, left over from reading coverage descriptions by
-  hand, and it was the only reason for that dependency.
-* The help page shared by `dem_request()`, `pointcloud_request()` and
-  `ortho_request()` now says that the last of them takes no `format`: its
-  index has no such column, because orthophoto sheets are published one way.
-
-* `cache_clear()` no longer forgets files it could not delete. It rewrote the
-  manifest whether or not the removal succeeded, so a file still held open --
-  which on Windows a `SpatRaster` in the session is enough to do -- stayed on
-  disk while the manifest dropped its row. `cache_info()` then reported an
-  empty cache with a file sitting in it, and nothing would ever clean it up or
-  reuse it. Only rows whose file has actually gone are dropped now, and what
-  resisted is named in a warning.
-* The BDL side checks that it got everything, which until now only the GUGiK
-  side did. `oapif_properties()` and `oapif_catalogue()` asked for a fixed
-  number of records and returned whatever came back: today that is 5259 forest
-  ranges against a ceiling of 10 000, but a collection growing past its
-  ceiling would have been truncated in silence -- which is the failure this
-  package was written to fix, and it was in our own code.
-* A collection whose service does not report how many features it holds is now
-  paged until a page comes back short, rather than crashing. The missing count
-  was handled as `NA` in three places and then passed to `seq_len()`, which
-  ends in `argument must be coercible to non-negative integer`. Some services
-  really do omit it -- the GDOS one does.
+# rgeopl 0.5.0
 
 * `dem_to_datum()` converts an elevation model between Poland's two height
   systems. Measured over the country, an EVRF2007 height is 13.6 to 19.2 cm
@@ -83,6 +22,74 @@
   nothing at all for Zakopane. And the shift is sampled on a lattice rather
   than per cell: at the default 1000 m that costs at most 0.67 mm against a
   250 m lattice, on models accurate to 30 mm.
+
+* Every raster the package writes is DEFLATE now, with the predictor the data
+  calls for, tiled, and BIGTIFF when the size warrants it. Four of the six
+  places that write a file passed no options at all and so got terra's
+  default, which is LZW: measured on a 2369 x 2114 float tile, 11.2 MB against
+  8.3 MB, in the same 0.8 s. The predictor is not a free choice -- GDAL
+  refuses PREDICTOR=3 on integers outright, which a single blanket setting
+  would have done to every orthophoto -- so it follows the data type, which
+  also fixes the masking path quietly using the integer predictor on elevation
+  models. `tile_mosaic()`, `chm_get()`, `chm_build()`, `ortho_stack()` and
+  `dem_to_datum()` take `gdal` to replace all of that when you want something
+  else, a Cloud Optimized GeoTIFF for instance.
+
+* Mosaic layers are named from the index rather than after the temporary file
+  they were built through. A written mosaic carried a band description like
+  `filedc437e7148b` -- a name random per session, stored in the file, outliving
+  the session that made it. Now an elevation mosaic says `DTM` and a
+  three-band orthophoto says `R, G, B` or `NIR, R, G` by its composition.
+
+* `tile_mosaic()` refuses a selection the virtual raster could only join in
+  part. `terra::vrt()` leaves out a file it cannot fit and reports it in a
+  warning that scrolls past, which leaves a mosaic with a hole in it that
+  looks finished; measured, it drops a tile with a different band count or a
+  different coordinate system, while resolutions and offset grids it accepts
+  and resamples. The sources the VRT actually took are counted -- as distinct
+  names, since a multi-band file is listed once per band -- and anything
+  missing is an error rather than a warning.
+
+* `cache_clear()` no longer forgets files it could not delete. It rewrote the
+  manifest whether or not the removal succeeded, so a file still held open --
+  which on Windows a `SpatRaster` in the session is enough to do -- stayed on
+  disk while the manifest dropped its row. `cache_info()` then reported an
+  empty cache with a file sitting in it, and nothing would ever clean it up or
+  reuse it. Only rows whose file has actually gone are dropped now, and what
+  resisted is named in a warning.
+
+* The BDL side checks that it got everything, which until now only the GUGiK
+  side did. `oapif_properties()` and `oapif_catalogue()` asked for a fixed
+  number of records and returned whatever came back: today that is 5259 forest
+  ranges against a ceiling of 10 000, but a collection growing past its
+  ceiling would have been truncated in silence -- which is the failure this
+  package was written to fix, and it was in our own code.
+
+* A collection whose service does not report how many features it holds is now
+  paged until a page comes back short, rather than crashing. The missing count
+  was handled as `NA` in three places and then passed to `seq_len()`, which
+  ends in `argument must be coercible to non-negative integer`. Some services
+  really do omit it -- the GDOS one does.
+
+* `dem_get()` and `ortho_get()` write to `filename`, which is what every other
+  function in the package calls that argument. `file` keeps working and says
+  it has been renamed; it will go in a later release. Positional calls are
+  unaffected -- the new name sits where the old one did.
+
+* Tests reach the functions people actually type. Fourteen of the exported
+  functions had no test calling them at all, which is unavoidable for the ones
+  that need the network but was not for `is_aoi()`, `aoi_geom()`,
+  `cache_info()`, `cache_set_dir()` and `plot_units()`. When `format` was
+  added to `dem_request()` and every later argument shifted one place, nothing
+  in the suite noticed.
+
+* `gp_xml()` is gone, and `xml2` with it. It was the one function in the
+  package nobody called, left over from reading coverage descriptions by
+  hand, and it was the only reason for that dependency.
+
+* The help page shared by `dem_request()`, `pointcloud_request()` and
+  `ortho_request()` now says that the last of them takes no `format`: its
+  index has no such column, because orthophoto sheets are published one way.
 
 # rgeopl 0.4.0
 
