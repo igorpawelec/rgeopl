@@ -2,6 +2,42 @@
 
 ## rgeopl (development version)
 
+- Every raster the package writes is DEFLATE now, with the predictor the
+  data calls for, tiled, and BIGTIFF when the size warrants it. Four of
+  the six places that write a file passed no options at all and so got
+  terra’s default, which is LZW: measured on a 2369 x 2114 float tile,
+  11.2 MB against 8.3 MB, in the same 0.8 s. The predictor is not a free
+  choice – GDAL refuses PREDICTOR=3 on integers outright, which a single
+  blanket setting would have done to every orthophoto – so it follows
+  the data type, which also fixes the masking path quietly using the
+  integer predictor on elevation models.
+  [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md),
+  [`chm_get()`](https://igorpawelec.github.io/rgeopl/reference/chm_get.md),
+  [`chm_build()`](https://igorpawelec.github.io/rgeopl/reference/chm_get.md),
+  [`ortho_stack()`](https://igorpawelec.github.io/rgeopl/reference/ortho_stack.md)
+  and
+  [`dem_to_datum()`](https://igorpawelec.github.io/rgeopl/reference/dem_to_datum.md)
+  take `gdal` to replace all of that when you want something else, a
+  Cloud Optimized GeoTIFF for instance.
+
+- Mosaic layers are named from the index rather than after the temporary
+  file they were built through. A written mosaic carried a band
+  description like `filedc437e7148b` – a name random per session, stored
+  in the file, outliving the session that made it. Now an elevation
+  mosaic says `DTM` and a three-band orthophoto says `R, G, B` or
+  `NIR, R, G` by its composition.
+
+- [`tile_mosaic()`](https://igorpawelec.github.io/rgeopl/reference/tile_mosaic.md)
+  refuses a selection the virtual raster could only join in part.
+  [`terra::vrt()`](https://rspatial.github.io/terra/reference/vrt.html)
+  leaves out a file it cannot fit and reports it in a warning that
+  scrolls past, which leaves a mosaic with a hole in it that looks
+  finished; measured, it drops a tile with a different band count or a
+  different coordinate system, while resolutions and offset grids it
+  accepts and resamples. The sources the VRT actually took are counted –
+  as distinct names, since a multi-band file is listed once per band –
+  and anything missing is an error rather than a warning.
+
 - [`dem_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
   and
   [`ortho_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)

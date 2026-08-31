@@ -60,7 +60,8 @@ product, and stacks them.</p>
 <span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  max_active <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  gdal <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -98,6 +99,14 @@ vintage that publishes both products, at its finest pixel. See
 
 <dt id="arg-overwrite-max-active-quiet">overwrite, max_active, quiet<a class="anchor" aria-label="anchor" href="#arg-overwrite-max-active-quiet"></a></dt>
 <dd><p>Passed through to the download.</p></dd>
+
+
+<dt id="arg-gdal">gdal<a class="anchor" aria-label="anchor" href="#arg-gdal"></a></dt>
+<dd><p>GDAL creation options for the written file, as a character
+vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
+replace that wholesale – for a Cloud Optimized GeoTIFF, say, or to turn
+compression off.</p></dd>
 
 </dl></div>
     <div class="section level2">

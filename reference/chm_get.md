@@ -18,7 +18,8 @@ chm_get(
   filename = NULL,
   max_active = NULL,
   max_pixels = 2500,
-  quiet = FALSE
+  quiet = FALSE,
+  gdal = NULL
 )
 
 chm_build(
@@ -29,7 +30,8 @@ chm_build(
   min_height = NULL,
   mask = FALSE,
   filename = NULL,
-  quiet = FALSE
+  quiet = FALSE,
+  gdal = NULL
 )
 ```
 
@@ -96,6 +98,14 @@ chm_build(
 - quiet:
 
   Suppress progress.
+
+- gdal:
+
+  GDAL creation options for the written file, as a character vector.
+  \`NULL\`, the default, writes DEFLATE with the predictor that suits
+  the data, tiled, and BIGTIFF when the size calls for it. Pass your own
+  to replace that wholesale – for a Cloud Optimized GeoTIFF, say, or to
+  turn compression off.
 
 - surface, terrain:
 

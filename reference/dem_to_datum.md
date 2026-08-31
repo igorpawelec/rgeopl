@@ -15,7 +15,8 @@ dem_to_datum(
   to = c("evrf2007", "kron86"),
   step = 1000,
   filename = NULL,
-  quiet = FALSE
+  quiet = FALSE,
+  gdal = NULL
 )
 ```
 
@@ -47,6 +48,14 @@ dem_to_datum(
 - quiet:
 
   Suppress progress.
+
+- gdal:
+
+  GDAL creation options for the written file, as a character vector.
+  \`NULL\`, the default, writes DEFLATE with the predictor that suits
+  the data, tiled, and BIGTIFF when the size calls for it. Pass your own
+  to replace that wholesale – for a Cloud Optimized GeoTIFF, say, or to
+  turn compression off.
 
 ## Value
 

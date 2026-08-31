@@ -18,7 +18,8 @@ ortho_stack(
   filename = NULL,
   overwrite = FALSE,
   max_active = NULL,
-  quiet = FALSE
+  quiet = FALSE,
+  gdal = NULL
 )
 ```
 
@@ -55,6 +56,14 @@ ortho_stack(
 - overwrite, max_active, quiet:
 
   Passed through to the download.
+
+- gdal:
+
+  GDAL creation options for the written file, as a character vector.
+  \`NULL\`, the default, writes DEFLATE with the predictor that suits
+  the data, tiled, and BIGTIFF when the size calls for it. Pass your own
+  to replace that wholesale – for a Cloud Optimized GeoTIFF, say, or to
+  turn compression off.
 
 ## Value
 
