@@ -1,3 +1,29 @@
+# rgeopl (development version)
+
+* `protected_areas()` answers the question a stand outline raises immediately:
+  whether anything protected lies under it. Natura 2000 under both directives,
+  reserves, national and landscape parks, protected landscape areas,
+  ecological corridors, Ramsar sites, ecological sites, landscape complexes,
+  documentation sites and natural monuments -- thirteen registers from GDOŚ,
+  the body that keeps them. The Forest Data Bank draws protected areas on its
+  maps and publishes none of them as data: its whole public service is seven
+  layers of administrative units and subareas, measured.
+
+  Two things about the service had to be measured rather than assumed. The
+  spelling of the coordinate system in the bounding box decides the axis
+  order -- `EPSG:2180` means easting first and `urn:ogc:def:crs:EPSG::2180`
+  means northing first -- and mismatching them returns an empty answer for an
+  area full of reserves, with no error. That also explains `prg_boundaries()`,
+  which uses the urn spelling and reverses its bounding box: not a quirk of
+  PRG but the rule. And the service cannot page at all: `STARTINDEX` answers
+  `Cannot do natural order without a primary key`, so each request is one
+  request, bounded by `max_features` and checked against the reported total.
+
+  A park and its buffer zone are separate features under the same name:
+  `ParkiNarodowe` returns 46 rows for Poland's 23 national parks, exactly 23
+  of them buffer zones. `?protected_areas` says so, because summing areas
+  without looking counts the same ground twice.
+
 # rgeopl 0.5.0
 
 * `dem_to_datum()` converts an elevation model between Poland's two height

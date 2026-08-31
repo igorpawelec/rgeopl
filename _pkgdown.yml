@@ -74,6 +74,13 @@ reference:
   - bdl_overview
   - parse_forest_address
 
+- title: Protected areas
+  desc: >
+    Nature conservation as the register holds it, from the body that keeps it:
+    the Forest Data Bank publishes none of this.
+  contents:
+  - protected_areas
+
 - title: Administrative boundaries
   contents:
   - prg_boundaries
