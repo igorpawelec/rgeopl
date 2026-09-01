@@ -11,7 +11,7 @@ rasters you already have."><meta property="og:image" content="https://igorpawele
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,6 +23,8 @@ rasters you already have."><meta property="og:image" content="https://igorpawele
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/getting-started.html">Getting started</a></li>
+    <li><a class="dropdown-item" href="../articles/raster-chain.html">Rasters end to end</a></li>
+    <li><a class="dropdown-item" href="../articles/heights.html">Heights, and the two systems Poland measures them in</a></li>
     <li><a class="dropdown-item" href="../articles/forest-data.html">Forest data: the BDL side</a></li>
     <li><a class="dropdown-item" href="../articles/case-study.html">Case study: can I build a canopy height model here?</a></li>
   </ul></li>
@@ -73,7 +75,8 @@ rasters you already have.</p>
 <span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  gdal <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  gdal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vrs <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -154,6 +157,15 @@ compression off.</p></dd>
 <dt id="arg-surface-terrain">surface, terrain<a class="anchor" aria-label="anchor" href="#arg-surface-terrain"></a></dt>
 <dd><p>Surface and terrain models: file paths, or
 `terra::SpatRaster` objects.</p></dd>
+
+
+<dt id="arg-vrs">vrs<a class="anchor" aria-label="anchor" href="#arg-vrs"></a></dt>
+<dd><p>The vertical systems the two rasters are in, as
+`c(surface, terrain)` – `"kron86"`, `"evrf2007"`, or the names the
+index uses in its `VRS` column. When they differ the surface is
+converted before the subtraction; when they match nothing happens.
+`NULL`, the default, assumes you have checked. Rasters do not carry the
+vertical system, so this cannot be worked out from them.</p></dd>
 
 </dl></div>
     <div class="section level2">

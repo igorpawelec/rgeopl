@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/getting-started.html">Getting started</a></li>
+    <li><a class="dropdown-item" href="../articles/raster-chain.html">Rasters end to end</a></li>
+    <li><a class="dropdown-item" href="../articles/heights.html">Heights, and the two systems Poland measures them in</a></li>
     <li><a class="dropdown-item" href="../articles/forest-data.html">Forest data: the BDL side</a></li>
     <li><a class="dropdown-item" href="../articles/case-study.html">Case study: can I build a canopy height model here?</a></li>
   </ul></li>
@@ -56,7 +58,8 @@
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  max_active <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  gdal <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  gdal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  datum <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -116,6 +119,16 @@ the data, tiled, and BIGTIFF when the size calls for it. Pass your own to
 replace that wholesale – for a Cloud Optimized GeoTIFF, say, or to turn
 compression off.</p></dd>
 
+
+<dt id="arg-datum">datum<a class="anchor" aria-label="anchor" href="#arg-datum"></a></dt>
+<dd><p>Land every tile in this vertical system, converting the ones
+  that are in the other. `NULL`, the default, refuses a mixture instead –
+  see below. `"kron86"` or `"evrf2007"`, or the names the index uses in
+  its `VRS` column. Needs the quasi-geoid grids; see [dem_to_datum()].</p>
+<p>Naming a datum also accepts a mixture of vintages, because tiles in two
+  vertical systems are by definition two flights. Everything else the
+  selection must agree on still applies.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -144,8 +157,9 @@ compression off.</p></dd>
 
   <dt>More than one vertical datum</dt>
 <dd><p>PL-KRON86-NH and PL-EVRF2007-NH differ
-    by tens of centimetres. The seam is a step in the terrain that is not
-    there.</p></dd>
+    by 14 to 19 cm. The seam is a step in the terrain that is not there.
+    This is the one refusal with a way through: `datum` converts one side
+    rather than refusing, which `allow_mixed` never does.</p></dd>
 
   <dt>More than one file format</dt>
 <dd><p>Every elevation sheet is published both

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,6 +19,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/getting-started.html">Getting started</a></li>
+    <li><a class="dropdown-item" href="../articles/raster-chain.html">Rasters end to end</a></li>
+    <li><a class="dropdown-item" href="../articles/heights.html">Heights, and the two systems Poland measures them in</a></li>
     <li><a class="dropdown-item" href="../articles/forest-data.html">Forest data: the BDL side</a></li>
     <li><a class="dropdown-item" href="../articles/case-study.html">Case study: can I build a canopy height model here?</a></li>
   </ul></li>
@@ -36,6 +38,16 @@
       <small>Source: <a href="https://github.com/igorpawelec/rgeopl/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
+<ul><li>Two vignettes for the raster half of the package, which the narrative documentation had never covered: <em>Rasters end to end</em> takes an area from the index through mosaicking, canopy height, four-band orthophotos and point clouds to a written file, and <em>Heights, and the two systems Poland measures them in</em> is about the vertical datums. Between them they reach the functions that do the work: 22 of the 39 exported ones appeared in no vignette at all, including <code><a href="../reference/tile_mosaic.html">tile_mosaic()</a></code>, <code><a href="../reference/chm_get.html">chm_get()</a></code> and <code><a href="../reference/ortho_stack.html">ortho_stack()</a></code>.</li>
+<li>
+<code><a href="../reference/tile_mosaic.html">tile_mosaic()</a></code> takes a <code>datum</code>. Mixing vertical systems is refused, because the seam would be a step in the ground that is not there – but it is the one refusal with a way through: named a system to land in, it mosaics each side on its own, converts the one that is in the other, and joins them with the target laid down first. Naming a datum also accepts the mixture of vintages that comes with it, since two vertical systems are two flights and there is no way to have one without the other.</li>
+<li>
+<code><a href="../reference/chm_get.html">chm_build()</a></code> takes <code>vrs</code>, the vertical systems of the two rasters, and converts before subtracting when they differ. Rasters carry no vertical system, so it cannot be worked out from them – and the trap is ordinary: Białowieża publishes a 2018 surface and a 2022 terrain, and subtracting them as they come makes every canopy about 16 cm too short.</li>
+<li>A byte raster keeps its brightest pixels. terra writes one with the missing value set to 255, and in an orthophoto 255 is sky, bright roofs and saturated ground: measured, 20 pixels of 255 written and 0 read back, with 20 NAs in their place. Every write now goes through one function that names the narrowest type the values fit in and leaves the tag off when there is nothing missing to mark. Rasters that do have gaps keep the wider type that can hold them.</li>
+<li>The functions people actually type are tested against recorded answers. Everything else in the suite is offline with the answers made up, which left the entry points uncovered – when <code>format</code> was added to <code><a href="../reference/dem_request.html">dem_request()</a></code> and every later argument shifted one place, nothing noticed. Ten of them now replay real responses through <code>httptest2</code>. The recordings stay in the repository rather than the built package: these services nest deeply enough that the mirrored paths run past the 100 bytes a tarball can portably store.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.0" id="rgeopl-060">rgeopl 0.6.0<a class="anchor" aria-label="anchor" href="#rgeopl-060"></a></h2>
 <ul><li>

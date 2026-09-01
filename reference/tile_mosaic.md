@@ -16,7 +16,8 @@ tile_mosaic(
   overwrite = FALSE,
   max_active = NULL,
   quiet = FALSE,
-  gdal = NULL
+  gdal = NULL,
+  datum = NULL
 )
 ```
 
@@ -75,6 +76,18 @@ tile_mosaic(
   to replace that wholesale – for a Cloud Optimized GeoTIFF, say, or to
   turn compression off.
 
+- datum:
+
+  Land every tile in this vertical system, converting the ones that are
+  in the other. \`NULL\`, the default, refuses a mixture instead – see
+  below. \`"kron86"\` or \`"evrf2007"\`, or the names the index uses in
+  its \`VRS\` column. Needs the quasi-geoid grids; see
+  \[dem_to_datum()\].
+
+  Naming a datum also accepts a mixture of vintages, because tiles in
+  two vertical systems are by definition two flights. Everything else
+  the selection must agree on still applies.
+
 ## Value
 
 A \`terra::SpatRaster\`.
@@ -104,8 +117,10 @@ A \`terra::SpatRaster\`.
 
 - More than one vertical datum:
 
-  PL-KRON86-NH and PL-EVRF2007-NH differ by tens of centimetres. The
-  seam is a step in the terrain that is not there.
+  PL-KRON86-NH and PL-EVRF2007-NH differ by 14 to 19 cm. The seam is a
+  step in the terrain that is not there. This is the one refusal with a
+  way through: \`datum\` converts one side rather than refusing, which
+  \`allow_mixed\` never does.
 
 - More than one file format:
 
