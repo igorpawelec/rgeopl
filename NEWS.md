@@ -1,4 +1,4 @@
-# rgeopl (development version)
+# rgeopl 0.9.0
 
 * `bdl_inspectorates()` no longer returns the same codes twice. The
   `nadlesnictwa` collection sends its own `region_cd` and `inspectorate_cd`,
