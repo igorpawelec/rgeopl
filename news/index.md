@@ -1,6 +1,6 @@
 # Changelog
 
-## rgeopl (development version)
+## rgeopl 0.9.0
 
 - [`bdl_inspectorates()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md)
   no longer returns the same codes twice. The `nadlesnictwa` collection
