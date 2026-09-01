@@ -177,6 +177,71 @@ plot_units(compartment, label = "subarea", context = by_address, fill = "#e8a33d
            border = "black", main = "Compartment 165 among the subareas of Turnica")
 ```
 
+## What is protected here
+
+The Forest Data Bank draws conservation areas on its maps and publishes none
+of them as data: its whole public service is seven layers of administrative
+units and subareas. The register belongs to GDOŚ, and `protected_areas()` goes
+there for it.
+
+```{r}
+warmia <- as_aoi(c(21.05, 53.80), buffer = 3000)
+protected <- protected_areas(warmia, quiet = TRUE)
+
+sf::st_drop_geometry(protected)[, c("type", "name", "code")]
+```
+
+Six features from four registers. `code` is the Natura 2000 site code and is
+empty elsewhere, because only Natura 2000 has one. Ask for one register, or
+for both directives at once:
+
+```{r}
+protected_areas(warmia, type = "natura2000", quiet = TRUE)$name
+```
+
+### Which stands lie under it
+
+This is the question the two halves of this vignette meet on: the subareas
+come from BDL, the protection from GDOŚ, and the answer is an intersection.
+
+```{r}
+stands <- bdl_subareas(warmia, quiet = TRUE)
+
+share <- function(type) {
+  g <- sf::st_union(sf::st_geometry(protected[protected$type == type, ]))
+  lengths(sf::st_intersects(stands, g)) > 0
+}
+
+registers <- unique(protected$type)
+
+data.frame(
+  register = registers,
+  stands = vapply(registers, function(t) sum(share(t)), integer(1)),
+  of = nrow(stands),
+  row.names = NULL
+)
+```
+
+Most of these overlap hardly anything -- seven stands in the birds directive
+site, two in the habitats one -- while the landscape complexes cover nearly
+three quarters of the area. That spread is the point: "is this protected" has
+no single answer, and which register you mean changes it by two orders of
+magnitude.
+
+```{r warmia-protected, fig.height = 6}
+in_complex <- share("landscape_complexes")
+
+plot(sf::st_geometry(stands), col = ifelse(in_complex, "#a8d5ba", "grey92"),
+     border = "grey60", lwd = 0.4, main = "")
+plot(sf::st_geometry(protected[protected$type == "landscape_complexes", ]),
+     border = "#c1440e", lwd = 2, add = TRUE)
+```
+
+One thing to know before summing areas: a park and its buffer zone are separate
+features under the same name. `ParkiNarodowe` returns 46 rows for Poland's 23
+national parks, exactly 23 of them buffer zones, so counting or measuring
+without looking counts the same ground twice.
+
 ## What is not here
 
 - **No archive**, and no vintage field, as above.
