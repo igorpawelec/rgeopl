@@ -1,4 +1,4 @@
-# rgeopl (development version)
+# rgeopl 0.8.0
 
 * The forest vignette answers the question a stand outline raises next:
   what is protected here, and which stands lie under it. The subareas come
