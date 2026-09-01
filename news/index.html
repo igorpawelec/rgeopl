@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.7.0" id="rgeopl-070">rgeopl 0.7.0<a class="anchor" aria-label="anchor" href="#rgeopl-070"></a></h2>
 <ul><li>Two vignettes for the raster half of the package, which the narrative documentation had never covered: <em>Rasters end to end</em> takes an area from the index through mosaicking, canopy height, four-band orthophotos and point clouds to a written file, and <em>Heights, and the two systems Poland measures them in</em> is about the vertical datums. Between them they reach the functions that do the work: 22 of the 39 exported ones appeared in no vignette at all, including <code><a href="../reference/tile_mosaic.html">tile_mosaic()</a></code>, <code><a href="../reference/chm_get.html">chm_get()</a></code> and <code><a href="../reference/ortho_stack.html">ortho_stack()</a></code>.</li>
 <li>
 <code><a href="../reference/tile_mosaic.html">tile_mosaic()</a></code> takes a <code>datum</code>. Mixing vertical systems is refused, because the seam would be a step in the ground that is not there – but it is the one refusal with a way through: named a system to land in, it mosaics each side on its own, converts the one that is in the other, and joins them with the target laid down first. Naming a datum also accepts the mixture of vintages that comes with it, since two vertical systems are two flights and there is no way to have one without the other.</li>

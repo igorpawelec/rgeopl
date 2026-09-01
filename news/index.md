@@ -1,6 +1,6 @@
 # Changelog
 
-## rgeopl (development version)
+## rgeopl 0.7.0
 
 - Two vignettes for the raster half of the package, which the narrative
   documentation had never covered: *Rasters end to end* takes an area
