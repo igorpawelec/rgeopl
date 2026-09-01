@@ -120,3 +120,22 @@ test_that("missing values are found wherever they are", {
   # and in a layer that is not the first one
   expect_true(has_missing(c(clean, gappy)))
 })
+
+test_that("a range the raster has not been asked for is computed, not given up on", {
+  skip_if_not_installed("terra")
+  r <- terra::rast(nrows = 20, ncols = 20, crs = "EPSG:2180")
+  terra::values(r) <- c(rep(255L, 100), rep(9L, 300))
+
+  # A virtual raster -- how every mosaic here is built -- reports no range
+  # until something asks for one. Left at that, the narrowing is skipped in
+  # exactly the place it was written for.
+  local_mocked_bindings(minmax = function(...) matrix(c(Inf, -Inf), nrow = 2),
+                        .package = "terra")
+  expect_equal(narrow_type(r), "INT1U")
+})
+
+test_that("a raster with no values at all is given up on, not crashed on", {
+  skip_if_not_installed("terra")
+  empty <- terra::rast(nrows = 10, ncols = 10, crs = "EPSG:2180")
+  expect_null(narrow_type(empty))
+})

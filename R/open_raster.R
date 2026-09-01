@@ -110,6 +110,19 @@ narrow_type <- function(x) {
   rng <- suppressWarnings(terra::minmax(x))
   lo <- suppressWarnings(min(rng, na.rm = TRUE))
   hi <- suppressWarnings(max(rng, na.rm = TRUE))
+
+  # A raster that has not been asked for its range yet answers -Inf and Inf,
+  # and a virtual raster -- which is how every mosaic is built here -- always
+  # does. Left at that the narrowing is skipped exactly where it was written
+  # for, and the byte mosaic goes out with 255 marked as missing. So the range
+  # is computed when it is not already known.
+  if (!is.finite(lo) || !is.finite(hi)) {
+    g <- tryCatch(suppressWarnings(terra::global(x, fun = "range", na.rm = TRUE)),
+                  error = function(e) NULL)
+    if (is.null(g)) return(NULL)
+    lo <- suppressWarnings(min(unlist(g), na.rm = TRUE))
+    hi <- suppressWarnings(max(unlist(g), na.rm = TRUE))
+  }
   if (!is.finite(lo) || !is.finite(hi) || lo < 0) return(NULL)
   if (hi <= 255) "INT1U" else if (hi <= 65535) "INT2U" else NULL
 }

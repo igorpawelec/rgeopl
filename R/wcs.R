@@ -60,6 +60,9 @@ WCS_COVERAGES <- list(
 #'   orthophotos.
 #' @param filename Where to save it. `NULL` puts it in the cache and returns
 #'   that path.
+#' @param gdal GDAL creation options for the written file, as a character
+#'   vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+#'   the data, tiled, and BIGTIFF when the size calls for it.
 #' @param file Former name of `filename`, kept working for now. Everything
 #'   else in the package says `filename`, and one idea should not answer to
 #'   two words.
@@ -112,11 +115,11 @@ WCS_COVERAGES <- list(
 dem_get <- function(aoi, product = c("dtm", "dsm"), resolution = 1,
                     datum = c("evrf2007", "kron86"), filename = NULL,
                     convert = TRUE, mask = FALSE, max_pixels = 2500,
-                    quiet = FALSE, file = NULL) {
+                    quiet = FALSE, gdal = NULL, file = NULL) {
   product <- match.arg(product)
   datum <- match.arg(datum)
   wcs_get(paste(product, datum, sep = "_"), aoi, resolution,
-          renamed_file(filename, file), convert, mask, max_pixels, quiet)
+          renamed_file(filename, file), convert, mask, max_pixels, quiet, gdal)
 }
 
 #' @rdname dem_get
@@ -124,10 +127,10 @@ dem_get <- function(aoi, product = c("dtm", "dsm"), resolution = 1,
 ortho_get <- function(aoi, product = c("standard", "high", "true"),
                       resolution = 0.25, filename = NULL, convert = TRUE,
                       mask = FALSE, max_pixels = 2500, quiet = FALSE,
-                      file = NULL) {
+                      gdal = NULL, file = NULL) {
   product <- match.arg(product)
   wcs_get(paste0("ortho_", product), aoi, resolution,
-          renamed_file(filename, file), convert, mask, max_pixels, quiet)
+          renamed_file(filename, file), convert, mask, max_pixels, quiet, gdal)
 }
 
 # `file` was the name these two used until 0.5.0. It keeps working, with a
@@ -143,7 +146,7 @@ renamed_file <- function(filename, file) {
 }
 
 wcs_get <- function(key, aoi, resolution, filename, convert, mask, max_pixels,
-                    quiet) {
+                    quiet, gdal = NULL) {
   spec <- WCS_COVERAGES[[key]]
   if (is.null(spec)) stop("No coverage called `", key, "`.", call. = FALSE)
 
@@ -172,8 +175,8 @@ wcs_get <- function(key, aoi, resolution, filename, convert, mask, max_pixels,
   path <- gp_download(full_url, group = sub("_.*", "", key), filename = name,
                       label = spec[[2]], quiet = quiet)
   wcs_check(path)
-  if (isTRUE(convert)) path <- to_geotiff(path, quiet = quiet)
-  if (isTRUE(mask)) path <- mask_to_aoi(path, aoi, quiet = quiet)
+  if (isTRUE(convert)) path <- to_geotiff(path, quiet = quiet, gdal = gdal)
+  if (isTRUE(mask)) path <- mask_to_aoi(path, aoi, quiet = quiet, gdal = gdal)
 
   if (!is.null(filename)) {
     file.copy(path, filename, overwrite = TRUE)
@@ -186,7 +189,7 @@ wcs_get <- function(key, aoi, resolution, filename, convert, mask, max_pixels,
 # four times the size for the same data, and no coordinate system at all. The
 # conversion is lossless, so it is done by default and the result kept beside
 # the original, ready for the next call.
-to_geotiff <- function(path, quiet = FALSE) {
+to_geotiff <- function(path, quiet = FALSE, gdal = NULL) {
   if (tolower(tools::file_ext(path)) != "asc") return(path)
 
   tif <- sub("\\.asc$", ".tif", path, ignore.case = TRUE)
@@ -201,7 +204,7 @@ to_geotiff <- function(path, quiet = FALSE) {
 
   r <- terra::rast(path)
   terra::crs(r) <- paste0("EPSG:", CRS_PL1992)
-  write_raster(r, tif)
+  write_raster(r, tif, gdal)
   say(quiet, "  converted to GeoTIFF (",
       format_bytes(file.size(path)), " -> ", format_bytes(file.size(tif)), ")")
   tif
@@ -246,7 +249,7 @@ wcs_check <- function(path) {
 # The coverage services take a bounding box, so a ragged area comes back as a
 # rectangle. Masking is done here rather than left to the caller, so that
 # `mask` means the same thing on this side as it does on `tile_mosaic()`.
-mask_to_aoi <- function(path, aoi, quiet = FALSE) {
+mask_to_aoi <- function(path, aoi, quiet = FALSE, gdal = NULL) {
   if (!requireNamespace("terra", quietly = TRUE)) {
     say(quiet, "  install 'terra' to mask to the outline; keeping the bounding box")
     return(path)
@@ -258,7 +261,7 @@ mask_to_aoi <- function(path, aoi, quiet = FALSE) {
   r <- open_raster(path)
   geom <- aoi_geom(as_aoi(aoi), crs = raster_epsg(r))
   r <- terra::mask(r, terra::vect(geom))
-  write_raster(r, out)
+  write_raster(r, out, gdal)
   say(quiet, "  masked to the area outline")
   out
 }

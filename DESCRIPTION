@@ -1,7 +1,7 @@
 Package: rgeopl
 Type: Package
 Title: Unified Access to Polish National Geodata (GUGiK and BDL)
-Version: 0.7.0
+Version: 0.7.0.9000
 Authors@R: person(given = "Igor", family = "Pawelec", role = c("aut", "cre"),
                   email = "gorasz44@gmail.com")
 Description: Search and download spatial data from the Polish national geodetic

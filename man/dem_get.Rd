@@ -15,6 +15,7 @@ dem_get(
   mask = FALSE,
   max_pixels = 2500,
   quiet = FALSE,
+  gdal = NULL,
   file = NULL
 )
 
@@ -27,6 +28,7 @@ ortho_get(
   mask = FALSE,
   max_pixels = 2500,
   quiet = FALSE,
+  gdal = NULL,
   file = NULL
 )
 }
@@ -67,6 +69,10 @@ px in under a minute, and 4000 px does not return at all. Raise it
 knowing that.}
 
 \item{quiet}{Suppress progress messages.}
+
+\item{gdal}{GDAL creation options for the written file, as a character
+vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+the data, tiled, and BIGTIFF when the size calls for it.}
 
 \item{file}{Former name of `filename`, kept working for now. Everything
 else in the package says `filename`, and one idea should not answer to

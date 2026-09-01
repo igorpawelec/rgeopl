@@ -124,3 +124,16 @@ test_that("`file` was renamed to `filename` and still works meanwhile", {
   expect_warning(got <- renamed_file("new.tif", "old.tif"), "renamed")
   expect_equal(got, "new.tif")
 })
+
+test_that("the coverage path takes GDAL options like every other write", {
+  expect_true("gdal" %in% names(formals(dem_get)))
+  expect_true("gdal" %in% names(formals(ortho_get)))
+  # and passes them down rather than swallowing them
+  expect_true("gdal" %in% names(formals(wcs_get)))
+  expect_true("gdal" %in% names(formals(to_geotiff)))
+  expect_true("gdal" %in% names(formals(mask_to_aoi)))
+
+  # quiet stays ahead of gdal, as everywhere else
+  a <- names(formals(dem_get))
+  expect_lt(match("quiet", a), match("gdal", a))
+})
