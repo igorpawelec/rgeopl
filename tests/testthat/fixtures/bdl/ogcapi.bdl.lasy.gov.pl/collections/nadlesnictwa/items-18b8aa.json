@@ -1,0 +1,5182 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-12- -  -      -    -",
+                "inspectorate_name": "Kościan",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 1,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-09- -  -      -    -",
+                "inspectorate_name": "Oleśnica Śląska",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 2,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-23- -  -      -    -",
+                "inspectorate_name": "Lądek Zdrój",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 3,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-19- -  -      -    -",
+                "inspectorate_name": "Międzyrzecz",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 4,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-02- -  -      -    -",
+                "inspectorate_name": "Bielsko",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 5,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-02- -  -      -    -",
+                "inspectorate_name": "Białowieża",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 6,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-03- -  -      -    -",
+                "inspectorate_name": "Bielsk",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 7,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-14- -  -      -    -",
+                "inspectorate_name": "Kliniska",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 8,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-08- -  -      -    -",
+                "inspectorate_name": "Dojlidy",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 9,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-19- -  -      -    -",
+                "inspectorate_name": "Lubliniec",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 10,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-12- -  -      -    -",
+                "inspectorate_name": "Głęboki Bród",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 11,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-13- -  -      -    -",
+                "inspectorate_name": "Gołdap",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 12,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-15- -  -      -    -",
+                "inspectorate_name": "Łomża",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 13,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-18- -  -      -    -",
+                "inspectorate_name": "Nurzec",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 14,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-14- -  -      -    -",
+                "inspectorate_name": "Miechów",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 15,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-15- -  -      -    -",
+                "inspectorate_name": "Myślenice",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 16,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-23- -  -      -    -",
+                "inspectorate_name": "Prudnik",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 17,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-17- -  -      -    -",
+                "inspectorate_name": "Niepołomice",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 18,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-21- -  -      -    -",
+                "inspectorate_name": "Piwniczna",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 19,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-18- -  -      -    -",
+                "inspectorate_name": "Narol",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 20,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-02- -  -      -    -",
+                "inspectorate_name": "Biłgoraj",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 21,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-14- -  -      -    -",
+                "inspectorate_name": "Międzyrzec",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 22,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-29- -  -      -    -",
+                "inspectorate_name": "Włodawa",
+                "inspectorate_cd": "29",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 23,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-12- -  -      -    -",
+                "inspectorate_name": "Płock",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 24,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-14- -  -      -    -",
+                "inspectorate_name": "Radziwiłłów",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 25,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-24- -  -      -    -",
+                "inspectorate_name": "Grotniki",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 26,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-04- -  -      -    -",
+                "inspectorate_name": "Dwukoły",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 27,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-05- -  -      -    -",
+                "inspectorate_name": "Olsztyn",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 28,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-34- -  -      -    -",
+                "inspectorate_name": "Zaporowo",
+                "inspectorate_cd": "34",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 29,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-16- -  -      -    -",
+                "inspectorate_name": "Krucz",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 30,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-04- -  -      -    -",
+                "inspectorate_name": "Góra Śląska",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 31,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-22- -  -      -    -",
+                "inspectorate_name": "Czerniejewo",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 32,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-03- -  -      -    -",
+                "inspectorate_name": "Bogdaniec",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 33,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-23- -  -      -    -",
+                "inspectorate_name": "Ośno Lubuskie",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 34,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-26- -  -      -    -",
+                "inspectorate_name": "Rzepin",
+                "inspectorate_cd": "26",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 35,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-02- -  -      -    -",
+                "inspectorate_name": "Bobolice",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 36,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-15- -  -      -    -",
+                "inspectorate_name": "Osusznica",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 37,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-16- -  -      -    -",
+                "inspectorate_name": "Połczyn",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 38,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-18- -  -      -    -",
+                "inspectorate_name": "Szczecinek",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 39,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-19- -  -      -    -",
+                "inspectorate_name": "Świdwin",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 40,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-23- -  -      -    -",
+                "inspectorate_name": "Karnieszewice",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 41,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-11- -  -      -    -",
+                "inspectorate_name": "Osie",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 42,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-14- -  -      -    -",
+                "inspectorate_name": "Runowo",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 43,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-21- -  -      -    -",
+                "inspectorate_name": "Zamrzenica",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 44,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-01- -  -      -    -",
+                "inspectorate_name": "Bardo Śląskie",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 45,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-06- -  -      -    -",
+                "inspectorate_name": "Wołów",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 46,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-08- -  -      -    -",
+                "inspectorate_name": "Głogów",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 47,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-17- -  -      -    -",
+                "inspectorate_name": "Miękinia",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 48,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-27- -  -      -    -",
+                "inspectorate_name": "Świeradów",
+                "inspectorate_cd": "27",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 49,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-11- -  -      -    -",
+                "inspectorate_name": "Świebodzin",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 50,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-18- -  -      -    -",
+                "inspectorate_name": "Przytok",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 51,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-19- -  -      -    -",
+                "inspectorate_name": "Żagań",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 52,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-02- -  -      -    -",
+                "inspectorate_name": "Elbląg",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 53,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-03- -  -      -    -",
+                "inspectorate_name": "Gdańsk",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 54,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-05- -  -      -    -",
+                "inspectorate_name": "Kartuzy",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 55,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-08- -  -      -    -",
+                "inspectorate_name": "Kwidzyn",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 56,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-02- -  -      -    -",
+                "inspectorate_name": "Dobieszyn",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 57,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-05- -  -      -    -",
+                "inspectorate_name": "Kielce",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 58,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-12- -  -      -    -",
+                "inspectorate_name": "Radoszyce",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 59,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-13- -  -      -    -",
+                "inspectorate_name": "Skarżysko",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 60,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-11- -  -      -    -",
+                "inspectorate_name": "Jugów",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 61,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-14- -  -      -    -",
+                "inspectorate_name": "Starachowice",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 62,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-17- -  -      -    -",
+                "inspectorate_name": "Zwoleń",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 63,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-20- -  -      -    -",
+                "inspectorate_name": "Daleszyce",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 64,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-22- -  -      -    -",
+                "inspectorate_name": "Staszów",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 65,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-06- -  -      -    -",
+                "inspectorate_name": "Łochów",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 66,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-13- -  -      -    -",
+                "inspectorate_name": "Pułtusk",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 67,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-14- -  -      -    -",
+                "inspectorate_name": "Wyszków",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 68,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-01- -  -      -    -",
+                "inspectorate_name": "Augustów",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 69,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-04- -  -      -    -",
+                "inspectorate_name": "Borki",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 70,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-05- -  -      -    -",
+                "inspectorate_name": "Browsk",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 71,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-06- -  -      -    -",
+                "inspectorate_name": "Czarna Białostocka",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 72,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-07- -  -      -    -",
+                "inspectorate_name": "Czerwony Dwór",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 73,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-09- -  -      -    -",
+                "inspectorate_name": "Drygały",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 74,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-10- -  -      -    -",
+                "inspectorate_name": "Ełk",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 75,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-14- -  -      -    -",
+                "inspectorate_name": "Hajnówka",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 76,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-16- -  -      -    -",
+                "inspectorate_name": "Maskulińskie",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 77,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-17- -  -      -    -",
+                "inspectorate_name": "Nowogród",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 78,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-19- -  -      -    -",
+                "inspectorate_name": "Olecko",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 79,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-20- -  -      -    -",
+                "inspectorate_name": "Pisz",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 80,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-21- -  -      -    -",
+                "inspectorate_name": "Płaska",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 81,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-22- -  -      -    -",
+                "inspectorate_name": "Pomorze",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 82,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-23- -  -      -    -",
+                "inspectorate_name": "Rajgród",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 83,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-24- -  -      -    -",
+                "inspectorate_name": "Rudka",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 84,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-25- -  -      -    -",
+                "inspectorate_name": "Supraśl",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 85,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-26- -  -      -    -",
+                "inspectorate_name": "Suwałki",
+                "inspectorate_cd": "26",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 86,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-27- -  -      -    -",
+                "inspectorate_name": "Szczebra",
+                "inspectorate_cd": "27",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 87,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-28- -  -      -    -",
+                "inspectorate_name": "Knyszyn",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 88,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-30- -  -      -    -",
+                "inspectorate_name": "Żednia",
+                "inspectorate_cd": "30",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 89,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-32- -  -      -    -",
+                "inspectorate_name": "Waliły",
+                "inspectorate_cd": "32",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 90,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-01- -  -      -    -",
+                "inspectorate_name": "Andrychów",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 91,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-03- -  -      -    -",
+                "inspectorate_name": "Brynek",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 92,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-04- -  -      -    -",
+                "inspectorate_name": "Brzeg",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 93,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-05- -  -      -    -",
+                "inspectorate_name": "Gidle",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 94,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-06- -  -      -    -",
+                "inspectorate_name": "Herby",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 95,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-07- -  -      -    -",
+                "inspectorate_name": "Chrzanów",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 96,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-19- -  -      -    -",
+                "inspectorate_name": "Syców",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 97,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-06- -  -      -    -",
+                "inspectorate_name": "Dębno",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 98,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-19- -  -      -    -",
+                "inspectorate_name": "Ostrołęka",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 99,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-08- -  -      -    -",
+                "inspectorate_name": "Jeleśnia",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 100,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-09- -  -      -    -",
+                "inspectorate_name": "Katowice",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 101,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-10- -  -      -    -",
+                "inspectorate_name": "Kędzierzyn",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 102,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-11- -  -      -    -",
+                "inspectorate_name": "Kluczbork",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 103,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-12- -  -      -    -",
+                "inspectorate_name": "Kłobuck",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 104,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-13- -  -      -    -",
+                "inspectorate_name": "Kobiór",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 105,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-14- -  -      -    -",
+                "inspectorate_name": "Zawadzkie",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 106,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-16- -  -      -    -",
+                "inspectorate_name": "Koszęcin",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 107,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-18- -  -      -    -",
+                "inspectorate_name": "Kup",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 108,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-20- -  -      -    -",
+                "inspectorate_name": "Namysłów",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 109,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-21- -  -      -    -",
+                "inspectorate_name": "Olesno",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 110,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-24- -  -      -    -",
+                "inspectorate_name": "Prószków",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 111,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-25- -  -      -    -",
+                "inspectorate_name": "Rudziniec",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 112,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-26- -  -      -    -",
+                "inspectorate_name": "Rudy Raciborskie",
+                "inspectorate_cd": "26",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 113,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-27- -  -      -    -",
+                "inspectorate_name": "Rybnik",
+                "inspectorate_cd": "27",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 114,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-28- -  -      -    -",
+                "inspectorate_name": "Siewierz",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 115,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-29- -  -      -    -",
+                "inspectorate_name": "Strzelce Opolskie",
+                "inspectorate_cd": "29",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 116,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-30- -  -      -    -",
+                "inspectorate_name": "Sucha",
+                "inspectorate_cd": "30",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 117,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-31- -  -      -    -",
+                "inspectorate_name": "Świerklaniec",
+                "inspectorate_cd": "31",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 118,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-32- -  -      -    -",
+                "inspectorate_name": "Tułowice",
+                "inspectorate_cd": "32",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 119,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-33- -  -      -    -",
+                "inspectorate_name": "Turawa",
+                "inspectorate_cd": "33",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 120,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-34- -  -      -    -",
+                "inspectorate_name": "Ujsoły",
+                "inspectorate_cd": "34",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 121,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-35- -  -      -    -",
+                "inspectorate_name": "Ustroń",
+                "inspectorate_cd": "35",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 122,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-36- -  -      -    -",
+                "inspectorate_name": "Węgierska Górka",
+                "inspectorate_cd": "36",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 123,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-37- -  -      -    -",
+                "inspectorate_name": "Wisła",
+                "inspectorate_cd": "37",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 124,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-38- -  -      -    -",
+                "inspectorate_name": "Złoty Potok",
+                "inspectorate_cd": "38",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 125,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-40- -  -      -    -",
+                "inspectorate_name": "Opole",
+                "inspectorate_cd": "40",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 126,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-02- -  -      -    -",
+                "inspectorate_name": "Brzesko",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 127,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-03- -  -      -    -",
+                "inspectorate_name": "Dąbrowa Tarnowska",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 128,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-04- -  -      -    -",
+                "inspectorate_name": "Dębica",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 129,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-05- -  -      -    -",
+                "inspectorate_name": "Gorlice",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 130,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-06- -  -      -    -",
+                "inspectorate_name": "Gromnik",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 131,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-09- -  -      -    -",
+                "inspectorate_name": "Krościenko",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 132,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-10- -  -      -    -",
+                "inspectorate_name": "Krzeszowice",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 133,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-11- -  -      -    -",
+                "inspectorate_name": "Limanowa",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 134,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-13- -  -      -    -",
+                "inspectorate_name": "Łosie",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 135,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-16- -  -      -    -",
+                "inspectorate_name": "Nawojowa",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 136,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-18- -  -      -    -",
+                "inspectorate_name": "Nowy Targ",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 137,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "03-24- -  -      -    -",
+                "inspectorate_name": "Stary Sącz",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "03"
+            },
+            "id": 138,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-01- -  -      -    -",
+                "inspectorate_name": "Baligród",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 139,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-02- -  -      -    -",
+                "inspectorate_name": "Bircza",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 140,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-03- -  -      -    -",
+                "inspectorate_name": "Ustrzyki Dolne",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 141,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-04- -  -      -    -",
+                "inspectorate_name": "Brzozów",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 142,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-05- -  -      -    -",
+                "inspectorate_name": "Cisna",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 143,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-06- -  -      -    -",
+                "inspectorate_name": "Dukla",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 144,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-07- -  -      -    -",
+                "inspectorate_name": "Dynów",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 145,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-08- -  -      -    -",
+                "inspectorate_name": "Głogów",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 146,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-09- -  -      -    -",
+                "inspectorate_name": "Kańczuga",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 147,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-10- -  -      -    -",
+                "inspectorate_name": "Kolbuszowa",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 148,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-11- -  -      -    -",
+                "inspectorate_name": "Kołaczyce",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 149,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-12- -  -      -    -",
+                "inspectorate_name": "Komańcza",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 150,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-13- -  -      -    -",
+                "inspectorate_name": "Krasiczyn",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 151,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-14- -  -      -    -",
+                "inspectorate_name": "Lesko",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 152,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-15- -  -      -    -",
+                "inspectorate_name": "Leżajsk",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 153,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-16- -  -      -    -",
+                "inspectorate_name": "Lutowiska",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 154,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-17- -  -      -    -",
+                "inspectorate_name": "Mielec",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 155,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-19- -  -      -    -",
+                "inspectorate_name": "Oleszyce",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 156,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-20- -  -      -    -",
+                "inspectorate_name": "Rymanów",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 157,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-21- -  -      -    -",
+                "inspectorate_name": "Sieniawa",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 158,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-22- -  -      -    -",
+                "inspectorate_name": "Strzyżów",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 159,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-23- -  -      -    -",
+                "inspectorate_name": "Stuposiany",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 160,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-24- -  -      -    -",
+                "inspectorate_name": "Tuszyma",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 161,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-27- -  -      -    -",
+                "inspectorate_name": "Lubaczów",
+                "inspectorate_cd": "27",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 162,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "04-28- -  -      -    -",
+                "inspectorate_name": "Jarosław",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "04"
+            },
+            "id": 163,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-01- -  -      -    -",
+                "inspectorate_name": "Biała Podlaska",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 164,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-03- -  -      -    -",
+                "inspectorate_name": "Nowa Dęba",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 165,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-04- -  -      -    -",
+                "inspectorate_name": "Chełm",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 166,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-05- -  -      -    -",
+                "inspectorate_name": "Gościeradów",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 167,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-07- -  -      -    -",
+                "inspectorate_name": "Józefów",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 168,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-08- -  -      -    -",
+                "inspectorate_name": "Krasnystaw",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 169,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-09- -  -      -    -",
+                "inspectorate_name": "Kraśnik",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 170,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-10- -  -      -    -",
+                "inspectorate_name": "Chotyłów",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 171,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-11- -  -      -    -",
+                "inspectorate_name": "Lubartów",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 172,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-16- -  -      -    -",
+                "inspectorate_name": "Parczew",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 173,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-17- -  -      -    -",
+                "inspectorate_name": "Mircze",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 174,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-18- -  -      -    -",
+                "inspectorate_name": "Puławy",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 175,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-19- -  -      -    -",
+                "inspectorate_name": "Radzyń Podlaski",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 176,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-20- -  -      -    -",
+                "inspectorate_name": "Rozwadów",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 177,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-21- -  -      -    -",
+                "inspectorate_name": "Rudnik",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 178,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-22- -  -      -    -",
+                "inspectorate_name": "Sarnaki",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 179,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-24- -  -      -    -",
+                "inspectorate_name": "Sobibór",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 180,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-26- -  -      -    -",
+                "inspectorate_name": "Strzelce",
+                "inspectorate_cd": "26",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 181,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-27- -  -      -    -",
+                "inspectorate_name": "Świdnik",
+                "inspectorate_cd": "27",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 182,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-28- -  -      -    -",
+                "inspectorate_name": "Tomaszów",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 183,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-30- -  -      -    -",
+                "inspectorate_name": "Zwierzyniec",
+                "inspectorate_cd": "30",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 184,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "05-31- -  -      -    -",
+                "inspectorate_name": "Janów Lubelski",
+                "inspectorate_cd": "31",
+                "a_year": 2026,
+                "region_cd": "05"
+            },
+            "id": 185,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-01- -  -      -    -",
+                "inspectorate_name": "Bełchatów",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 186,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-02- -  -      -    -",
+                "inspectorate_name": "Brzeziny",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 187,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-04- -  -      -    -",
+                "inspectorate_name": "Gostynin",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 188,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-05- -  -      -    -",
+                "inspectorate_name": "Kutno",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 189,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-06- -  -      -    -",
+                "inspectorate_name": "Kolumna",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 190,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-08- -  -      -    -",
+                "inspectorate_name": "Łąck",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 191,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-09- -  -      -    -",
+                "inspectorate_name": "Opoczno",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 192,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-11- -  -      -    -",
+                "inspectorate_name": "Piotrków",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 193,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-15- -  -      -    -",
+                "inspectorate_name": "Radomsko",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 194,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-17- -  -      -    -",
+                "inspectorate_name": "Smardzewice",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 195,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-18- -  -      -    -",
+                "inspectorate_name": "Skierniewice",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 196,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-20- -  -      -    -",
+                "inspectorate_name": "Wieluń",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 197,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-21- -  -      -    -",
+                "inspectorate_name": "Złoczew",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 198,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-25- -  -      -    -",
+                "inspectorate_name": "Przedbórz",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 199,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-01- -  -      -    -",
+                "inspectorate_name": "Bartoszyce",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 200,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-02- -  -      -    -",
+                "inspectorate_name": "Ciechanów",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 201,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-03- -  -      -    -",
+                "inspectorate_name": "Dobrocin",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 202,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-06- -  -      -    -",
+                "inspectorate_name": "Górowo Iławeckie",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 203,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-07- -  -      -    -",
+                "inspectorate_name": "Iława",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 204,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-08- -  -      -    -",
+                "inspectorate_name": "Jedwabno",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 205,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-09- -  -      -    -",
+                "inspectorate_name": "Kudypy",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 206,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-10- -  -      -    -",
+                "inspectorate_name": "Orneta",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 207,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-11- -  -      -    -",
+                "inspectorate_name": "Lidzbark",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 208,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-12- -  -      -    -",
+                "inspectorate_name": "Miłomłyn",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 209,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-13- -  -      -    -",
+                "inspectorate_name": "Młynary",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 210,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-14- -  -      -    -",
+                "inspectorate_name": "Mrągowo",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 211,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-15- -  -      -    -",
+                "inspectorate_name": "Myszyniec",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 212,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-16- -  -      -    -",
+                "inspectorate_name": "Nidzica",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 213,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-17- -  -      -    -",
+                "inspectorate_name": "Nowe Ramuki",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 214,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-18- -  -      -    -",
+                "inspectorate_name": "Olsztynek",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 215,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-22- -  -      -    -",
+                "inspectorate_name": "Przasnysz",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 216,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-24- -  -      -    -",
+                "inspectorate_name": "Spychowo",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 217,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-25- -  -      -    -",
+                "inspectorate_name": "Srokowo",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 218,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-26- -  -      -    -",
+                "inspectorate_name": "Stare Jabłonki",
+                "inspectorate_cd": "26",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 219,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-27- -  -      -    -",
+                "inspectorate_name": "Strzałowo",
+                "inspectorate_cd": "27",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 220,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-28- -  -      -    -",
+                "inspectorate_name": "Susz",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 221,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-30- -  -      -    -",
+                "inspectorate_name": "Wichrowo",
+                "inspectorate_cd": "30",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 222,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-31- -  -      -    -",
+                "inspectorate_name": "Wielbark",
+                "inspectorate_cd": "31",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 223,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-32- -  -      -    -",
+                "inspectorate_name": "Wipsowo",
+                "inspectorate_cd": "32",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 224,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-35- -  -      -    -",
+                "inspectorate_name": "Parciaki",
+                "inspectorate_cd": "35",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 225,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-36- -  -      -    -",
+                "inspectorate_name": "Korpele",
+                "inspectorate_cd": "36",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 226,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-01- -  -      -    -",
+                "inspectorate_name": "Człopa",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 227,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-02- -  -      -    -",
+                "inspectorate_name": "Durowo",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 228,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-03- -  -      -    -",
+                "inspectorate_name": "Jastrowie",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 229,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-04- -  -      -    -",
+                "inspectorate_name": "Krzyż",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 230,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-05- -  -      -    -",
+                "inspectorate_name": "Okonek",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 231,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-06- -  -      -    -",
+                "inspectorate_name": "Mirosławiec",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 232,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-07- -  -      -    -",
+                "inspectorate_name": "Podanin",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 233,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-08- -  -      -    -",
+                "inspectorate_name": "Potrzebowice",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 234,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-09- -  -      -    -",
+                "inspectorate_name": "Sarbia",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 235,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-10- -  -      -    -",
+                "inspectorate_name": "Trzcianka",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 236,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-11- -  -      -    -",
+                "inspectorate_name": "Wałcz",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 237,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-12- -  -      -    -",
+                "inspectorate_name": "Wronki",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 238,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-13- -  -      -    -",
+                "inspectorate_name": "Kaczory",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 239,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-14- -  -      -    -",
+                "inspectorate_name": "Zdrojowa Góra",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 240,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-15- -  -      -    -",
+                "inspectorate_name": "Złotów",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 241,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-17- -  -      -    -",
+                "inspectorate_name": "Tuczno",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 242,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-18- -  -      -    -",
+                "inspectorate_name": "Lipka",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 243,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-20- -  -      -    -",
+                "inspectorate_name": "Płytnica",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 244,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "08-21- -  -      -    -",
+                "inspectorate_name": "Kalisz Pomorski",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "08"
+            },
+            "id": 245,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-01- -  -      -    -",
+                "inspectorate_name": "Antonin",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 246,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-02- -  -      -    -",
+                "inspectorate_name": "Babki",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 247,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-03- -  -      -    -",
+                "inspectorate_name": "Gniezno",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 248,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-05- -  -      -    -",
+                "inspectorate_name": "Grodziec",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 249,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-06- -  -      -    -",
+                "inspectorate_name": "Grodzisk",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 250,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-07- -  -      -    -",
+                "inspectorate_name": "Jarocin",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 251,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-08- -  -      -    -",
+                "inspectorate_name": "Karczma Borowa",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 252,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-09- -  -      -    -",
+                "inspectorate_name": "Konin",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 253,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-11- -  -      -    -",
+                "inspectorate_name": "Konstantynowo",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 254,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-13- -  -      -    -",
+                "inspectorate_name": "Krotoszyn",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 255,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-14- -  -      -    -",
+                "inspectorate_name": "Łopuchówko",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 256,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-15- -  -      -    -",
+                "inspectorate_name": "Oborniki",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 257,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-16- -  -      -    -",
+                "inspectorate_name": "Piaski",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 258,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-17- -  -      -    -",
+                "inspectorate_name": "Pniewy",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 259,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-18- -  -      -    -",
+                "inspectorate_name": "Przedborów",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 260,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-21- -  -      -    -",
+                "inspectorate_name": "Turek",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 261,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-23- -  -      -    -",
+                "inspectorate_name": "Kalisz",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 262,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-24- -  -      -    -",
+                "inspectorate_name": "Włoszakowice",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 263,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-25- -  -      -    -",
+                "inspectorate_name": "Sieraków",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 264,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-01- -  -      -    -",
+                "inspectorate_name": "Barlinek",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 265,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-02- -  -      -    -",
+                "inspectorate_name": "Bierzwnik",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 266,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-04- -  -      -    -",
+                "inspectorate_name": "Bolewice",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 267,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-05- -  -      -    -",
+                "inspectorate_name": "Chojna",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 268,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-07- -  -      -    -",
+                "inspectorate_name": "Dobrzany",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 269,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-08- -  -      -    -",
+                "inspectorate_name": "Drawno",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 270,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-09- -  -      -    -",
+                "inspectorate_name": "Głusko",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 271,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-10- -  -      -    -",
+                "inspectorate_name": "Goleniów",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 272,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-11- -  -      -    -",
+                "inspectorate_name": "Gryfice",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 273,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-12- -  -      -    -",
+                "inspectorate_name": "Gryfino",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 274,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-13- -  -      -    -",
+                "inspectorate_name": "Karwin",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 275,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-17- -  -      -    -",
+                "inspectorate_name": "Mieszkowice",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 276,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-18- -  -      -    -",
+                "inspectorate_name": "Międzychód",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 277,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-21- -  -      -    -",
+                "inspectorate_name": "Myślibórz",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 278,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-22- -  -      -    -",
+                "inspectorate_name": "Nowogard",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 279,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-24- -  -      -    -",
+                "inspectorate_name": "Resko",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 280,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-25- -  -      -    -",
+                "inspectorate_name": "Rokita",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 281,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-27- -  -      -    -",
+                "inspectorate_name": "Skwierzyna",
+                "inspectorate_cd": "27",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 282,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-28- -  -      -    -",
+                "inspectorate_name": "Smolarz",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 283,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-29- -  -      -    -",
+                "inspectorate_name": "Trzciel",
+                "inspectorate_cd": "29",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 284,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-20- -  -      -    -",
+                "inspectorate_name": "Międzyzdroje",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 285,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-15- -  -      -    -",
+                "inspectorate_name": "Kłodawa",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 286,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-20- -  -      -    -",
+                "inspectorate_name": "Taczanów",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 287,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "09-10- -  -      -    -",
+                "inspectorate_name": "Koło",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "09"
+            },
+            "id": 288,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-16- -  -      -    -",
+                "inspectorate_name": "Łobez",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 289,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-31- -  -      -    -",
+                "inspectorate_name": "Choszczno",
+                "inspectorate_cd": "31",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 290,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-32- -  -      -    -",
+                "inspectorate_name": "Lubniewice",
+                "inspectorate_cd": "32",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 291,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-33- -  -      -    -",
+                "inspectorate_name": "Sulęcin",
+                "inspectorate_cd": "33",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 292,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-34- -  -      -    -",
+                "inspectorate_name": "Różańsko",
+                "inspectorate_cd": "34",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 293,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-35- -  -      -    -",
+                "inspectorate_name": "Strzelce Krajeńskie",
+                "inspectorate_cd": "35",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 294,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-21- -  -      -    -",
+                "inspectorate_name": "Pieńsk",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 295,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-22- -  -      -    -",
+                "inspectorate_name": "Ruszów",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 296,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-24- -  -      -    -",
+                "inspectorate_name": "Szklarska Poręba",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 297,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-25- -  -      -    -",
+                "inspectorate_name": "Śnieżka",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 298,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-26- -  -      -    -",
+                "inspectorate_name": "Świdnica",
+                "inspectorate_cd": "26",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 299,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-28- -  -      -    -",
+                "inspectorate_name": "Wałbrzych",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 300,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-29- -  -      -    -",
+                "inspectorate_name": "Węgliniec",
+                "inspectorate_cd": "29",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 301,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-30- -  -      -    -",
+                "inspectorate_name": "Złotoryja",
+                "inspectorate_cd": "30",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 302,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-31- -  -      -    -",
+                "inspectorate_name": "Żmigród",
+                "inspectorate_cd": "31",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 303,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-33- -  -      -    -",
+                "inspectorate_name": "Świętoszów",
+                "inspectorate_cd": "33",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 304,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-01- -  -      -    -",
+                "inspectorate_name": "Cybinka",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 305,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-02- -  -      -    -",
+                "inspectorate_name": "Brzózka",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 306,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-03- -  -      -    -",
+                "inspectorate_name": "Gubin",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 307,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-04- -  -      -    -",
+                "inspectorate_name": "Krosno",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 308,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-05- -  -      -    -",
+                "inspectorate_name": "Krzystkowice",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 309,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-06- -  -      -    -",
+                "inspectorate_name": "Lipinki",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 310,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-07- -  -      -    -",
+                "inspectorate_name": "Lubsko",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 311,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-08- -  -      -    -",
+                "inspectorate_name": "Nowa Sól",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 312,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-09- -  -      -    -",
+                "inspectorate_name": "Sława Śląska",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 313,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-10- -  -      -    -",
+                "inspectorate_name": "Sulechów",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 314,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-12- -  -      -    -",
+                "inspectorate_name": "Szprotawa",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 315,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-13- -  -      -    -",
+                "inspectorate_name": "Torzym",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 316,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-14- -  -      -    -",
+                "inspectorate_name": "Wolsztyn",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 317,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-15- -  -      -    -",
+                "inspectorate_name": "Wymiarki",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 318,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-16- -  -      -    -",
+                "inspectorate_name": "Zielona Góra",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 319,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-01- -  -      -    -",
+                "inspectorate_name": "Białogard",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 320,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-03- -  -      -    -",
+                "inspectorate_name": "Bytów",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 321,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-04- -  -      -    -",
+                "inspectorate_name": "Czaplinek",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 322,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-06- -  -      -    -",
+                "inspectorate_name": "Człuchów",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 323,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-07- -  -      -    -",
+                "inspectorate_name": "Drawsko",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 324,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-08- -  -      -    -",
+                "inspectorate_name": "Dretyń",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 325,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-09- -  -      -    -",
+                "inspectorate_name": "Gościno",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 326,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-10- -  -      -    -",
+                "inspectorate_name": "Leśny Dwór",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 327,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-11- -  -      -    -",
+                "inspectorate_name": "Łupawa",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 328,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-12- -  -      -    -",
+                "inspectorate_name": "Manowo",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 329,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-13- -  -      -    -",
+                "inspectorate_name": "Miastko",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 330,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-14- -  -      -    -",
+                "inspectorate_name": "Niedźwiady",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 331,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-20- -  -      -    -",
+                "inspectorate_name": "Ustka",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 332,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-21- -  -      -    -",
+                "inspectorate_name": "Warcino",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 333,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-22- -  -      -    -",
+                "inspectorate_name": "Złocieniec",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 334,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-24- -  -      -    -",
+                "inspectorate_name": "Polanów",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 335,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-25- -  -      -    -",
+                "inspectorate_name": "Damnica",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 336,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-27- -  -      -    -",
+                "inspectorate_name": "Tychowo",
+                "inspectorate_cd": "27",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 337,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-28- -  -      -    -",
+                "inspectorate_name": "Świerczyna",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 338,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-29- -  -      -    -",
+                "inspectorate_name": "Borne Sulinowo",
+                "inspectorate_cd": "29",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 339,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-30- -  -      -    -",
+                "inspectorate_name": "Czarnobór",
+                "inspectorate_cd": "30",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 340,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-31- -  -      -    -",
+                "inspectorate_name": "Trzebielino",
+                "inspectorate_cd": "31",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 341,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-01- -  -      -    -",
+                "inspectorate_name": "Brodnica",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 342,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-02- -  -      -    -",
+                "inspectorate_name": "Bydgoszcz",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 343,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-03- -  -      -    -",
+                "inspectorate_name": "Czersk",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 344,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-05- -  -      -    -",
+                "inspectorate_name": "Dobrzejewice",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 345,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-06- -  -      -    -",
+                "inspectorate_name": "Gniewkowo",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 346,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-07- -  -      -    -",
+                "inspectorate_name": "Golub-Dobrzyń",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 347,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-08- -  -      -    -",
+                "inspectorate_name": "Gołąbki",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 348,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-09- -  -      -    -",
+                "inspectorate_name": "Jamy",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 349,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-10- -  -      -    -",
+                "inspectorate_name": "Miradz",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 350,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-12- -  -      -    -",
+                "inspectorate_name": "Przymuszewo",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 351,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-13- -  -      -    -",
+                "inspectorate_name": "Różanna",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 352,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-15- -  -      -    -",
+                "inspectorate_name": "Rytel",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 353,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-16- -  -      -    -",
+                "inspectorate_name": "Skrwilno",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 354,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-17- -  -      -    -",
+                "inspectorate_name": "Solec Kujawski",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 355,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-18- -  -      -    -",
+                "inspectorate_name": "Szubin",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 356,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-19- -  -      -    -",
+                "inspectorate_name": "Tuchola",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 357,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-20- -  -      -    -",
+                "inspectorate_name": "Włocławek",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 358,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-22- -  -      -    -",
+                "inspectorate_name": "Żołędowo",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 359,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-23- -  -      -    -",
+                "inspectorate_name": "Lutówko",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 360,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-25- -  -      -    -",
+                "inspectorate_name": "Woziwoda",
+                "inspectorate_cd": "25",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 361,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-26- -  -      -    -",
+                "inspectorate_name": "Cierpiszewo",
+                "inspectorate_cd": "26",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 362,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-28- -  -      -    -",
+                "inspectorate_name": "Trzebciny",
+                "inspectorate_cd": "28",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 363,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-02- -  -      -    -",
+                "inspectorate_name": "Henryków",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 364,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-03- -  -      -    -",
+                "inspectorate_name": "Bolesławiec",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 365,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-24- -  -      -    -",
+                "inspectorate_name": "Toruń",
+                "inspectorate_cd": "24",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 366,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-19- -  -      -    -",
+                "inspectorate_name": "Spała",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 367,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "10-30- -  -      -    -",
+                "inspectorate_name": "Trzebież",
+                "inspectorate_cd": "30",
+                "a_year": 2026,
+                "region_cd": "10"
+            },
+            "id": 368,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-04- -  -      -    -",
+                "inspectorate_name": "Bystrzyca Kłodzka",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 369,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-05- -  -      -    -",
+                "inspectorate_name": "Chocianów",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 370,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-07- -  -      -    -",
+                "inspectorate_name": "Zdroje",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 371,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-10- -  -      -    -",
+                "inspectorate_name": "Jawor",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 372,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-12- -  -      -    -",
+                "inspectorate_name": "Kamienna Góra",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 373,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-13- -  -      -    -",
+                "inspectorate_name": "Legnica",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 374,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-14- -  -      -    -",
+                "inspectorate_name": "Lubin",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 375,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-15- -  -      -    -",
+                "inspectorate_name": "Lwówek Śląski",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 376,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-16- -  -      -    -",
+                "inspectorate_name": "Międzylesie",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 377,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-18- -  -      -    -",
+                "inspectorate_name": "Milicz",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 378,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-19- -  -      -    -",
+                "inspectorate_name": "Oborniki Śląskie",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 379,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-20- -  -      -    -",
+                "inspectorate_name": "Oława",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 380,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-20- -  -      -    -",
+                "inspectorate_name": "Bytnica",
+                "inspectorate_cd": "20",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 381,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-01- -  -      -    -",
+                "inspectorate_name": "Choczewo",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 382,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-04- -  -      -    -",
+                "inspectorate_name": "Kaliska",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 383,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-06- -  -      -    -",
+                "inspectorate_name": "Kolbudy",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 384,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-07- -  -      -    -",
+                "inspectorate_name": "Kościerzyna",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 385,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-09- -  -      -    -",
+                "inspectorate_name": "Lębork",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 386,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-10- -  -      -    -",
+                "inspectorate_name": "Lipusz",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 387,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-11- -  -      -    -",
+                "inspectorate_name": "Lubichowo",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 388,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-12- -  -      -    -",
+                "inspectorate_name": "Starogard",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 389,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-13- -  -      -    -",
+                "inspectorate_name": "Strzebielino",
+                "inspectorate_cd": "13",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 390,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-14- -  -      -    -",
+                "inspectorate_name": "Wejherowo",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 391,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "15-15- -  -      -    -",
+                "inspectorate_name": "Cewice",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "15"
+            },
+            "id": 392,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-01- -  -      -    -",
+                "inspectorate_name": "Barycz",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 393,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-03- -  -      -    -",
+                "inspectorate_name": "Grójec",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 394,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-04- -  -      -    -",
+                "inspectorate_name": "Jędrzejów",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 395,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-06- -  -      -    -",
+                "inspectorate_name": "Kozienice",
+                "inspectorate_cd": "06",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 396,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-07- -  -      -    -",
+                "inspectorate_name": "Łagów",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 397,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-02- -  -      -    -",
+                "inspectorate_name": "Chojnów",
+                "inspectorate_cd": "02",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 398,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-03- -  -      -    -",
+                "inspectorate_name": "Drewnica",
+                "inspectorate_cd": "03",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 399,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-04- -  -      -    -",
+                "inspectorate_name": "Garwolin",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 400,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-05- -  -      -    -",
+                "inspectorate_name": "Jabłonna",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 401,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-07- -  -      -    -",
+                "inspectorate_name": "Łuków",
+                "inspectorate_cd": "07",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 402,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-08- -  -      -    -",
+                "inspectorate_name": "Mińsk",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 403,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-09- -  -      -    -",
+                "inspectorate_name": "Siedlce",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 404,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-10- -  -      -    -",
+                "inspectorate_name": "Sokołów",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 405,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-11- -  -      -    -",
+                "inspectorate_name": "Ostrów Mazowiecka",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 406,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-12- -  -      -    -",
+                "inspectorate_name": "Płońsk",
+                "inspectorate_cd": "12",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 407,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-08- -  -      -    -",
+                "inspectorate_name": "Ostrowiec Świętokrzyski",
+                "inspectorate_cd": "08",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 408,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-09- -  -      -    -",
+                "inspectorate_name": "Pińczów",
+                "inspectorate_cd": "09",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 409,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-10- -  -      -    -",
+                "inspectorate_name": "Przysucha",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 410,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "12-04- -  -      -    -",
+                "inspectorate_name": "Dąbrowa",
+                "inspectorate_cd": "04",
+                "a_year": 2026,
+                "region_cd": "12"
+            },
+            "id": 411,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-05- -  -      -    -",
+                "inspectorate_name": "Czarne Człuchowskie",
+                "inspectorate_cd": "05",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 412,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-11- -  -      -    -",
+                "inspectorate_name": "Radom",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 413,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-15- -  -      -    -",
+                "inspectorate_name": "Suchedniów",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 414,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-16- -  -      -    -",
+                "inspectorate_name": "Włoszczowa",
+                "inspectorate_cd": "16",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 415,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-18- -  -      -    -",
+                "inspectorate_name": "Zagnańsk",
+                "inspectorate_cd": "18",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 416,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-19- -  -      -    -",
+                "inspectorate_name": "Marcule",
+                "inspectorate_cd": "19",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 417,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-21- -  -      -    -",
+                "inspectorate_name": "Stąporków",
+                "inspectorate_cd": "21",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 418,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "16-23- -  -      -    -",
+                "inspectorate_name": "Chmielnik",
+                "inspectorate_cd": "23",
+                "a_year": 2026,
+                "region_cd": "16"
+            },
+            "id": 419,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "17-01- -  -      -    -",
+                "inspectorate_name": "Celestynów",
+                "inspectorate_cd": "01",
+                "a_year": 2026,
+                "region_cd": "17"
+            },
+            "id": 420,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-11- -  -      -    -",
+                "inspectorate_name": "Giżycko",
+                "inspectorate_cd": "11",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 421,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "01-29- -  -      -    -",
+                "inspectorate_name": "Krynki",
+                "inspectorate_cd": "29",
+                "a_year": 2026,
+                "region_cd": "01"
+            },
+            "id": 422,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-15- -  -      -    -",
+                "inspectorate_name": "Koniecpol",
+                "inspectorate_cd": "15",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 423,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "02-22- -  -      -    -",
+                "inspectorate_name": "Olkusz",
+                "inspectorate_cd": "22",
+                "a_year": 2026,
+                "region_cd": "02"
+            },
+            "id": 424,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "06-10- -  -      -    -",
+                "inspectorate_name": "Poddębice",
+                "inspectorate_cd": "10",
+                "a_year": 2026,
+                "region_cd": "06"
+            },
+            "id": 425,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-29- -  -      -    -",
+                "inspectorate_name": "Szczytno",
+                "inspectorate_cd": "29",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 426,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "11-17- -  -      -    -",
+                "inspectorate_name": "Sławno",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "11"
+            },
+            "id": 427,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "13-32- -  -      -    -",
+                "inspectorate_name": "Przemków",
+                "inspectorate_cd": "32",
+                "a_year": 2026,
+                "region_cd": "13"
+            },
+            "id": 428,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "14-17- -  -      -    -",
+                "inspectorate_name": "Babimost",
+                "inspectorate_cd": "17",
+                "a_year": 2026,
+                "region_cd": "14"
+            },
+            "id": 429,
+            "geometry": null
+        }
+    ],
+    "numberMatched": 429,
+    "numberReturned": 429,
+    "links": [
+        {
+            "type": "application/geo+json",
+            "rel": "self",
+            "title": "This document as GeoJSON",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items?f=json&limit=1000&skipGeometry=true"
+        },
+        {
+            "rel": "alternate",
+            "type": "application/ld+json",
+            "title": "This document as RDF (JSON-LD)",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items?f=jsonld&limit=1000&skipGeometry=true"
+        },
+        {
+            "type": "text/html",
+            "rel": "alternate",
+            "title": "This document as HTML",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items?f=html&limit=1000&skipGeometry=true"
+        },
+        {
+            "type": "application/json",
+            "title": "Nadleśnictwa",
+            "rel": "collection",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items"
+        }
+    ],
+    "timeStamp": "2026-09-01T00:42:24.927203Z"
+}

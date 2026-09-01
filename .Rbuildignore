@@ -12,3 +12,4 @@
 ^logo$
 ^LICENSE\.md$
 ^\.github$
+^tests/testthat/fixtures$

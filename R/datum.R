@@ -119,8 +119,7 @@ dem_to_datum <- function(x, from = c("kron86", "evrf2007"),
 
   if (!is.null(filename)) {
     say(quiet, "  writing ", basename(filename))
-    out <- terra::writeRaster(out, filename, overwrite = TRUE,
-                              gdal = raster_gdal(out, gdal))
+    out <- write_raster(out, filename, gdal)
   }
   out
 }
@@ -205,4 +204,21 @@ vertical_shift <- function(lon, lat, from, to) {
     }
   )
   sf::st_coordinates(out)[, "Z"]
+}
+
+# The index writes the vertical system out in full; dem_to_datum() takes the
+# short name. One place to go between them, so nothing has to guess.
+VRS_NAMES <- c("PL-KRON86-NH" = "kron86", "PL-EVRF2007-NH" = "evrf2007")
+
+as_datum <- function(x, what = "datum") {
+  if (is.null(x)) return(NULL)
+  x <- as.character(x)
+  short <- ifelse(x %in% names(VRS_NAMES), unname(VRS_NAMES[x]), tolower(x))
+  bad <- setdiff(short, VRS_NAMES)
+  if (length(bad)) {
+    stop("Unknown ", what, ": ", paste(unique(bad), collapse = ", "), ".",
+         "\n  Use \"kron86\" or \"evrf2007\", or the names the index uses: ",
+         paste(names(VRS_NAMES), collapse = ", "), ".", call. = FALSE)
+  }
+  short
 }

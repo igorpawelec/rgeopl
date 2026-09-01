@@ -1,3 +1,10 @@
+fake_dem_index <- function() {
+  data.frame(product = rep("DTM", 2), year = c(2014L, 2022L),
+             resolution = c(1, 1), CRS = rep("PL-1992", 2),
+             VRS = c("PL-KRON86-NH", "PL-EVRF2007-NH"),
+             stringsAsFactors = FALSE)
+}
+
 dem <- function(value = 100, res = 100, xmin = 600000, ymin = 700000,
                 crs = "EPSG:2180") {
   r <- terra::rast(xmin = xmin, xmax = xmin + 2000, ymin = ymin,
@@ -67,4 +74,58 @@ test_that("the shift is added to the heights and nothing else changes", {
   expect_equal(terra::res(out), terra::res(r))
   expect_equal(as.vector(terra::ext(out)), as.vector(terra::ext(r)))
   expect_equal(names(out), names(r))
+})
+
+test_that("the index spelling and the short name mean the same thing", {
+  expect_equal(as_datum("PL-KRON86-NH"), "kron86")
+  expect_equal(as_datum("PL-EVRF2007-NH"), "evrf2007")
+  expect_equal(as_datum("kron86"), "kron86")
+  expect_equal(as_datum(c("PL-KRON86-NH", "evrf2007")), c("kron86", "evrf2007"))
+  expect_null(as_datum(NULL))
+})
+
+test_that("a vertical system nobody has heard of is refused, with the options", {
+  expect_error(as_datum("PL-1965"), "Unknown datum")
+  expect_error(as_datum("PL-1965"), "kron86")
+  expect_error(as_datum("nonsense", what = "vertical datum"), "vertical datum")
+})
+
+test_that("the datums present in an index are read from its VRS column", {
+  idx <- data.frame(VRS = c("PL-KRON86-NH", "PL-KRON86-NH", "PL-EVRF2007-NH"),
+                    stringsAsFactors = FALSE)
+  expect_equal(index_datums(idx), c("evrf2007", "kron86"))
+  expect_length(index_datums(data.frame(a = 1)), 0L)
+  expect_equal(index_datums(data.frame(VRS = rep("PL-KRON86-NH", 3))), "kron86")
+})
+
+test_that("a canopy model built from two systems converts before subtracting", {
+  skip_if_not_installed("terra")
+  s <- grid(rep(110, 16))
+
+  # same system on both sides: nothing to do, and no network touched
+  expect_identical(level_datums(s, c("kron86", "kron86"), quiet = TRUE), s)
+  expect_identical(level_datums(s, NULL, quiet = TRUE), s)
+  expect_identical(level_datums(s, c("PL-KRON86-NH", "kron86"), quiet = TRUE), s)
+})
+
+test_that("naming only one of the two systems is refused", {
+  skip_if_not_installed("terra")
+  s <- grid(rep(110, 16))
+  expect_error(level_datums(s, "kron86", quiet = TRUE), "both rasters")
+  expect_error(level_datums(s, c("a", "b", "c"), quiet = TRUE), "both rasters")
+})
+
+test_that("mixing datums is refused unless a target is named", {
+  idx <- fake_dem_index()
+  expect_error(check_mosaicable(idx), "vertical datum")
+
+  # Two vertical systems mean two flights, so naming a datum has to accept the
+  # vintages that come with them.
+  expect_silent(check_mosaicable(idx, ignore = c("VRS", "year")))
+
+  # but nothing else is waved through
+  mixed <- idx; mixed$resolution <- c(1, 0.5)
+  expect_error(check_mosaicable(mixed, ignore = c("VRS", "year")), "resolution")
+  mixed2 <- idx; mixed2$product <- c("DTM", "DSM")
+  expect_error(check_mosaicable(mixed2, ignore = c("VRS", "year")), "product")
 })

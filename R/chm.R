@@ -47,6 +47,12 @@
 #' @param filename Write the canopy model here.
 #' @param max_pixels Passed to [dem_get()]. Only the coverage route is
 #'   bounded this way; tiles are already cut into sheets.
+#' @param vrs The vertical systems the two rasters are in, as
+#'   `c(surface, terrain)` -- `"kron86"`, `"evrf2007"`, or the names the
+#'   index uses in its `VRS` column. When they differ the surface is
+#'   converted before the subtraction; when they match nothing happens.
+#'   `NULL`, the default, assumes you have checked. Rasters do not carry the
+#'   vertical system, so this cannot be worked out from them.
 #' @param quiet Suppress progress.
 #' @param gdal GDAL creation options for the written file, as a character
 #'   vector. `NULL`, the default, writes DEFLATE with the predictor that suits
@@ -162,7 +168,7 @@ both_products <- function(index) {
 #' @export
 chm_build <- function(surface, terrain, aoi = NULL, keep = c("chm", "all"),
                       min_height = NULL, mask = FALSE, filename = NULL,
-                      quiet = FALSE, gdal = NULL) {
+                      quiet = FALSE, gdal = NULL, vrs = NULL) {
   keep <- match.arg(keep)
   if (!requireNamespace("terra", quietly = TRUE)) {
     stop("Package 'terra' is needed to build a canopy model. Install it first.",
@@ -176,6 +182,7 @@ chm_build <- function(surface, terrain, aoi = NULL, keep = c("chm", "all"),
   s <- as_raster(surface)
   t <- as_raster(terrain)
   check_same_grid(s, t)
+  s <- level_datums(s, vrs, quiet)
 
   say(quiet, "Subtracting...")
   chm <- s - t
@@ -192,13 +199,33 @@ chm_build <- function(surface, terrain, aoi = NULL, keep = c("chm", "all"),
 
   if (!is.null(filename)) {
     say(quiet, "  writing ", basename(filename))
-    chm <- terra::writeRaster(chm, filename, overwrite = TRUE,
-                              gdal = raster_gdal(chm, gdal))
+    chm <- write_raster(chm, filename, gdal)
   }
   if (keep == "all") {
     return(list(chm = chm, surface = s, terrain = t))
   }
   chm
+}
+
+# A canopy model cancels the vertical datum only when both halves are in the
+# same one, and rasters do not carry it -- the index does, in its VRS column.
+# The trap is ordinary: the newest surface model and the newest terrain model
+# are often different flights, and around 2019 that means different systems.
+# Białowieża publishes a 2018 surface and a 2022 terrain; subtract them as they
+# come and every canopy is about 16 cm too short, uniformly, on top of four
+# years of real growth.
+level_datums <- function(s, vrs, quiet = FALSE) {
+  if (is.null(vrs)) return(s)
+  if (length(vrs) != 2L) {
+    stop("`vrs` needs the vertical system of both rasters: ",
+         "c(surface, terrain).", call. = FALSE)
+  }
+  vrs <- as_datum(vrs, what = "vertical datum")
+  if (vrs[1] == vrs[2]) return(s)
+
+  say(quiet, "Surface is ", vrs[1], ", terrain is ", vrs[2],
+      "; converting the surface before subtracting...")
+  dem_to_datum(s, from = vrs[1], to = vrs[2], quiet = quiet)
 }
 
 as_raster <- function(x) {

@@ -1,0 +1,14 @@
+structure(list(method = "GET", url = "https://sdi.gdos.gov.pl/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=GDOS%3AObszarySpecjalnejOchrony&SRSNAME=EPSG%3A2180&BBOX=631971%2C658430%2C637971%2C664430%2CEPSG%3A2180&RESULTTYPE=hits", 
+    status_code = 200L, headers = structure(list(server = "nginx/1.18.0 (Ubuntu)", 
+        date = "Tue, 01 Sep 2026 00:42:38 GMT", `content-type` = "text/xml", 
+        `content-length` = "290", `content-disposition` = "inline; filename=geoserver-GetFeature.text", 
+        `content-encoding` = "gzip", `access-control-allow-origin` = "*", 
+        `set-cookie` = "JSESSSIONID=3694628806.1.675886640.1679229440; path=/; httponly;secure ;", 
+        `set-cookie` = "visid_incap_3278221=CAkL7s0qTL+6oQYE93ErY34flmoAAAAAQUIPAAAAAADjmPKKIpuHfTTJ3YTrbBou; expires=Tue, 31 Aug 2027 22:22:12 GMT; HttpOnly; path=/; Domain=.gdos.gov.pl; Secure; SameSite=None", 
+        `set-cookie` = "incap_ses_537_3278221=AviNNGTz3l3xmznNys5zB34flmoAAAAA2eFZ5rZcwUvWd5y25/h2dg==; path=/; Domain=.gdos.gov.pl; Secure; SameSite=None", 
+        `strict-transport-security` = "max-age=31536000", `x-cdn` = "Imperva", 
+        `x-iinfo` = "51-265073069-265060834 pNNN RT(1788223358185 363) q(0 0 0 -1) r(1 1) U12"), class = "httr2_headers"), 
+    body = charToRaw("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<wfs:FeatureCollection numberMatched=\"1\" numberReturned=\"0\" timeStamp=\"2026-09-01T00:42:38.663Z\" xsi:schemaLocation=\"http://www.opengis.net/wfs/2.0 http://schemas.opengis.net/wfs/2.0/wfs.xsd\" xmlns:ows=\"http://www.opengis.net/ows/1.1\" xmlns:fes=\"http://www.opengis.net/fes/2.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gml=\"http://www.opengis.net/gml/3.2\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:wfs=\"http://www.opengis.net/wfs/2.0\"/>"), 
+    timing = c(redirect = 0, namelookup = 0.313927, connect = 0.564614, 
+    pretransfer = 0.921098, starttransfer = 1.369325, total = 1.369809
+    ), cache = new.env(parent = emptyenv())), class = "httr2_response")

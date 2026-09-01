@@ -1,3 +1,39 @@
+# rgeopl (development version)
+
+* Two vignettes for the raster half of the package, which the narrative
+  documentation had never covered: *Rasters end to end* takes an area from the
+  index through mosaicking, canopy height, four-band orthophotos and point
+  clouds to a written file, and *Heights, and the two systems Poland measures
+  them in* is about the vertical datums. Between them they reach the functions
+  that do the work: 22 of the 39 exported ones appeared in no vignette at all,
+  including `tile_mosaic()`, `chm_get()` and `ortho_stack()`.
+* `tile_mosaic()` takes a `datum`. Mixing vertical systems is refused, because
+  the seam would be a step in the ground that is not there -- but it is the one
+  refusal with a way through: named a system to land in, it mosaics each side
+  on its own, converts the one that is in the other, and joins them with the
+  target laid down first. Naming a datum also accepts the mixture of vintages
+  that comes with it, since two vertical systems are two flights and there is
+  no way to have one without the other.
+* `chm_build()` takes `vrs`, the vertical systems of the two rasters, and
+  converts before subtracting when they differ. Rasters carry no vertical
+  system, so it cannot be worked out from them -- and the trap is ordinary:
+  Białowieża publishes a 2018 surface and a 2022 terrain, and subtracting them
+  as they come makes every canopy about 16 cm too short.
+* A byte raster keeps its brightest pixels. terra writes one with the missing
+  value set to 255, and in an orthophoto 255 is sky, bright roofs and
+  saturated ground: measured, 20 pixels of 255 written and 0 read back, with
+  20 NAs in their place. Every write now goes through one function that names
+  the narrowest type the values fit in and leaves the tag off when there is
+  nothing missing to mark. Rasters that do have gaps keep the wider type that
+  can hold them.
+* The functions people actually type are tested against recorded answers.
+  Everything else in the suite is offline with the answers made up, which left
+  the entry points uncovered -- when `format` was added to `dem_request()` and
+  every later argument shifted one place, nothing noticed. Ten of them now
+  replay real responses through `httptest2`. The recordings stay in the
+  repository rather than the built package: these services nest deeply enough
+  that the mirrored paths run past the 100 bytes a tarball can portably store.
+
 # rgeopl 0.6.0
 
 * `protected_areas()` answers the question a stand outline raises immediately:

@@ -1,0 +1,62 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "area_type": "D-STAN",
+                "a_i_num": 714061688,
+                "silvicult": "P-Z",
+                "stand_stru": "DRZEW",
+                "sub_area": 2.7,
+                "species_cd": "DB.S",
+                "spec_age": 22,
+                "nazwa": "BDL_07_14_MRAGOWO_2026",
+                "adr_for": "07-14-3-14-324   -n   -00",
+                "site_type": "LŚW",
+                "forest_fun": "GOSP",
+                "rotat_age": 140,
+                "prot_categ": null,
+                "part_cd": "3",
+                "a_year": 2026
+            },
+            "id": 94028,
+            "geometry": null
+        }
+    ],
+    "numberMatched": 346,
+    "numberReturned": 1,
+    "links": [
+        {
+            "type": "application/geo+json",
+            "rel": "self",
+            "title": "This document as GeoJSON",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/RDLP_Olsztyn_wydzielenia/items?f=json&limit=1&skipGeometry=true&bbox=21.0044606867726,53.7730406632318,21.095540233554,53.8269592256401"
+        },
+        {
+            "rel": "alternate",
+            "type": "application/ld+json",
+            "title": "This document as RDF (JSON-LD)",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/RDLP_Olsztyn_wydzielenia/items?f=jsonld&limit=1&skipGeometry=true&bbox=21.0044606867726,53.7730406632318,21.095540233554,53.8269592256401"
+        },
+        {
+            "type": "text/html",
+            "rel": "alternate",
+            "title": "This document as HTML",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/RDLP_Olsztyn_wydzielenia/items?f=html&limit=1&skipGeometry=true&bbox=21.0044606867726,53.7730406632318,21.095540233554,53.8269592256401"
+        },
+        {
+            "type": "application/geo+json",
+            "rel": "next",
+            "title": "items (next)",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/RDLP_Olsztyn_wydzielenia/items?offset=1&limit=1&skipGeometry=true&bbox=21.0044606867726,53.7730406632318,21.095540233554,53.8269592256401"
+        },
+        {
+            "type": "application/json",
+            "title": "RDLP Olsztyn wydzielenia",
+            "rel": "collection",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/RDLP_Olsztyn_wydzielenia/items"
+        }
+    ],
+    "timeStamp": "2026-09-01T00:41:50.589983Z"
+}

@@ -1,0 +1,171 @@
+---
+title: "Rasters end to end"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Rasters end to end}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 9,
+                      fig.height = 6, dpi = 110, out.width = "100%")
+options(rgeopl.cache_dir = "D:/Apps/rgeopl/.cache-vignette",
+        rgeopl.download_timeout = 3600)
+```
+
+The index tells you what was flown. This is what happens after: turning a
+selection into a raster you can work with, and the places where that goes
+quietly wrong if nobody is looking.
+
+```{r}
+library(rgeopl)
+library(terra)
+
+aoi <- as_aoi(sf::st_read(rgeopl_example("gleboczek_aoi.shp"), quiet = TRUE))
+```
+
+## One sheet, several forms
+
+Ask for elevation and the answer is longer than it looks. The service publishes
+each map sheet in more than one form, and only one of them is a raster.
+
+```{r}
+dem <- dem_request(aoi, quiet = TRUE)
+table(dem$product, dem$format)
+```
+
+`ASCII XYZ GRID` is a text list of points and `ESRI TIN` is a triangulation;
+neither will mosaic. `format = "grid"` keeps the one that will.
+
+```{r}
+dem <- dem_request(aoi, format = "grid", quiet = TRUE)
+table(dem$product, dem$year)
+```
+
+`coverage()` answers the next question — whether a vintage actually covers the
+area or merely touches it.
+
+```{r}
+coverage(subset(dem, product == "DTM"), by = "year", aoi = aoi)
+```
+
+## Joining tiles
+
+`tile_mosaic()` downloads what the selection points at and joins it. `crop`
+cuts to the area's bounding box, `mask` to its outline.
+
+```{r terrain, fig.height = 5}
+terrain <- tile_mosaic(
+  subset(dem, product == "DTM" & resolution == 1 & year == 2024),
+  aoi, crop = "aoi", mask = TRUE, quiet = TRUE
+)
+
+terrain
+plot(terrain, main = "")
+```
+
+The layer is called `DTM` rather than after the temporary file it was built
+through, and that name is written into the GeoTIFF as the band description when
+you pass `filename`.
+
+It refuses more than it accepts. A selection that mixes products, vintages,
+band compositions, resolutions, file formats or vertical datums is a raster
+that looks finished and is not, so it comes back as an error naming what
+disagreed:
+
+```{r error = TRUE}
+tile_mosaic(subset(dem, product == "DTM"), aoi, quiet = TRUE)
+```
+
+## Canopy height
+
+A canopy model is one survey's surface minus its own terrain. Not every
+vintage has both — the terrain is remapped far more often than the surface —
+so `chm_years()` is the question to ask first.
+
+```{r}
+small <- as_aoi(sf::st_centroid(sf::st_union(aoi_geom(aoi))), buffer = 250)
+
+chm_years(small, quiet = TRUE)
+```
+
+```{r canopy, fig.height = 5}
+canopy <- chm_get(small, year = 2024, mask = TRUE, min_height = 0, quiet = TRUE)
+
+canopy
+plot(canopy, col = hcl.colors(50, "Greens", rev = TRUE), main = "")
+```
+
+Without a `year` the same function goes to the coverage services instead, which
+publish the current model and hand it back already clipped. With one it
+assembles the model from archive tiles, which is the only way to reach an
+earlier flight.
+
+## Four bands from two products
+
+Orthophotos come as RGB and as false-colour infrared, and they are the same
+radiometric result cut two ways: measured on one sheet, CIR's red and green
+correlate with RGB's at 0.999, while its first band correlates with nothing in
+RGB. So blue is the only band RGB actually adds.
+
+`ortho_pairs()` lists the flights that published both.
+
+```{r}
+ortho <- ortho_request(small, quiet = TRUE)
+
+ortho_pairs(ortho)
+```
+
+```{r nrgb, fig.height = 5}
+nrgb <- ortho_stack(ortho, small, mask = TRUE, quiet = TRUE)
+
+names(nrgb)
+plotRGB(nrgb, r = 1, g = 2, b = 3, stretch = "lin")
+```
+
+Bands one to three are near-infrared, red and green, so that is false colour:
+vegetation reads red. A vegetation index wants `bands = "cir"`, which halves
+the download — infrared and red already sit in one file, consistent with each
+other.
+
+```{r ndvi, fig.height = 5}
+ndvi <- (nrgb[["NIR"]] - nrgb[["R"]]) / (nrgb[["NIR"]] + nrgb[["R"]])
+plot(ndvi, col = hcl.colors(50, "Green-Brown", rev = TRUE), main = "")
+```
+
+## Where the chain stops
+
+Point clouds are indexed and downloaded like everything else, but `lidR` is the
+tool for what comes after, and it needs one thing the files do not carry: older
+surveys leave their projection record empty.
+
+```{r}
+clouds <- pointcloud_request(small, quiet = TRUE)
+table(clouds$year, clouds$format)
+```
+
+`pointcloud_get()` fetches the tiles and returns them with the coordinate
+system the archive says they are in, one line short of a catalogue:
+
+```{r eval = FALSE}
+pc  <- pointcloud_get(subset(clouds, year == max(clouds$year)))
+ctg <- lidR::readLAScatalog(pc$path)
+sf::st_crs(ctg) <- pc$epsg[1]
+```
+
+## Writing it out
+
+Every raster the package writes is DEFLATE with the predictor its data calls
+for, tiled, with the band names and the coordinate system in the file. Passing
+`filename` is all it takes; `gdal` replaces those defaults wholesale if you
+want something else.
+
+```{r eval = FALSE}
+chm_get(small, year = 2024, mask = TRUE,
+        filename = "canopy_2024.tif")
+
+tile_mosaic(subset(dem, product == "DTM" & resolution == 1 & year == 2024), aoi,
+            filename = "terrain_2024.tif",
+            gdal = c("COMPRESS=ZSTD", "PREDICTOR=3", "TILED=YES"))
+```

@@ -1,0 +1,204 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "BIAŁYSTOK",
+                "region_cd": "01"
+            },
+            "id": 1,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "KATOWICE",
+                "region_cd": "02"
+            },
+            "id": 2,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "KRAKÓW",
+                "region_cd": "03"
+            },
+            "id": 3,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "KROSNO",
+                "region_cd": "04"
+            },
+            "id": 4,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "LUBLIN",
+                "region_cd": "05"
+            },
+            "id": 5,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "ŁÓDŹ",
+                "region_cd": "06"
+            },
+            "id": 6,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "OLSZTYN",
+                "region_cd": "07"
+            },
+            "id": 7,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "PIŁA",
+                "region_cd": "08"
+            },
+            "id": 8,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "POZNAŃ",
+                "region_cd": "09"
+            },
+            "id": 9,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "SZCZECIN",
+                "region_cd": "10"
+            },
+            "id": 10,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "SZCZECINEK",
+                "region_cd": "11"
+            },
+            "id": 11,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "TORUŃ",
+                "region_cd": "12"
+            },
+            "id": 12,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "WROCŁAW",
+                "region_cd": "13"
+            },
+            "id": 13,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "ZIELONA GÓRA",
+                "region_cd": "14"
+            },
+            "id": 14,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "GDAŃSK",
+                "region_cd": "15"
+            },
+            "id": 15,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "RADOM",
+                "region_cd": "16"
+            },
+            "id": 16,
+            "geometry": null
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "a_year": 2026,
+                "region_name": "WARSZAWA",
+                "region_cd": "17"
+            },
+            "id": 17,
+            "geometry": null
+        }
+    ],
+    "numberMatched": 17,
+    "numberReturned": 17,
+    "links": [
+        {
+            "type": "application/geo+json",
+            "rel": "self",
+            "title": "This document as GeoJSON",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/rdlp/items?f=json&limit=100&skipGeometry=true"
+        },
+        {
+            "rel": "alternate",
+            "type": "application/ld+json",
+            "title": "This document as RDF (JSON-LD)",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/rdlp/items?f=jsonld&limit=100&skipGeometry=true"
+        },
+        {
+            "type": "text/html",
+            "rel": "alternate",
+            "title": "This document as HTML",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/rdlp/items?f=html&limit=100&skipGeometry=true"
+        },
+        {
+            "type": "application/json",
+            "title": "RDLP",
+            "rel": "collection",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/rdlp/items"
+        }
+    ],
+    "timeStamp": "2026-09-01T00:42:24.424612Z"
+}

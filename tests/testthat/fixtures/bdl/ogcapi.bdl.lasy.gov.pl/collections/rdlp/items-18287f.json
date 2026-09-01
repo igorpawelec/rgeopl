@@ -1,0 +1,44 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "region_cd": "07",
+                "a_year": 2026,
+                "region_name": "OLSZTYN"
+            },
+            "id": 7,
+            "geometry": null
+        }
+    ],
+    "numberMatched": 1,
+    "numberReturned": 1,
+    "links": [
+        {
+            "type": "application/geo+json",
+            "rel": "self",
+            "title": "This document as GeoJSON",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/rdlp/items?f=json&limit=1&skipGeometry=true&bbox=21.0378560911909,53.7928108543944,21.0621439742546,53.8071891377032"
+        },
+        {
+            "rel": "alternate",
+            "type": "application/ld+json",
+            "title": "This document as RDF (JSON-LD)",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/rdlp/items?f=jsonld&limit=1&skipGeometry=true&bbox=21.0378560911909,53.7928108543944,21.0621439742546,53.8071891377032"
+        },
+        {
+            "type": "text/html",
+            "rel": "alternate",
+            "title": "This document as HTML",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/rdlp/items?f=html&limit=1&skipGeometry=true&bbox=21.0378560911909,53.7928108543944,21.0621439742546,53.8071891377032"
+        },
+        {
+            "type": "application/json",
+            "title": "RDLP",
+            "rel": "collection",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/rdlp/items"
+        }
+    ],
+    "timeStamp": "2026-09-01T00:40:53.979477Z"
+}

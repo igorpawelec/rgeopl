@@ -39,6 +39,14 @@ INDEX_CRS <- c(
 #' @param overwrite Passed to [tile_download()]: re-fetch tiles already cached.
 #' @param max_active Passed to [tile_download()]: how many downloads to have
 #'   in flight at once.
+#' @param datum Land every tile in this vertical system, converting the ones
+#'   that are in the other. `NULL`, the default, refuses a mixture instead --
+#'   see below. `"kron86"` or `"evrf2007"`, or the names the index uses in
+#'   its `VRS` column. Needs the quasi-geoid grids; see [dem_to_datum()].
+#'
+#'   Naming a datum also accepts a mixture of vintages, because tiles in two
+#'   vertical systems are by definition two flights. Everything else the
+#'   selection must agree on still applies.
 #' @param quiet Suppress progress.
 #' @param gdal GDAL creation options for the written file, as a character
 #'   vector. `NULL`, the default, writes DEFLATE with the predictor that suits
@@ -60,8 +68,9 @@ INDEX_CRS <- c(
 #'     different things in two halves of the picture.}
 #'   \item{More than one resolution}{One of them gets resampled, silently.}
 #'   \item{More than one vertical datum}{PL-KRON86-NH and PL-EVRF2007-NH differ
-#'     by tens of centimetres. The seam is a step in the terrain that is not
-#'     there.}
+#'     by 14 to 19 cm. The seam is a step in the terrain that is not there.
+#'     This is the one refusal with a way through: `datum` converts one side
+#'     rather than refusing, which `allow_mixed` never does.}
 #'   \item{More than one file format}{Every elevation sheet is published both
 #'     as a grid and as a list of points, under the same sheet number. The
 #'     point list is not a raster, so half such a mosaic would simply be
@@ -84,7 +93,7 @@ INDEX_CRS <- c(
 tile_mosaic <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
                         mask = FALSE, filename = NULL, allow_mixed = FALSE,
                         overwrite = FALSE, max_active = NULL,
-                        quiet = FALSE, gdal = NULL) {
+                        quiet = FALSE, gdal = NULL, datum = NULL) {
   crop <- match.arg(crop)
   if (!requireNamespace("terra", quietly = TRUE)) {
     stop("Package 'terra' is needed to mosaic rasters. Install it first.",
@@ -98,7 +107,17 @@ tile_mosaic <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
     stop("`crop = \"aoi\"` needs an `aoi`. Pass one, or use crop = \"tiles\".",
          call. = FALSE)
   }
-  if (!allow_mixed) check_mosaicable(index)
+  datum <- as_datum(datum)
+  if (!is.null(datum) && length(index_datums(index)) > 1L) {
+    return(mosaic_across_datums(index, datum, aoi, crop, mask, filename,
+                                overwrite, max_active, quiet, gdal))
+  }
+  # Naming a datum is naming the intent: tiles in two vertical systems come
+  # from two flights, so the vintage refusal has to go with it. Everything
+  # else -- product, composition, resolution, coordinate system -- still holds.
+  if (!allow_mixed) {
+    check_mosaicable(index, ignore = if (is.null(datum)) NULL else c("VRS", "year"))
+  }
 
   # terra draws its own progress bar for the join. Honour `quiet` over it too,
   # and put the setting back afterwards rather than leaving the session changed.
@@ -129,8 +148,7 @@ tile_mosaic <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
 
   if (!is.null(filename)) {
     say(quiet, "  writing ", basename(filename))
-    out <- terra::writeRaster(out, filename, overwrite = TRUE,
-                              gdal = raster_gdal(out, gdal))
+    out <- write_raster(out, filename, gdal)
   }
   out
 }
@@ -160,9 +178,53 @@ name_layers <- function(x, index) {
   x
 }
 
+# Two vintages on different vertical datums are a step in the terrain that is
+# not there -- about 17 cm of it -- which is why check_mosaicable() refuses
+# them. Given a datum to land in, there is a third option between refusing and
+# pretending: mosaic each side on its own, convert the one that is in the other
+# system, and join the results. The one already in the target system is laid
+# down first, so where the two overlap it is the one that survives.
+mosaic_across_datums <- function(index, datum, aoi, crop, mask, filename,
+                                 overwrite, max_active, quiet, gdal) {
+  groups <- index_datums(index)
+  vintages <- sort(unique(stats::na.omit(index$year)))
+  say(quiet, "Joining ", length(groups), " vertical datums (",
+      paste(groups, collapse = ", "), ") across ", length(vintages),
+      " vintages: ", paste(vintages, collapse = ", "))
+
+  parts <- lapply(groups, function(g) {
+    part <- index[as.character(index$VRS) == names(VRS_NAMES)[VRS_NAMES == g], ,
+                  drop = FALSE]
+    out <- tile_mosaic(part, aoi = aoi, crop = crop, mask = mask,
+                       overwrite = overwrite, max_active = max_active,
+                       quiet = quiet)
+    if (identical(g, datum)) return(out)
+    say(quiet, "  converting ", g, " to ", datum, "...")
+    dem_to_datum(out, from = g, to = datum, quiet = quiet)
+  })
+
+  # the target datum first, so it wins any overlap
+  parts <- parts[order(groups != datum)]
+  out <- terra::mosaic(terra::sprc(parts), fun = "first")
+  out <- name_layers(out, index)
+
+  if (!is.null(filename)) {
+    say(quiet, "  writing ", basename(filename))
+    out <- write_raster(out, filename, gdal)
+  }
+  out
+}
+
+# The vertical systems present, in the short form dem_to_datum() speaks.
+index_datums <- function(index) {
+  if (!("VRS" %in% names(index))) return(character(0))
+  vals <- unique(stats::na.omit(as.character(index$VRS)))
+  sort(as_datum(vals, what = "vertical datum"))
+}
+
 # Every reason to refuse, checked together so the message can name all of them
 # at once rather than one per re-run.
-check_mosaicable <- function(index) {
+check_mosaicable <- function(index, ignore = NULL) {
   if ("product" %in% names(index) &&
       any(as.character(index$product) == "PointCloud", na.rm = TRUE)) {
     stop("Point clouds cannot be mosaicked as rasters. Filter them out, or ",
@@ -173,7 +235,7 @@ check_mosaicable <- function(index) {
                resolution = "resolution", VRS = "vertical datum", CRS = "coordinate system",
                format = "file format")
   problems <- character(0)
-  for (col in names(columns)) {
+  for (col in setdiff(names(columns), ignore)) {
     if (!(col %in% names(index))) next
     vals <- unique(stats::na.omit(as.character(index[[col]])))
     if (length(vals) > 1L) {

@@ -1,0 +1,264 @@
+{
+    "currentVersion": 10.61,
+    "id": 5,
+    "name": "LASData2",
+    "type": "Feature Layer",
+    "description": "",
+    "geometryType": "esriGeometryPolygon",
+    "sourceSpatialReference": {
+        "wkid": 2180,
+        "latestWkid": 2180
+    },
+    "copyrightText": "",
+    "parentLayer": null,
+    "subLayers": [
+
+    ],
+    "minScale": 0,
+    "maxScale": 0,
+    "drawingInfo": {
+        "renderer": {
+            "type": "simple",
+            "symbol": {
+                "type": "esriSFS",
+                "style": "esriSFSSolid",
+                "color": [
+                    242,
+                    205,
+                    187,
+                    255
+                ],
+                "outline": {
+                    "type": "esriSLS",
+                    "style": "esriSLSSolid",
+                    "color": [
+                        110,
+                        110,
+                        110,
+                        255
+                    ],
+                    "width": 0.4
+                }
+            },
+            "label": "",
+            "description": ""
+        },
+        "transparency": 0,
+        "labelingInfo": null
+    },
+    "defaultVisibility": true,
+    "extent": {
+        "xmin": -5119200,
+        "ymin": -15295100,
+        "xmax": 14871000,
+        "ymax": 4695100,
+        "spatialReference": {
+            "wkid": 2180,
+            "latestWkid": 2180
+        }
+    },
+    "hasAttachments": false,
+    "htmlPopupType": "esriServerHTMLPopupTypeAsHTMLText",
+    "displayField": "godlo",
+    "typeIdField": null,
+    "subtypeFieldName": null,
+    "subtypeField": null,
+    "defaultSubtypeCode": null,
+    "fields": [
+        {
+            "name": "godlo",
+            "type": "esriFieldTypeString",
+            "alias": "godlo",
+            "length": 30,
+            "domain": null
+        },
+        {
+            "name": "akt_rok",
+            "type": "esriFieldTypeInteger",
+            "alias": "akt_rok",
+            "domain": null
+        },
+        {
+            "name": "asortyment",
+            "type": "esriFieldTypeString",
+            "alias": "asortyment",
+            "length": 30,
+            "domain": null
+        },
+        {
+            "name": "format",
+            "type": "esriFieldTypeString",
+            "alias": "format",
+            "length": 30,
+            "domain": null
+        },
+        {
+            "name": "char_przestrz",
+            "type": "esriFieldTypeString",
+            "alias": "char_przestrz",
+            "length": 20,
+            "domain": null
+        },
+        {
+            "name": "blad_sr_wys",
+            "type": "esriFieldTypeDouble",
+            "alias": "blad_sr_wys",
+            "domain": null
+        },
+        {
+            "name": "uklad_xy",
+            "type": "esriFieldTypeString",
+            "alias": "uklad_xy",
+            "length": 10,
+            "domain": null
+        },
+        {
+            "name": "modul_arch",
+            "type": "esriFieldTypeString",
+            "alias": "modul_arch",
+            "length": 10,
+            "domain": null
+        },
+        {
+            "name": "uklad_h",
+            "type": "esriFieldTypeString",
+            "alias": "uklad_h",
+            "length": 20,
+            "domain": null
+        },
+        {
+            "name": "nr_zglosz",
+            "type": "esriFieldTypeString",
+            "alias": "nr_zglosz",
+            "length": 30,
+            "domain": null
+        },
+        {
+            "name": "akt_data",
+            "type": "esriFieldTypeDate",
+            "alias": "akt_data",
+            "length": 8,
+            "domain": null
+        },
+        {
+            "name": "czy_ark_wypelniony",
+            "type": "esriFieldTypeString",
+            "alias": "czy_ark_wypelniony",
+            "length": 3,
+            "domain": null
+        },
+        {
+            "name": "dane_aktualne",
+            "type": "esriFieldTypeSmallInteger",
+            "alias": "dane_aktualne",
+            "domain": null
+        },
+        {
+            "name": "lok_nmt",
+            "type": "esriFieldTypeString",
+            "alias": "lok_nmt",
+            "length": 200,
+            "domain": null
+        },
+        {
+            "name": "url_do_pobrania",
+            "type": "esriFieldTypeString",
+            "alias": "url_do_pobrania",
+            "length": 120,
+            "domain": null
+        },
+        {
+            "name": "nazwa_pliku",
+            "type": "esriFieldTypeString",
+            "alias": "nazwa_pliku",
+            "length": 50,
+            "domain": null
+        },
+        {
+            "name": "url_zfs",
+            "type": "esriFieldTypeString",
+            "alias": "url_zfs",
+            "length": 120,
+            "domain": null
+        },
+        {
+            "name": "id_nmt",
+            "type": "esriFieldTypeOID",
+            "alias": "id_nmt",
+            "domain": null
+        },
+        {
+            "name": "id_serie",
+            "type": "esriFieldTypeInteger",
+            "alias": "id_serie",
+            "domain": null
+        },
+        {
+            "name": "geom",
+            "type": "esriFieldTypeGeometry",
+            "alias": "geom",
+            "domain": null
+        },
+        {
+            "name": "zr_danych",
+            "type": "esriFieldTypeString",
+            "alias": "zr_danych",
+            "length": 50,
+            "domain": null
+        },
+        {
+            "name": "dt_pzgik",
+            "type": "esriFieldTypeDate",
+            "alias": "dt_pzgik",
+            "length": 8,
+            "domain": null
+        },
+        {
+            "name": "blad_sr_syt",
+            "type": "esriFieldTypeDouble",
+            "alias": "blad_sr_syt",
+            "domain": null
+        }
+    ],
+    "geometryField": {
+        "name": "geom",
+        "type": "esriFieldTypeGeometry",
+        "alias": "geom"
+    },
+    "indexes": null,
+    "subtypes": [
+
+    ],
+    "relationships": [
+
+    ],
+    "canModifyLayer": true,
+    "canScaleSymbols": false,
+    "hasLabels": false,
+    "capabilities": "Map,Query,Data",
+    "maxRecordCount": 1000,
+    "supportsStatistics": true,
+    "supportsAdvancedQueries": true,
+    "supportedQueryFormats": "JSON, AMF, geoJSON",
+    "isDataVersioned": false,
+    "ownershipBasedAccessControlForFeatures": {
+        "allowOthersToQuery": true
+    },
+    "useStandardizedQueries": true,
+    "advancedQueryCapabilities": {
+        "useStandardizedQueries": true,
+        "supportsStatistics": true,
+        "supportsHavingClause": true,
+        "supportsCountDistinct": true,
+        "supportsOrderBy": true,
+        "supportsDistinct": true,
+        "supportsPagination": true,
+        "supportsTrueCurve": true,
+        "supportsReturningQueryExtent": true,
+        "supportsQueryWithDistance": true,
+        "supportsSqlExpression": true
+    },
+    "supportsDatumTransformation": true,
+    "dateFieldsTimeReference": null,
+    "supportsCoordinatesQuantization": true
+}

@@ -71,3 +71,45 @@ raster_gdal <- function(x, gdal = NULL) {
     # A national mosaic can pass the 4 GB a plain GeoTIFF can address.
     "BIGTIFF=IF_SAFER")
 }
+
+# One place where a raster is written, so the options and the missing-value
+# tag are decided together -- they are not independent.
+#
+# terra writes a byte raster with NoData = 255, and 255 in an orthophoto is
+# sky, a bright roof, saturated sand. Written that way and read back, every
+# one of those pixels is NA: measured, 20 pixels of 255 in, 0 out and 20 NAs.
+# Where the raster has nothing missing to mark, the tag is left off and all
+# 256 values survive. Where it does have gaps -- a masked mosaic -- terra
+# widens the type to hold a value outside the byte range, which costs about a
+# quarter more on disk and is the right trade.
+#
+# The check is a full scan, so it is made only for integer rasters, which are
+# the only ones the byte problem can reach. Measured at 0.36 s against a 0.80 s
+# write on 48 million cells.
+write_raster <- function(x, filename, gdal = NULL) {
+  args <- list(x, filename, overwrite = TRUE, gdal = raster_gdal(x, gdal))
+  narrow <- if (all(terra::is.int(x)) && !has_missing(x)) narrow_type(x) else NULL
+  if (!is.null(narrow)) {
+    args$datatype <- narrow
+    args$NAflag <- NA
+  }
+  do.call(terra::writeRaster, args)
+}
+
+has_missing <- function(x) {
+  counts <- suppressWarnings(terra::global(x, fun = "isNA"))
+  any(unlist(counts, use.names = FALSE) > 0, na.rm = TRUE)
+}
+
+# The smallest unsigned type the values fit in, or NULL to let terra decide.
+# Both halves of the answer are needed together: asked for no missing-value tag
+# but not for a type, terra widens a byte raster to 32 bits, because that is
+# where it would otherwise have put the tag. Named explicitly, the values stay
+# in a byte and all 256 of them survive.
+narrow_type <- function(x) {
+  rng <- suppressWarnings(terra::minmax(x))
+  lo <- suppressWarnings(min(rng, na.rm = TRUE))
+  hi <- suppressWarnings(max(rng, na.rm = TRUE))
+  if (!is.finite(lo) || !is.finite(hi) || lo < 0) return(NULL)
+  if (hi <= 255) "INT1U" else if (hi <= 65535) "INT2U" else NULL
+}

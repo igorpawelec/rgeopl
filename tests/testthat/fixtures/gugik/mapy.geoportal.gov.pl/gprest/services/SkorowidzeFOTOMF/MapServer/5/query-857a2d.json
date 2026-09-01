@@ -1,0 +1,970 @@
+{
+    "displayFieldName": "godlo",
+    "fieldAliases": {
+        "godlo": "godlo",
+        "akt_rok": "akt_rok",
+        "asortyment": "asortyment",
+        "format": "format",
+        "char_przestrz": "char_przestrz",
+        "blad_sr_wys": "blad_sr_wys",
+        "blad_sr_syt": "blad_sr_syt",
+        "uklad_xy": "uklad_xy",
+        "uklad_h": "uklad_h",
+        "akt_data": "akt_data",
+        "czy_ark_wypelniony": "czy_ark_wypelniony",
+        "zr_danych": "zr_danych",
+        "id_serie": "id_serie",
+        "nazwa_pliku": "nazwa_pliku",
+        "url_do_pobrania": "url_do_pobrania"
+    },
+    "geometryType": "esriGeometryPolygon",
+    "spatialReference": {
+        "wkid": 2180,
+        "latestWkid": 2180
+    },
+    "fields": [
+        {
+            "name": "godlo",
+            "type": "esriFieldTypeString",
+            "alias": "godlo",
+            "length": 30
+        },
+        {
+            "name": "akt_rok",
+            "type": "esriFieldTypeInteger",
+            "alias": "akt_rok"
+        },
+        {
+            "name": "asortyment",
+            "type": "esriFieldTypeString",
+            "alias": "asortyment",
+            "length": 30
+        },
+        {
+            "name": "format",
+            "type": "esriFieldTypeString",
+            "alias": "format",
+            "length": 30
+        },
+        {
+            "name": "char_przestrz",
+            "type": "esriFieldTypeString",
+            "alias": "char_przestrz",
+            "length": 20
+        },
+        {
+            "name": "blad_sr_wys",
+            "type": "esriFieldTypeDouble",
+            "alias": "blad_sr_wys"
+        },
+        {
+            "name": "blad_sr_syt",
+            "type": "esriFieldTypeDouble",
+            "alias": "blad_sr_syt"
+        },
+        {
+            "name": "uklad_xy",
+            "type": "esriFieldTypeString",
+            "alias": "uklad_xy",
+            "length": 10
+        },
+        {
+            "name": "uklad_h",
+            "type": "esriFieldTypeString",
+            "alias": "uklad_h",
+            "length": 20
+        },
+        {
+            "name": "akt_data",
+            "type": "esriFieldTypeDate",
+            "alias": "akt_data",
+            "length": 8
+        },
+        {
+            "name": "czy_ark_wypelniony",
+            "type": "esriFieldTypeString",
+            "alias": "czy_ark_wypelniony",
+            "length": 3
+        },
+        {
+            "name": "zr_danych",
+            "type": "esriFieldTypeString",
+            "alias": "zr_danych",
+            "length": 50
+        },
+        {
+            "name": "id_serie",
+            "type": "esriFieldTypeInteger",
+            "alias": "id_serie"
+        },
+        {
+            "name": "nazwa_pliku",
+            "type": "esriFieldTypeString",
+            "alias": "nazwa_pliku",
+            "length": 50
+        },
+        {
+            "name": "url_do_pobrania",
+            "type": "esriFieldTypeString",
+            "alias": "url_do_pobrania",
+            "length": 120
+        }
+    ],
+    "features": [
+        {
+            "attributes": {
+                "godlo": "6.178.10.14.2",
+                "akt_rok": 2021,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "24 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-2000:S6",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1630886400000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 77243,
+                "nazwa_pliku": "77243_1325650_6.178.10.14.2",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/77243/77243_1325650_6.178.10.14.2.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            349703.6456000004,
+                            510488.30269999988
+                        ],
+                        [
+                            349710.56269999966,
+                            510988.04030000046
+                        ],
+                        [
+                            350510.14240000024,
+                            510976.97269999981
+                        ],
+                        [
+                            350503.22530000005,
+                            510477.23570000008
+                        ],
+                        [
+                            349703.6456000004,
+                            510488.30269999988
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "6.178.10.15.1",
+                "akt_rok": 2021,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "24 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-2000:S6",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1630886400000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 77243,
+                "nazwa_pliku": "77243_1325651_6.178.10.15.1",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/77243/77243_1325651_6.178.10.15.1.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350503.22530000005,
+                            510477.23570000008
+                        ],
+                        [
+                            350510.14240000024,
+                            510976.97269999981
+                        ],
+                        [
+                            351309.7209999999,
+                            510965.90499999933
+                        ],
+                        [
+                            351302.80399999954,
+                            510466.16870000027
+                        ],
+                        [
+                            350503.22530000005,
+                            510477.23570000008
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "6.178.10.14.4",
+                "akt_rok": 2021,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "24 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-2000:S6",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1630886400000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 77243,
+                "nazwa_pliku": "77243_1325620_6.178.10.14.4",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/77243/77243_1325620_6.178.10.14.4.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            349696.72890000045,
+                            509988.56499999948
+                        ],
+                        [
+                            349703.6456000004,
+                            510488.30269999988
+                        ],
+                        [
+                            350503.22530000005,
+                            510477.23570000008
+                        ],
+                        [
+                            350496.30869999994,
+                            509977.49870000035
+                        ],
+                        [
+                            349696.72890000045,
+                            509988.56499999948
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "6.178.10.15.3",
+                "akt_rok": 2021,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "24 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-2000:S6",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1630886400000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 77243,
+                "nazwa_pliku": "77243_1325621_6.178.10.15.3",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/77243/77243_1325621_6.178.10.15.3.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350496.30869999994,
+                            509977.49870000035
+                        ],
+                        [
+                            350503.22530000005,
+                            510477.23570000008
+                        ],
+                        [
+                            351302.80399999954,
+                            510466.16870000027
+                        ],
+                        [
+                            351295.88740000036,
+                            509966.43239999935
+                        ],
+                        [
+                            350496.30869999994,
+                            509977.49870000035
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-4-1",
+                "akt_rok": 2019,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1553299200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 73045,
+                "nazwa_pliku": "73045_917983_N-33-130-D-a-3-2-4-1",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/73045/73045_917983_N-33-130-D-a-3-2-4-1.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350322.83999999985,
+                            511396.5700000003
+                        ],
+                        [
+                            350853.54000000004,
+                            511380.41000000015
+                        ],
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-3-4",
+                "akt_rok": 2019,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1553299200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 73045,
+                "nazwa_pliku": "73045_917982_N-33-130-D-a-3-2-3-4",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/73045/73045_917982_N-33-130-D-a-3-2-3-4.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            349756.69000000041,
+                            510254.76999999955
+                        ],
+                        [
+                            349774.41000000015,
+                            510833.88000000082
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-4-3",
+                "akt_rok": 2019,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1553299200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 73045,
+                "nazwa_pliku": "73045_917985_N-33-130-D-a-3-2-4-3",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/73045/73045_917985_N-33-130-D-a-3-2-4-3.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ],
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-3-4",
+                "akt_rok": 2012,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.40000000000000002,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-KRON86-NH",
+                "akt_data": 1343347200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 4675,
+                "nazwa_pliku": "4675_318780_N-33-130-D-a-3-2-3-4",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/4675/4675_318780_N-33-130-D-a-3-2-3-4.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            349756.69000000041,
+                            510254.76999999955
+                        ],
+                        [
+                            349774.41000000015,
+                            510833.88000000082
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-4-1",
+                "akt_rok": 2012,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.40000000000000002,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-KRON86-NH",
+                "akt_data": 1343347200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 4675,
+                "nazwa_pliku": "4675_318781_N-33-130-D-a-3-2-4-1",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/4675/4675_318781_N-33-130-D-a-3-2-4-1.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350322.83999999985,
+                            511396.5700000003
+                        ],
+                        [
+                            350853.54000000004,
+                            511380.41000000015
+                        ],
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-4-3",
+                "akt_rok": 2012,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.40000000000000002,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-KRON86-NH",
+                "akt_data": 1343347200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 4675,
+                "nazwa_pliku": "4675_318783_N-33-130-D-a-3-2-4-3",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/4675/4675_318783_N-33-130-D-a-3-2-4-3.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ],
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-3-4",
+                "akt_rok": 2024,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.02,
+                "blad_sr_syt": 0.029999999999999999,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1726531200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 80269,
+                "nazwa_pliku": "80269_1537861_N-33-130-D-a-3-2-3-4",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/80269/80269_1537861_N-33-130-D-a-3-2-3-4.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            349756.69000000041,
+                            510254.76999999955
+                        ],
+                        [
+                            349774.41000000015,
+                            510833.88000000082
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-4-1",
+                "akt_rok": 2024,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.02,
+                "blad_sr_syt": 0.029999999999999999,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1726531200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 80269,
+                "nazwa_pliku": "80269_1537862_N-33-130-D-a-3-2-4-1",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/80269/80269_1537862_N-33-130-D-a-3-2-4-1.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350322.83999999985,
+                            511396.5700000003
+                        ],
+                        [
+                            350853.54000000004,
+                            511380.41000000015
+                        ],
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-2-4-3",
+                "akt_rok": 2024,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.02,
+                "blad_sr_syt": 0.029999999999999999,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1726531200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 80269,
+                "nazwa_pliku": "80269_1537864_N-33-130-D-a-3-2-4-3",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/80269/80269_1537864_N-33-130-D-a-3-2-4-3.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350305.1799999997,
+                            510817.66000000015
+                        ],
+                        [
+                            350835.95000000019,
+                            510801.50999999978
+                        ],
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-4-1-2",
+                "akt_rok": 2012,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.40000000000000002,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-KRON86-NH",
+                "akt_data": 1343347200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 4675,
+                "nazwa_pliku": "4675_318786_N-33-130-D-a-3-4-1-2",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/4675/4675_318786_N-33-130-D-a-3-4-1-2.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ],
+                        [
+                            349738.96999999974,
+                            509675.65000000037
+                        ],
+                        [
+                            349756.69000000041,
+                            510254.76999999955
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-4-2-1",
+                "akt_rok": 2012,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.40000000000000002,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-KRON86-NH",
+                "akt_data": 1343347200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 4675,
+                "nazwa_pliku": "4675_318789_N-33-130-D-a-3-4-2-1",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/4675/4675_318789_N-33-130-D-a-3-4-2-1.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350800.75,
+                            509643.26999999955
+                        ],
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ],
+                        [
+                            350800.75,
+                            509643.26999999955
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-4-2-1",
+                "akt_rok": 2019,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1553299200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 73045,
+                "nazwa_pliku": "73045_917991_N-33-130-D-a-3-4-2-1",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/73045/73045_917991_N-33-130-D-a-3-4-2-1.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350800.75,
+                            509643.26999999955
+                        ],
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ],
+                        [
+                            350800.75,
+                            509643.26999999955
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-4-1-2",
+                "akt_rok": 2019,
+                "asortyment": "chmura punktow",
+                "format": "LAS",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.10000000000000001,
+                "blad_sr_syt": 0.25,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1553299200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 73045,
+                "nazwa_pliku": "73045_917988_N-33-130-D-a-3-4-1-2",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/73045/73045_917988_N-33-130-D-a-3-4-1-2.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ],
+                        [
+                            349738.96999999974,
+                            509675.65000000037
+                        ],
+                        [
+                            349756.69000000041,
+                            510254.76999999955
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-4-1-2",
+                "akt_rok": 2024,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.02,
+                "blad_sr_syt": 0.029999999999999999,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1726531200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 80269,
+                "nazwa_pliku": "80269_1537883_N-33-130-D-a-3-4-1-2",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/80269/80269_1537883_N-33-130-D-a-3-4-1-2.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ],
+                        [
+                            349738.96999999974,
+                            509675.65000000037
+                        ],
+                        [
+                            349756.69000000041,
+                            510254.76999999955
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "godlo": "N-33-130-D-a-3-4-2-1",
+                "akt_rok": 2024,
+                "asortyment": "chmura punktow",
+                "format": "LAZ",
+                "char_przestrz": "12 p/m2",
+                "blad_sr_wys": 0.02,
+                "blad_sr_syt": 0.029999999999999999,
+                "uklad_xy": "PL-1992",
+                "uklad_h": "PL-EVRF2007-NH",
+                "akt_data": 1726531200000,
+                "czy_ark_wypelniony": "TAK",
+                "zr_danych": "Skaning laserowy",
+                "id_serie": 80269,
+                "nazwa_pliku": "80269_1537886_N-33-130-D-a-3-4-2-1",
+                "url_do_pobrania": "https://opendata.geoportal.gov.pl/NumDaneWys/DanePomiaroweLAZ/80269/80269_1537886_N-33-130-D-a-3-4-2-1.laz"
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            350800.75,
+                            509643.26999999955
+                        ],
+                        [
+                            350269.86000000034,
+                            509659.4299999997
+                        ],
+                        [
+                            350287.51999999955,
+                            510238.55000000075
+                        ],
+                        [
+                            350818.34999999963,
+                            510222.3900000006
+                        ],
+                        [
+                            350800.75,
+                            509643.26999999955
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}

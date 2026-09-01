@@ -25,6 +25,8 @@ articles:
   navbar: ~
   contents:
   - getting-started
+  - raster-chain
+  - heights
   - forest-data
   - case-study
 

@@ -1,0 +1,52 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "adress_forest": "07-14- -  -      -    -",
+                "inspectorate_name": "Mrągowo",
+                "inspectorate_cd": "14",
+                "a_year": 2026,
+                "region_cd": "07"
+            },
+            "id": 211,
+            "geometry": null
+        }
+    ],
+    "numberMatched": 2,
+    "numberReturned": 1,
+    "links": [
+        {
+            "type": "application/geo+json",
+            "rel": "self",
+            "title": "This document as GeoJSON",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items?f=json&limit=1&skipGeometry=true&bbox=21.0378560911909,53.7928108543944,21.0621439742546,53.8071891377032"
+        },
+        {
+            "rel": "alternate",
+            "type": "application/ld+json",
+            "title": "This document as RDF (JSON-LD)",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items?f=jsonld&limit=1&skipGeometry=true&bbox=21.0378560911909,53.7928108543944,21.0621439742546,53.8071891377032"
+        },
+        {
+            "type": "text/html",
+            "rel": "alternate",
+            "title": "This document as HTML",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items?f=html&limit=1&skipGeometry=true&bbox=21.0378560911909,53.7928108543944,21.0621439742546,53.8071891377032"
+        },
+        {
+            "type": "application/geo+json",
+            "rel": "next",
+            "title": "items (next)",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items?offset=1&limit=1&skipGeometry=true&bbox=21.0378560911909,53.7928108543944,21.0621439742546,53.8071891377032"
+        },
+        {
+            "type": "application/json",
+            "title": "Nadleśnictwa",
+            "rel": "collection",
+            "href": "https://ogcapi.bdl.lasy.gov.pl/collections/nadlesnictwa/items"
+        }
+    ],
+    "timeStamp": "2026-09-01T00:41:08.548446Z"
+}

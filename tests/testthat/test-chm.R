@@ -1,12 +1,3 @@
-grid <- function(vals, nrows = 4, ncols = 4, xmin = 0, xmax = 4,
-                 ymin = 0, ymax = 4, crs = "EPSG:2180") {
-  skip_if_not_installed("terra")
-  r <- terra::rast(nrows = nrows, ncols = ncols, xmin = xmin, xmax = xmax,
-                   ymin = ymin, ymax = ymax, crs = crs)
-  terra::values(r) <- vals
-  r
-}
-
 test_that("the canopy model is the difference, and is named", {
   s <- grid(rep(110, 16))
   t <- grid(rep(100, 16))

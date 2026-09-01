@@ -100,8 +100,7 @@ ortho_stack <- function(index, aoi = NULL, crop = c("aoi", "tiles"),
 
   if (!is.null(filename)) {
     say(quiet, "  writing ", basename(filename))
-    out <- terra::writeRaster(out, filename, overwrite = TRUE,
-                              gdal = raster_gdal(out, gdal))
+    out <- write_raster(out, filename, gdal)
   }
   out
 }

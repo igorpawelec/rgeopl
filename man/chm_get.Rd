@@ -29,7 +29,8 @@ chm_build(
   mask = FALSE,
   filename = NULL,
   quiet = FALSE,
-  gdal = NULL
+  gdal = NULL,
+  vrs = NULL
 )
 }
 \arguments{
@@ -81,6 +82,13 @@ compression off.}
 
 \item{surface, terrain}{Surface and terrain models: file paths, or
 `terra::SpatRaster` objects.}
+
+\item{vrs}{The vertical systems the two rasters are in, as
+`c(surface, terrain)` -- `"kron86"`, `"evrf2007"`, or the names the
+index uses in its `VRS` column. When they differ the surface is
+converted before the subtraction; when they match nothing happens.
+`NULL`, the default, assumes you have checked. Rasters do not carry the
+vertical system, so this cannot be worked out from them.}
 }
 \value{
 A `terra::SpatRaster`, or with `keep = "all"` a list of three named
