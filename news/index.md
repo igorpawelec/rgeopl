@@ -2,14 +2,23 @@
 
 ## rgeopl (development version)
 
+- The forest vignette answers the question a stand outline raises next:
+  what is protected here, and which stands lie under it. The subareas
+  come from BDL and the protection from GDOŚ, so the section is where
+  the two halves meet – and the spread is the point, seven stands of 269
+  inside a birds directive site against 195 inside the landscape
+  complexes.
+
 - A byte mosaic keeps its brightest pixels after all. The narrowing that
   was meant to stop terra marking 255 as missing asked the raster for
   its range and gave up when it did not have one – which is what a
   virtual raster always answers, and every mosaic here is built through
   one. So the guard was absent from precisely the path it was written
   for. The range is computed now when it is not already known.
+
 - `narrow_type()` no longer stops on a raster that holds no values; it
   gives up quietly instead, which is what the caller expects of it.
+
 - [`dem_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
   and
   [`ortho_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
