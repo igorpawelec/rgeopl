@@ -11,7 +11,7 @@ hands back exactly the extent you ask for."><meta property="og:image" content="h
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +61,7 @@ hands back exactly the extent you ask for.</p>
 <span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  max_pixels <span class="op">=</span> <span class="fl">2500</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  gdal <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  file <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -73,6 +74,7 @@ hands back exactly the extent you ask for.</p>
 <span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  max_pixels <span class="op">=</span> <span class="fl">2500</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  gdal <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  file <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -134,6 +136,12 @@ knowing that.</p></dd>
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
 <dd><p>Suppress progress messages.</p></dd>
+
+
+<dt id="arg-gdal">gdal<a class="anchor" aria-label="anchor" href="#arg-gdal"></a></dt>
+<dd><p>GDAL creation options for the written file, as a character
+vector. `NULL`, the default, writes DEFLATE with the predictor that suits
+the data, tiled, and BIGTIFF when the size calls for it.</p></dd>
 
 
 <dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>

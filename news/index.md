@@ -1,5 +1,21 @@
 # Changelog
 
+## rgeopl (development version)
+
+- A byte mosaic keeps its brightest pixels after all. The narrowing that
+  was meant to stop terra marking 255 as missing asked the raster for
+  its range and gave up when it did not have one – which is what a
+  virtual raster always answers, and every mosaic here is built through
+  one. So the guard was absent from precisely the path it was written
+  for. The range is computed now when it is not already known.
+- `narrow_type()` no longer stops on a raster that holds no values; it
+  gives up quietly instead, which is what the caller expects of it.
+- [`dem_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
+  and
+  [`ortho_get()`](https://igorpawelec.github.io/rgeopl/reference/dem_get.md)
+  take `gdal`, like every other function here that writes a file. They
+  were the only two that wrote one without letting you say how.
+
 ## rgeopl 0.7.0
 
 - Two vignettes for the raster half of the package, which the narrative

@@ -17,6 +17,7 @@ dem_get(
   mask = FALSE,
   max_pixels = 2500,
   quiet = FALSE,
+  gdal = NULL,
   file = NULL
 )
 
@@ -29,6 +30,7 @@ ortho_get(
   mask = FALSE,
   max_pixels = 2500,
   quiet = FALSE,
+  gdal = NULL,
   file = NULL
 )
 ```
@@ -88,6 +90,12 @@ ortho_get(
 - quiet:
 
   Suppress progress messages.
+
+- gdal:
+
+  GDAL creation options for the written file, as a character vector.
+  \`NULL\`, the default, writes DEFLATE with the predictor that suits
+  the data, tiled, and BIGTIFF when the size calls for it.
 
 - file:
 
