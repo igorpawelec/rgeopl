@@ -284,6 +284,13 @@ standardise_bdl <- function(x) {
   if ("year" %in% names(x)) x$year <- as.integer(x$year)
   if ("adr_for" %in% names(x)) {
     x <- cbind(parse_forest_address(x$adr_for), x)
+    # The service repeats codes the address already carries: `nadlesnictwa`
+    # sends its own region_cd and inspectorate_cd, and cbind keeps both, so the
+    # result came back with inspectorate_cd.1 beside inspectorate_cd. They say
+    # the same thing -- checked against the parsed address on all 429
+    # inspectorates -- and the parsed one is kept because it is the only one
+    # every level has.
+    x <- x[, !duplicated(names(x)), drop = FALSE]
     x <- sf::st_as_sf(x)
   }
 

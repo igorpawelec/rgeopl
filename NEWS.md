@@ -1,3 +1,18 @@
+# rgeopl (development version)
+
+* `bdl_inspectorates()` no longer returns the same codes twice. The
+  `nadlesnictwa` collection sends its own `region_cd` and `inspectorate_cd`,
+  which the forest address already carries, and binding both left
+  `inspectorate_cd.1` and `directorate_cd.1` in the result. They agree --
+  checked against the parsed address on all 429 inspectorates -- so the parsed
+  one is kept, being the only one every level has.
+* A mosaic no longer carries the name of the temporary file it was built
+  through in `varnames`. The layer names were already corrected; this is the
+  same leak one field over, and it showed in every `print()`. terra counts
+  varnames per source rather than per layer, so a three-band mosaic gets one
+  label -- `CIR` over layers named `NIR`, `R`, `G` -- and a refusal is caught
+  rather than allowed to fail the mosaic.
+
 # rgeopl 0.8.0
 
 * The forest vignette answers the question a stand outline raises next:

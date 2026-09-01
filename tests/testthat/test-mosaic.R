@@ -231,3 +231,33 @@ test_that("an index that cannot say what the bands are leaves them alone", {
   four <- c(one, one, one, one)
   expect_equal(length(names(name_layers(four, data.frame(composition = "RGB")))), 4L)
 })
+
+test_that("the temporary file's name does not survive in varnames either", {
+  skip_if_not_installed("terra")
+  one <- terra::rast(nrows = 4, ncols = 4); terra::values(one) <- 1
+  names(one) <- "file1a2b3c"; terra::varnames(one) <- "file1a2b3c"
+
+  out <- name_layers(one, data.frame(product = "DTM"))
+  expect_equal(names(out), "DTM")
+  expect_equal(terra::varnames(out), "DTM")
+})
+
+test_that("a multi-band source gets one varname, not one per band", {
+  skip_if_not_installed("terra")
+  # terra counts varnames per source: handing a three-band raster three of
+  # them is an error, and a mosaic must not fail over a label
+  three <- terra::rast(nrows = 4, ncols = 4, nlyrs = 3)
+  terra::values(three) <- 1
+
+  out <- name_layers(three, data.frame(composition = "CIR"))
+  expect_equal(names(out), c("NIR", "R", "G"))
+  expect_length(terra::varnames(out), 1L)
+  expect_equal(terra::varnames(out), "CIR")
+})
+
+test_that("an index that says nothing leaves the labels alone", {
+  skip_if_not_installed("terra")
+  one <- terra::rast(nrows = 4, ncols = 4); terra::values(one) <- 1
+  names(one) <- "whatever"
+  expect_equal(names(name_layers(one, data.frame(x = 1))), "whatever")
+})

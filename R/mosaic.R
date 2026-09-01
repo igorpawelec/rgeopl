@@ -175,6 +175,18 @@ name_layers <- function(x, index) {
   }
 
   if (length(nm) == n) names(x) <- nm
+
+  # varnames carries the same leak from the temporary virtual raster, and shows
+  # in every print(). terra counts it per source rather than per layer, though:
+  # a three-band virtual raster is one source, and handing it three names is an
+  # error. So it gets a single label, and a refusal is not worth failing a
+  # mosaic over.
+  label <- c(if ("product" %in% names(index)) {
+               unique(stats::na.omit(as.character(index$product)))
+             }, comp)[1]
+  if (length(label) == 1L && !is.na(label)) {
+    try(terra::varnames(x) <- label, silent = TRUE)
+  }
   x
 }
 

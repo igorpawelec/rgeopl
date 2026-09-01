@@ -153,3 +153,22 @@ test_that("bdl_catalogue validates its level before touching the network", {
   expect_error(bdl_catalogue("nonsense"), "should be one of")
   expect_error(bdl_catalogue(c("inspectorate", "range")), "must be of length 1")
 })
+
+test_that("codes the service repeats are not returned twice", {
+  # `nadlesnictwa` sends its own region_cd and inspectorate_cd, which the
+  # forest address already carries; binding both gave inspectorate_cd.1
+  raw <- sf::st_sf(
+    adress_forest = "07-32- -  -      -    -  ",
+    region_cd = "07", inspectorate_cd = "32", inspectorate_name = "Wipsowo",
+    a_year = 2026L,
+    geometry = sf::st_sfc(sf::st_point(c(600000, 700000)), crs = 2180))
+
+  out <- standardise_bdl(raw)
+  expect_false(any(grepl("[.][0-9]+$", names(out))))
+  expect_equal(sum(names(out) == "inspectorate_cd"), 1L)
+  expect_equal(sum(names(out) == "directorate_cd"), 1L)
+
+  # and the one kept is the parsed address, which every level has
+  expect_equal(out$directorate_cd, "07")
+  expect_equal(out$inspectorate_cd, "32")
+})
