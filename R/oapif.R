@@ -137,7 +137,9 @@ oapif_items <- function(base, collection, bbox = NULL, page = OAPIF_PAGE,
     }
   }
 
-  out <- do.call(rbind, parts[!vapply(parts, is.null, logical(1))])
+  # Pages do not always agree on their columns: a property absent from every
+  # feature on one page is absent from that page's data frame.
+  out <- rbind_sf(parts)
   if (!is.na(n) && nrow(out) < n) {
     rlang::warn(c(
       paste0("Expected ", n, " features but assembled ", nrow(out), "."),

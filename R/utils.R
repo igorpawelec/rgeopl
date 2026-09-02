@@ -9,6 +9,24 @@ chunk <- function(x, size) {
   split(x, ceiling(seq_along(x) / size))
 }
 
+# Bind features fetched in parts -- the pages of one collection, or several
+# registers of one service -- that do not all carry the same columns. A page on
+# which no feature has a given property comes back from sf::st_read without
+# that column at all, and rbind then refuses the lot. Fill what is missing
+# with NA and put the columns in one order, geometry last, before binding.
+rbind_sf <- function(parts) {
+  parts <- drop_null(parts)
+  if (length(parts) == 0L) return(NULL)
+  cols <- unique(unlist(lapply(parts, function(p) {
+    setdiff(names(p), attr(p, "sf_column"))
+  })))
+  parts <- lapply(parts, function(p) {
+    for (nm in setdiff(cols, names(p))) p[[nm]] <- NA
+    p[, c(cols, attr(p, "sf_column"))]
+  })
+  do.call(rbind, parts)
+}
+
 # Both services filter by bounding box only. For an area of interest that is
 # not a rectangle -- which is most real ones -- that returns features beside
 # the area as well as inside it. Keep whole features that touch the area:

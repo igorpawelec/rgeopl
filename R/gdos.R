@@ -110,7 +110,10 @@ protected_areas <- function(aoi = NULL, type = "all", within_aoi = TRUE,
     say(quiet, "Nothing protected here.")
     return(empty_gdos())
   }
-  out <- bind_gdos(parts)
+  # The layers do not all carry the same columns -- the monuments know a
+  # species and a date, the reserves do not -- so binding them fills what is
+  # missing rather than dropping what only one of them has.
+  out <- rbind_sf(parts)
   say(quiet, "  ", nrow(out), " features across ",
       length(unique(out$type)), " register",
       if (length(unique(out$type)) == 1L) "" else "s")
@@ -190,18 +193,6 @@ standardise_gdos <- function(x, type) {
   x <- x[, c(intersect(lead, names(x)),
              setdiff(names(x), c(lead, geom, "id", "gid")), geom)]
   sf::st_transform(x, CRS_PL1992)
-}
-
-# The layers do not all carry the same columns -- the monuments know a species
-# and a date, the reserves do not -- so binding them fills what is missing
-# rather than dropping what only one of them has.
-bind_gdos <- function(parts) {
-  cols <- unique(unlist(lapply(parts, function(p) setdiff(names(p), attr(p, "sf_column")))))
-  parts <- lapply(parts, function(p) {
-    for (nm in setdiff(cols, names(p))) p[[nm]] <- NA
-    p[, c(cols, attr(p, "sf_column"))]
-  })
-  do.call(rbind, parts)
 }
 
 empty_gdos <- function() {
