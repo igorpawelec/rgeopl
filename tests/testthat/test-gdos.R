@@ -73,7 +73,7 @@ test_that("registers with different columns bind without losing either", {
     if (!is.null(extra)) x[[extra]] <- "dąb"
     x
   }
-  out <- bind_gdos(list(pt("reserves"), pt("monuments_point", "gatunek")))
+  out <- rbind_sf(list(pt("reserves"), pt("monuments_point", "gatunek")))
 
   expect_equal(nrow(out), 2L)
   expect_true("gatunek" %in% names(out))
