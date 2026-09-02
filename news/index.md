@@ -1,5 +1,17 @@
 # Changelog
 
+## rgeopl (development version)
+
+- [`bdl_ranges()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md)
+  and the other BDL collection walkers no longer fail with “numbers of
+  columns of arguments do not match” when one page comes back a column
+  short. A property absent from every feature on a page is absent from
+  that page’s data frame, and `rbind` refuses to bind it to the rest;
+  all 5259 ranges, fetched without an area, hit this. Pages are now
+  aligned on the union of their columns, the missing ones filled with
+  `NA`, before binding – the treatment the GDOŚ registers already had,
+  now shared.
+
 ## rgeopl 0.9.0
 
 - [`bdl_inspectorates()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md)

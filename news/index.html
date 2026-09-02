@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rgeopl</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,11 @@
       <small>Source: <a href="https://github.com/igorpawelec/rgeopl/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="rgeopl-development-version">rgeopl (development version)<a class="anchor" aria-label="anchor" href="#rgeopl-development-version"></a></h2>
+<ul><li>
+<code><a href="../reference/bdl_directorates.html">bdl_ranges()</a></code> and the other BDL collection walkers no longer fail with “numbers of columns of arguments do not match” when one page comes back a column short. A property absent from every feature on a page is absent from that page’s data frame, and <code>rbind</code> refuses to bind it to the rest; all 5259 ranges, fetched without an area, hit this. Pages are now aligned on the union of their columns, the missing ones filled with <code>NA</code>, before binding – the treatment the GDOŚ registers already had, now shared.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0" id="rgeopl-090">rgeopl 0.9.0<a class="anchor" aria-label="anchor" href="#rgeopl-090"></a></h2>
 <ul><li>
