@@ -57,11 +57,16 @@ costs a fraction of a second) and only the relevant collections are queried.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bdl_directorates</span><span class="op">(</span>aoi <span class="op">=</span> <span class="cn">NULL</span>, within_aoi <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bdl_directorates</span><span class="op">(</span>aoi <span class="op">=</span> <span class="cn">NULL</span>, within_aoi <span class="op">=</span> <span class="cn">TRUE</span>, geometry <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bdl_inspectorates</span><span class="op">(</span>aoi <span class="op">=</span> <span class="cn">NULL</span>, within_aoi <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">bdl_inspectorates</span><span class="op">(</span></span>
+<span>  aoi <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  within_aoi <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  geometry <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bdl_ranges</span><span class="op">(</span>aoi <span class="op">=</span> <span class="cn">NULL</span>, within_aoi <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">bdl_ranges</span><span class="op">(</span>aoi <span class="op">=</span> <span class="cn">NULL</span>, within_aoi <span class="op">=</span> <span class="cn">TRUE</span>, geometry <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">bdl_subareas</span><span class="op">(</span><span class="va">aoi</span>, within_aoi <span class="op">=</span> <span class="cn">TRUE</span>, max_features <span class="op">=</span> <span class="fl">2e+05</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
@@ -84,6 +89,12 @@ service filters by bounding box alone, so for anything other than a
 rectangle it also returns features lying beside the area. Features that
 straddle the boundary are kept whole, not clipped, so their recorded
 areas stay true.</p></dd>
+
+
+<dt id="arg-geometry">geometry<a class="anchor" aria-label="anchor" href="#arg-geometry"></a></dt>
+<dd><p>Fetch the polygons. `FALSE` asks the service to leave them
+out and returns an ordinary data frame: the same columns, without the
+geometry one.</p></dd>
 
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
@@ -115,6 +126,32 @@ Turnica range, 04-02-2-11: 144 subareas carry its address, totalling
 than the area, go through [bdl_by_address()], which filters on the address.</p>
     </div>
     <div class="section level2">
+    <h2 id="one-unit-more-than-one-row">One unit, more than one row<a class="anchor" aria-label="anchor" href="#one-unit-more-than-one-row"></a></h2>
+
+
+<p>A unit whose ground lies in separate pieces is published as separate
+features, one per piece, each carrying the same forest address and the same
+name. Measured on the forest ranges: 5259 features for 5255 addresses, the
+repeats being Szkolka Grabowiec in three pieces and Rudnica and Lawki in
+two apiece. Counting rows counts polygons, not units; count distinct
+`adr_for` when units are what is meant.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="attributes-without-the-polygons">Attributes without the polygons<a class="anchor" aria-label="anchor" href="#attributes-without-the-polygons"></a></h2>
+
+
+<p>These outlines are large, and they get larger as you go up: measured on the
+service, a forest range carries 95 kB of geometry, a forest inspectorate
+754 kB and a regional directorate 5.2 MB, each being the union of
+everything beneath it. Every forest range in the country is therefore about
+0.6 GB of polygons – against 1.4 MB of attributes, in seven seconds, with
+`geometry = FALSE`. For a lookup table of names and forest addresses the
+attributes are the whole of what was wanted.</p>
+<p>Without geometry there is nothing to intersect, so `within_aoi` cannot be
+applied and the result is filtered by the bounding box alone. It says so
+when that happens.</p>
+    </div>
+    <div class="section level2">
     <h2 id="no-archive">No archive<a class="anchor" aria-label="anchor" href="#no-archive"></a></h2>
 
 
@@ -135,6 +172,9 @@ indexes, where every vintage stays available and is queryable.</p>
 <span class="r-in"><span><span class="fu">bdl_directorates</span><span class="op">(</span><span class="va">aoi</span><span class="op">)</span>     <span class="co"># regional directorate (RDLP)</span></span></span>
 <span class="r-in"><span><span class="fu">bdl_inspectorates</span><span class="op">(</span><span class="va">aoi</span><span class="op">)</span>   <span class="co"># forest inspectorate (nadlesnictwo)</span></span></span>
 <span class="r-in"><span><span class="fu">bdl_ranges</span><span class="op">(</span><span class="va">aoi</span><span class="op">)</span>      <span class="co"># forest range (lesnictwo)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># every forest range in the country, names and addresses only</span></span></span>
+<span class="r-in"><span><span class="fu">bdl_ranges</span><span class="op">(</span>geometry <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">st</span> <span class="op">&lt;-</span> <span class="fu">bdl_subareas</span><span class="op">(</span><span class="va">aoi</span><span class="op">)</span>          <span class="co"># subareas (wydzielenia)</span></span></span>
 <span class="r-in"><span><span class="va">bl</span> <span class="op">&lt;-</span> <span class="fu">bdl_compartments</span><span class="op">(</span><span class="va">aoi</span><span class="op">)</span>          <span class="co"># compartments (oddzialy), dissolved from the address</span></span></span>

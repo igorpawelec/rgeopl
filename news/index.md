@@ -11,6 +11,42 @@
   aligned on the union of their columns, the missing ones filled with
   `NA`, before binding – the treatment the GDOŚ registers already had,
   now shared.
+- [`bdl_directorates()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md),
+  [`bdl_inspectorates()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md)
+  and
+  [`bdl_ranges()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md)
+  take `geometry = FALSE`, which asks the service to leave the polygons
+  out and hands back the attributes as a plain data frame. These
+  outlines are large, and larger the further up the hierarchy you go –
+  95 kB for a forest range, 754 kB for an inspectorate, 5.2 MB for a
+  regional directorate, each being the union of everything beneath it –
+  so every forest range in the country is some 0.6 GB of geometry
+  against 1.4 MB of attributes, measured at 7.9 seconds for all 5259 of
+  them. Without geometry there is nothing to intersect, so `within_aoi`
+  cannot be applied, and the result says so rather than leaving you
+  holding unfiltered features.
+- Pages of an OGC API collection are measured in bytes now, not in
+  features. A page of 5000 features is 26 MB of subareas and 475 MB of
+  forest ranges, and the gateway answers the second with an intermittent
+  502 instead of the data – which is what
+  [`bdl_ranges()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md)
+  without an area had been running into. One feature is fetched to
+  measure, and the page is sized to a 32 MB budget and capped at the
+  previous 5000. The subarea collections are unaffected; the
+  administrative levels now walk in pages of 13 to 249.
+- [`bdl_subareas()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md),
+  [`bdl_by_address()`](https://igorpawelec.github.io/rgeopl/reference/bdl_by_address.md)
+  and the unit lookups bind their parts the way the collection pages
+  already did. Each of them fetches features separately – one request
+  per unit, or one collection per regional directorate – and any part
+  can arrive without a property that nothing in it carries, which plain
+  `rbind` refuses. The same failure as above, at three call sites that
+  had not happened to meet it yet.
+- [`bdl_ranges()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md)
+  records that a unit lying in separate pieces is published as one
+  feature per piece: 5259 features for 5255 forest addresses, Szkolka
+  Grabowiec in three and Rudnica and Lawki in two apiece. Counting rows
+  counts polygons, not units.
 
 ## rgeopl 0.9.0
 

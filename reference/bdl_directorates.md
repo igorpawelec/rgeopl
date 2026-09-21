@@ -10,11 +10,16 @@ are queried.
 ## Usage
 
 ``` r
-bdl_directorates(aoi = NULL, within_aoi = TRUE, quiet = FALSE)
+bdl_directorates(aoi = NULL, within_aoi = TRUE, geometry = TRUE, quiet = FALSE)
 
-bdl_inspectorates(aoi = NULL, within_aoi = TRUE, quiet = FALSE)
+bdl_inspectorates(
+  aoi = NULL,
+  within_aoi = TRUE,
+  geometry = TRUE,
+  quiet = FALSE
+)
 
-bdl_ranges(aoi = NULL, within_aoi = TRUE, quiet = FALSE)
+bdl_ranges(aoi = NULL, within_aoi = TRUE, geometry = TRUE, quiet = FALSE)
 
 bdl_subareas(aoi, within_aoi = TRUE, max_features = 2e+05, quiet = FALSE)
 
@@ -36,6 +41,12 @@ bdl_compartments(aoi, within_aoi = TRUE, max_features = 2e+05, quiet = FALSE)
   returns features lying beside the area. Features that straddle the
   boundary are kept whole, not clipped, so their recorded areas stay
   true.
+
+- geometry:
+
+  Fetch the polygons. \`FALSE\` asks the service to leave them out and
+  returns an ordinary data frame: the same columns, without the geometry
+  one.
 
 - quiet:
 
@@ -64,6 +75,29 @@ totalling 1187 ha, while 194 subareas fall inside its polygon, totalling
 unit rather than the area, go through \[bdl_by_address()\], which
 filters on the address.
 
+## One unit, more than one row
+
+A unit whose ground lies in separate pieces is published as separate
+features, one per piece, each carrying the same forest address and the
+same name. Measured on the forest ranges: 5259 features for 5255
+addresses, the repeats being Szkolka Grabowiec in three pieces and
+Rudnica and Lawki in two apiece. Counting rows counts polygons, not
+units; count distinct \`adr_for\` when units are what is meant.
+
+## Attributes without the polygons
+
+These outlines are large, and they get larger as you go up: measured on
+the service, a forest range carries 95 kB of geometry, a forest
+inspectorate 754 kB and a regional directorate 5.2 MB, each being the
+union of everything beneath it. Every forest range in the country is
+therefore about 0.6 GB of polygons – against 1.4 MB of attributes, in
+seven seconds, with \`geometry = FALSE\`. For a lookup table of names
+and forest addresses the attributes are the whole of what was wanted.
+
+Without geometry there is nothing to intersect, so \`within_aoi\` cannot
+be applied and the result is filtered by the bounding box alone. It says
+so when that happens.
+
 ## No archive
 
 These services publish the \*\*current state only\*\*, and there is no
@@ -84,6 +118,9 @@ aoi <- as_aoi(sf::st_read(rgeopl_example("gleboczek_aoi.shp"), quiet = TRUE))
 bdl_directorates(aoi)     # regional directorate (RDLP)
 bdl_inspectorates(aoi)   # forest inspectorate (nadlesnictwo)
 bdl_ranges(aoi)      # forest range (lesnictwo)
+
+# every forest range in the country, names and addresses only
+bdl_ranges(geometry = FALSE)
 
 st <- bdl_subareas(aoi)          # subareas (wydzielenia)
 bl <- bdl_compartments(aoi)          # compartments (oddzialy), dissolved from the address
