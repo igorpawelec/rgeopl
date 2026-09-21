@@ -1,4 +1,4 @@
-# rgeopl (development version)
+# rgeopl 0.10.0
 
 * `bdl_ranges()` and the other BDL collection walkers no longer fail with
   "numbers of columns of arguments do not match" when one page comes back a
