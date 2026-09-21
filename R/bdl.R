@@ -18,6 +18,9 @@ BDL <- "https://ogcapi.bdl.lasy.gov.pl"
 #'   rectangle it also returns features lying beside the area. Features that
 #'   straddle the boundary are kept whole, not clipped, so their recorded
 #'   areas stay true.
+#' @param geometry Fetch the polygons. `FALSE` asks the service to leave them
+#'   out and returns an ordinary data frame: the same columns, without the
+#'   geometry one.
 #' @param max_features Refuse to fetch more than this many features. Raise it
 #'   deliberately rather than by accident.
 #' @param quiet Suppress progress messages.
@@ -36,6 +39,27 @@ BDL <- "https://ogcapi.bdl.lasy.gov.pl"
 #' -- 50 of them addressed to four other ranges. When you mean the unit rather
 #' than the area, go through [bdl_by_address()], which filters on the address.
 #'
+#' @section One unit, more than one row:
+#' A unit whose ground lies in separate pieces is published as separate
+#' features, one per piece, each carrying the same forest address and the same
+#' name. Measured on the forest ranges: 5259 features for 5255 addresses, the
+#' repeats being Szkolka Grabowiec in three pieces and Rudnica and Lawki in
+#' two apiece. Counting rows counts polygons, not units; count distinct
+#' `adr_for` when units are what is meant.
+#'
+#' @section Attributes without the polygons:
+#' These outlines are large, and they get larger as you go up: measured on the
+#' service, a forest range carries 95 kB of geometry, a forest inspectorate
+#' 754 kB and a regional directorate 5.2 MB, each being the union of
+#' everything beneath it. Every forest range in the country is therefore about
+#' 0.6 GB of polygons -- against 1.4 MB of attributes, in seven seconds, with
+#' `geometry = FALSE`. For a lookup table of names and forest addresses the
+#' attributes are the whole of what was wanted.
+#'
+#' Without geometry there is nothing to intersect, so `within_aoi` cannot be
+#' applied and the result is filtered by the bounding box alone. It says so
+#' when that happens.
+#'
 #' @section No archive:
 #' These services publish the **current state only**, and there is no vintage
 #' to filter on either: `year` (`a_year` upstream) is the edition stamp of the
@@ -53,6 +77,9 @@ BDL <- "https://ogcapi.bdl.lasy.gov.pl"
 #' bdl_inspectorates(aoi)   # forest inspectorate (nadlesnictwo)
 #' bdl_ranges(aoi)      # forest range (lesnictwo)
 #'
+#' # every forest range in the country, names and addresses only
+#' bdl_ranges(geometry = FALSE)
+#'
 #' st <- bdl_subareas(aoi)          # subareas (wydzielenia)
 #' bl <- bdl_compartments(aoi)          # compartments (oddzialy), dissolved from the address
 #'
@@ -61,29 +88,44 @@ BDL <- "https://ogcapi.bdl.lasy.gov.pl"
 #' }
 #'
 #' @export
-bdl_directorates <- function(aoi = NULL, within_aoi = TRUE, quiet = FALSE) {
-  bdl_layer("rdlp", aoi, what = "regional directorates", within_aoi = within_aoi, quiet = quiet)
+bdl_directorates <- function(aoi = NULL, within_aoi = TRUE, geometry = TRUE,
+                             quiet = FALSE) {
+  bdl_layer("rdlp", aoi, what = "regional directorates",
+            within_aoi = within_aoi, geometry = geometry, quiet = quiet)
 }
 
 #' @rdname bdl_directorates
 #' @export
-bdl_inspectorates <- function(aoi = NULL, within_aoi = TRUE, quiet = FALSE) {
-  bdl_layer("nadlesnictwa", aoi, what = "forest inspectorates", within_aoi = within_aoi, quiet = quiet)
+bdl_inspectorates <- function(aoi = NULL, within_aoi = TRUE, geometry = TRUE,
+                              quiet = FALSE) {
+  bdl_layer("nadlesnictwa", aoi, what = "forest inspectorates",
+            within_aoi = within_aoi, geometry = geometry, quiet = quiet)
 }
 
 #' @rdname bdl_directorates
 #' @export
-bdl_ranges <- function(aoi = NULL, within_aoi = TRUE, quiet = FALSE) {
-  bdl_layer("lesnictwa", aoi, what = "forest ranges", within_aoi = within_aoi, quiet = quiet)
+bdl_ranges <- function(aoi = NULL, within_aoi = TRUE, geometry = TRUE,
+                       quiet = FALSE) {
+  bdl_layer("lesnictwa", aoi, what = "forest ranges",
+            within_aoi = within_aoi, geometry = geometry, quiet = quiet)
 }
 
-bdl_layer <- function(collection, aoi, what, within_aoi = TRUE, quiet = FALSE) {
+bdl_layer <- function(collection, aoi, what, within_aoi = TRUE,
+                      geometry = TRUE, quiet = FALSE) {
   bbox <- if (is.null(aoi)) NULL else aoi_bbox(as_aoi(aoi), crs = CRS_WGS84)
   if (!quiet) message("Querying ", what, "...")
-  raw <- oapif_items(BDL, collection, bbox, quiet = quiet)
-  if (is.null(raw)) return(new_bdl(empty_bdl(), what))
+  raw <- oapif_items(BDL, collection, bbox, geometry = geometry, quiet = quiet)
+  if (is.null(raw)) return(new_bdl(empty_bdl(geometry), what))
   out <- standardise_bdl(raw)
-  if (within_aoi && !is.null(aoi)) out <- keep_touching_aoi(out, as_aoi(aoi))
+  if (within_aoi && !is.null(aoi)) {
+    if (geometry) {
+      out <- keep_touching_aoi(out, as_aoi(aoi))
+    } else if (!quiet) {
+      # Saying nothing here would leave the caller holding features beside
+      # the area, believing they had been filtered out.
+      message("  bounding box only: no geometry to test the area against")
+    }
+  }
   new_bdl(out, what)
 }
 
@@ -106,7 +148,7 @@ bdl_subareas <- function(aoi, within_aoi = TRUE, max_features = 2e5,
   parts <- parts[!vapply(parts, is.null, logical(1))]
   if (length(parts) == 0L) return(new_bdl(empty_bdl(), "subareas"))
 
-  out <- standardise_bdl(do.call(rbind, parts))
+  out <- standardise_bdl(rbind_parts(parts))
   out <- add_unit_names(out)
   if (within_aoi) {
     n_before <- nrow(out)
@@ -278,6 +320,9 @@ BDL_NAMES <- c(
 )
 
 standardise_bdl <- function(x) {
+  # A walk that skipped the geometry hands over a plain data frame. Everything
+  # below is column work that does not care, except the two sf calls.
+  spatial <- inherits(x, "sf")
   hit <- names(x) %in% names(BDL_NAMES)
   names(x)[hit] <- BDL_NAMES[names(x)[hit]]
 
@@ -291,7 +336,7 @@ standardise_bdl <- function(x) {
     # inspectorates -- and the parsed one is kept because it is the only one
     # every level has.
     x <- x[, !duplicated(names(x)), drop = FALSE]
-    x <- sf::st_as_sf(x)
+    if (spatial) x <- sf::st_as_sf(x)
   }
 
   lead <- c("directorate_cd", "directorate_name", "inspectorate_cd", "inspectorate_name",
@@ -300,13 +345,14 @@ standardise_bdl <- function(x) {
   keep <- c(intersect(lead, names(x)),
             setdiff(names(x), c(lead, attr(x, "sf_column"))),
             attr(x, "sf_column"))
-  x <- x[, keep]
-  sf::st_transform(x, CRS_PL1992)
+  x <- x[, keep, drop = FALSE]
+  if (spatial) sf::st_transform(x, CRS_PL1992) else x
 }
 
-empty_bdl <- function() {
+empty_bdl <- function(geometry = TRUE) {
   out <- data.frame(adr_for = character(0), year = integer(0),
                     stringsAsFactors = FALSE)
+  if (!geometry) return(out)
   out$geometry <- sf::st_sfc(crs = sf::st_crs(CRS_PL1992))
   sf::st_as_sf(out)
 }

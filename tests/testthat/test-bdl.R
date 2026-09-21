@@ -172,3 +172,45 @@ test_that("codes the service repeats are not returned twice", {
   expect_equal(out$directorate_cd, "07")
   expect_equal(out$inspectorate_cd, "32")
 })
+
+test_that("a layer fetched without geometry standardises to a plain frame", {
+  raw <- data.frame(
+    adress_forest = c("09-01-2-10-      -    -", "09-01-2-11-      -    -"),
+    forest_range_name = c("Gleboczek", "Turnica"),
+    a_year = c(2026L, 2026L),
+    stringsAsFactors = FALSE
+  )
+  out <- standardise_bdl(raw)
+
+  expect_s3_class(out, "data.frame")
+  expect_false(inherits(out, "sf"))
+  expect_equal(out$directorate_cd, c("09", "09"))
+  expect_equal(out$range_cd, c("10", "11"))
+  expect_equal(out$range_name, c("Gleboczek", "Turnica"))
+  expect_type(out$year, "integer")
+})
+
+test_that("an empty layer can be geometry-free too", {
+  out <- empty_bdl(geometry = FALSE)
+  expect_s3_class(out, "data.frame")
+  expect_false(inherits(out, "sf"))
+  expect_equal(nrow(out), 0L)
+  expect_false("geometry" %in% names(out))
+})
+
+test_that("the area filter says so when there is no geometry to apply it to", {
+  local_mocked_bindings(
+    oapif_items = function(...) data.frame(
+      adress_forest = "09-01-2-10-      -    -",
+      forest_range_name = "Gleboczek", a_year = 2026L,
+      stringsAsFactors = FALSE
+    )
+  )
+  aoi <- as_aoi(c(16.9, 52.4), buffer = 1000)
+  expect_message(
+    out <- bdl_layer("lesnictwa", aoi, what = "forest ranges",
+                     geometry = FALSE, quiet = FALSE),
+    "bounding box only"
+  )
+  expect_false(inherits(out, "sf"))
+})

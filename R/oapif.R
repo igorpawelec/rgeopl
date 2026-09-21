@@ -1,12 +1,21 @@
 # OGC API Features -----------------------------------------------------------
 #
 # The BDL side has no record cap to work around (the WFS advertises
-# CountDefault = 1 000 000), but it does page, and the subarea collections
-# are large enough that paging matters: one regional directorate holds well
-# over a hundred thousand polygons. This walks the `next` links and stops when
-# the server stops offering one.
+# CountDefault = 1 000 000), but it does page, and the collections are large
+# enough that paging matters: one regional directorate holds well over a
+# hundred thousand subarea polygons.
+#
+# Two things about that paging had to be measured rather than assumed, and each
+# is written up where it is implemented: the server stops offering `next` links
+# after the first page, so they cannot be walked (oapif_items), and a page
+# counted in features is the wrong unit, because feature sizes here span three
+# orders of magnitude (oapif_page_size).
 
+# A page holds at most this many features, however small they are.
 OAPIF_PAGE <- 5000L
+
+# ...and at most this many bytes, however few features that turns out to be.
+OAPIF_PAGE_BYTES <- 32e6
 
 oapif_url <- function(base, collection, endpoint = "items") {
   paste0(base, "/collections/", collection, "/", endpoint)
@@ -75,13 +84,48 @@ oapif_item <- function(base, collection, id) {
   suppressWarnings(sf::st_read(txt, quiet = TRUE))
 }
 
+# How many features to ask for at once.
+#
+# Counted in bytes rather than in features, because in these collections the
+# two run in opposite directions. Measured on BDL: a subarea is 5 kB of polygon
+# and there are hundreds of thousands of them, while `rdlp` holds seventeen
+# features of 5.2 MB each, a regional directorate's outline being every forest
+# boundary inside it. Between them the spread is a factor of a thousand, so one
+# page of 5000 features is 26 MB of subareas and 475 MB of forest ranges -- and
+# the gateway answers the second with an intermittent 502 rather than the data.
+# Pages of 66 MB and 159 MB were both served without complaint, so the budget
+# is set well under what the service has been seen to manage.
+#
+# One feature is fetched to measure it, which is one feature more than the walk
+# needs. Keeping it as page one instead would save that, and would make the
+# loop below read as a special case; the feature is the cheapest thing the
+# collection has, so it is paid for rather than saved. The envelope and the
+# links are counted in with it, which biases the estimate towards a smaller
+# page -- the safe direction.
+oapif_page_size <- function(base, collection, bbox = NULL, n = NA_integer_,
+                            geometry = TRUE, budget = OAPIF_PAGE_BYTES) {
+  # Attributes are small and uniform -- 5000 of them measured at 1.4 MB -- and
+  # a single feature cannot be split across pages however large it is. Neither
+  # case is worth a request to measure.
+  if (!geometry || (!is.na(n) && n <= 1L)) return(OAPIF_PAGE)
+
+  txt <- tryCatch(
+    gp_text(oapif_url(base, collection),
+            drop_null(list(limit = 1L, bbox = bbox, f = "json"))),
+    error = function(e) NULL
+  )
+  if (is.null(txt)) return(OAPIF_PAGE)
+  bytes <- nchar(txt, type = "bytes")
+  if (!is.finite(bytes) || bytes <= 0) return(OAPIF_PAGE)
+  max(1L, min(OAPIF_PAGE, as.integer(budget %/% bytes)))
+}
+
 #' @keywords internal
 #' @noRd
-oapif_items <- function(base, collection, bbox = NULL, page = OAPIF_PAGE,
-                        max_features = 2e5, quiet = FALSE) {
+oapif_items <- function(base, collection, bbox = NULL, page = NULL,
+                        max_features = 2e5, geometry = TRUE, quiet = FALSE) {
   url <- oapif_url(base, collection)
   bbox_str <- if (is.null(bbox)) NULL else paste(bbox, collapse = ",")
-  params <- drop_null(list(limit = page, bbox = bbox_str, f = "json"))
 
   n <- oapif_count(base, collection, bbox_str)
 
@@ -96,6 +140,28 @@ oapif_items <- function(base, collection, bbox = NULL, page = OAPIF_PAGE,
   }
   if (!quiet && !is.na(n)) {
     message("  ", collection, ": ", n, " features")
+  }
+
+  if (is.null(page)) {
+    page <- oapif_page_size(base, collection, bbox_str, n, geometry)
+  }
+  params <- drop_null(list(
+    limit = page, bbox = bbox_str, f = "json",
+    skipGeometry = if (geometry) NULL else "true"
+  ))
+
+  # skipGeometry leaves `"geometry": null` on every feature rather than
+  # omitting the member, which sf reads as a column of empty geometries: an sf
+  # object that cannot be plotted, transformed or intersected. The properties
+  # are taken directly instead, and what comes back is an ordinary data frame
+  # that says what it is.
+  read_page <- function(offset) {
+    query <- c(params, list(offset = offset))
+    if (geometry) {
+      suppressWarnings(sf::st_read(gp_text(url, query), quiet = TRUE))
+    } else {
+      gp_json(url, query)$features$properties
+    }
   }
 
   # Paging is driven by explicit offsets rather than by following the server's
@@ -121,9 +187,8 @@ oapif_items <- function(base, collection, bbox = NULL, page = OAPIF_PAGE,
   while (i < pages) {
     i <- i + 1L
     pb_tick(bar)
-    got <- gp_text(url, c(params, list(offset = (i - 1L) * page)))
-    part <- suppressWarnings(sf::st_read(got, quiet = TRUE))
-    if (nrow(part) == 0L) break
+    part <- read_page((i - 1L) * page)
+    if (is.null(part) || nrow(part) == 0L) break
     parts[[i]] <- part
     if (!is.finite(pages)) {
       if (nrow(part) < page) break
@@ -139,8 +204,8 @@ oapif_items <- function(base, collection, bbox = NULL, page = OAPIF_PAGE,
 
   # Pages do not always agree on their columns: a property absent from every
   # feature on one page is absent from that page's data frame.
-  out <- rbind_sf(parts)
-  if (!is.na(n) && nrow(out) < n) {
+  out <- rbind_parts(parts)
+  if (!is.null(out) && !is.na(n) && nrow(out) < n) {
     rlang::warn(c(
       paste0("Expected ", n, " features but assembled ", nrow(out), "."),
       i = "The result is incomplete; re-run before relying on it."
