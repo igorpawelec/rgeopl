@@ -1,6 +1,6 @@
 # Changelog
 
-## rgeopl (development version)
+## rgeopl 0.10.0
 
 - [`bdl_ranges()`](https://igorpawelec.github.io/rgeopl/reference/bdl_directorates.md)
   and the other BDL collection walkers no longer fail with “numbers of
