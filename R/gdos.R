@@ -113,7 +113,7 @@ protected_areas <- function(aoi = NULL, type = "all", within_aoi = TRUE,
   # The layers do not all carry the same columns -- the monuments know a
   # species and a date, the reserves do not -- so binding them fills what is
   # missing rather than dropping what only one of them has.
-  out <- rbind_sf(parts)
+  out <- rbind_parts(parts)
   say(quiet, "  ", nrow(out), " features across ",
       length(unique(out$type)), " register",
       if (length(unique(out$type)) == 1L) "" else "s")

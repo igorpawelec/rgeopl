@@ -86,10 +86,10 @@ test_that("parts that disagree on their columns are bound, not refused", {
   p2 <- pt(id = 2L, name = "B")
   p3 <- pt(id = 3L, area = 3, note = "late")
 
-  # This is the failure rbind_sf() exists for.
+  # This is the failure rbind_parts() exists for.
   expect_error(rbind(p1, p2))
 
-  out <- rbind_sf(list(p1, p2, p3))
+  out <- rbind_parts(list(p1, p2, p3))
   expect_s3_class(out, "sf")
   expect_equal(nrow(out), 3L)
   expect_equal(names(out), c("id", "name", "area", "note", "geometry"))
@@ -97,7 +97,7 @@ test_that("parts that disagree on their columns are bound, not refused", {
   expect_equal(out$area, c(1.5, NA, 3))
   expect_equal(out$note, c(NA, NA, "late"))
   expect_equal(sf::st_crs(out), sf::st_crs(4326))
-  expect_null(rbind_sf(list()))
+  expect_null(rbind_parts(list()))
 })
 
 test_that("a page on which no feature has a property still binds", {
@@ -122,4 +122,65 @@ test_that("a page on which no feature has a property still binds", {
   expect_equal(nrow(out), 5L)
   expect_equal(out$i, 1:5)
   expect_equal(out$name, c("A", "B", NA, NA, "E"))
+})
+
+test_that("the page is sized by the bytes a feature measures, not by a count", {
+  local_mocked_bindings(gp_text = function(...) strrep("x", 1000L))
+
+  # a 1000-byte feature against a 100 kB budget
+  expect_equal(oapif_page_size("https://example.org", "things", budget = 1e5),
+               100L)
+  # never more than the ceiling, however small the features
+  expect_equal(oapif_page_size("https://example.org", "things", budget = 1e12),
+               OAPIF_PAGE)
+  # and never less than one, however large
+  expect_equal(oapif_page_size("https://example.org", "things", budget = 10), 1L)
+})
+
+test_that("nothing is measured when the measurement cannot change the page", {
+  called <- 0L
+  local_mocked_bindings(gp_text = function(...) { called <<- called + 1L; "x" })
+
+  # a single feature cannot be split across pages
+  expect_equal(oapif_page_size("u", "c", n = 1L), OAPIF_PAGE)
+  # and attributes are small and uniform whatever the collection
+  expect_equal(oapif_page_size("u", "c", n = 5000L, geometry = FALSE),
+               OAPIF_PAGE)
+  expect_equal(called, 0L)
+})
+
+test_that("a probe that fails leaves the page at its ceiling", {
+  local_mocked_bindings(gp_text = function(...) stop("unreachable"))
+  expect_equal(oapif_page_size("u", "c"), OAPIF_PAGE)
+})
+
+test_that("a walk without geometry asks for none and returns a plain frame", {
+  seen <- NULL
+  local_mocked_bindings(
+    oapif_count = function(...) 3L,
+    gp_json = function(url, params = list(), ...) {
+      seen <<- params
+      list(features = list(properties = data.frame(
+        i = 1:3, name = c("A", "B", "C"), stringsAsFactors = FALSE)))
+    }
+  )
+  out <- oapif_items("https://example.org", "things", page = 5,
+                     geometry = FALSE, quiet = TRUE)
+
+  expect_equal(seen$skipGeometry, "true")
+  expect_s3_class(out, "data.frame")
+  expect_false(inherits(out, "sf"))
+  expect_equal(names(out), c("i", "name"))
+  expect_equal(nrow(out), 3L)
+})
+
+test_that("plain frames bind the same way, with no geometry to put last", {
+  d1 <- data.frame(id = 1L, name = "A", stringsAsFactors = FALSE)
+  d2 <- data.frame(id = 2L, note = "late", stringsAsFactors = FALSE)
+
+  out <- rbind_parts(list(d1, d2))
+  expect_false(inherits(out, "sf"))
+  expect_equal(names(out), c("id", "name", "note"))
+  expect_equal(out$name, c("A", NA))
+  expect_equal(out$note, c(NA, "late"))
 })

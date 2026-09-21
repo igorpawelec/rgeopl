@@ -150,6 +150,6 @@ address_lookup <- function(collection, parts, depth, quiet) {
   if (!quiet) message("  ", sum(hit), " unit(s) match; fetching geometry")
 
   parts_sf <- lapply(cat_$.id[hit], function(i) oapif_item(BDL, collection, i))
-  out <- add_unit_names(standardise_bdl(do.call(rbind, parts_sf)))
+  out <- add_unit_names(standardise_bdl(rbind_parts(parts_sf)))
   new_bdl(out, paste0(collection, " by address"))
 }

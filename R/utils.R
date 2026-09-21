@@ -14,7 +14,11 @@ chunk <- function(x, size) {
 # which no feature has a given property comes back from sf::st_read without
 # that column at all, and rbind then refuses the lot. Fill what is missing
 # with NA and put the columns in one order, geometry last, before binding.
-rbind_sf <- function(parts) {
+#
+# Plain data frames go through the same path: a walk that asked the service to
+# skip the geometry has no geometry column, attr(p, "sf_column") is NULL, and
+# leaving it out of the column order is then a no-op.
+rbind_parts <- function(parts) {
   parts <- drop_null(parts)
   if (length(parts) == 0L) return(NULL)
   cols <- unique(unlist(lapply(parts, function(p) {

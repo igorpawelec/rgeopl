@@ -75,7 +75,7 @@ bdl_unit <- function(directorate = NULL, inspectorate = NULL, range = NULL,
   ids <- cat_$.id[hit]
   if (!quiet) message("  fetching ", n, " geometr", if (n == 1L) "y" else "ies")
   parts <- lapply(ids, function(i) oapif_item(BDL, collection, i))
-  out <- standardise_bdl(do.call(rbind, parts))
+  out <- standardise_bdl(rbind_parts(parts))
   out <- add_unit_names(out)
   new_bdl(out, paste0(level, " lookup"))
 }
