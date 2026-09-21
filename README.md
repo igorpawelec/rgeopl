@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/igorpawelec/rgeopl/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/igorpawelec/rgeopl/actions/workflows/R-CMD-check.yaml)
+[![Release](https://img.shields.io/github/v/release/igorpawelec/rgeopl)](https://github.com/igorpawelec/rgeopl/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
