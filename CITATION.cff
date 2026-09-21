@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: "rgeopl — Unified access to Polish national geodata (GUGiK and BDL)"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Pawelec
+    given-names: Igor
+    affiliation: "University of Agriculture in Kraków, Poland"
+    email: igor.pawelec@urk.edu.pl
+    orcid: "https://orcid.org/0009-0005-9798-3596"
+repository-code: "https://github.com/igorpawelec/rgeopl"
+license: MIT
+version: "0.10.0"
+date-released: "2026-09-21"
+keywords:
+  - Poland
+  - geodata
+  - GUGiK
+  - BDL
+  - Bank Danych o Lasach
+  - orthophoto
+  - digital elevation model
+  - forest
+  - R
